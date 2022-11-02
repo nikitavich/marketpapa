@@ -8,26 +8,15 @@ class TestInternalAnalytics(BaseCase):
 
     # Получить список ключей для авторизованного пользователя
     def test_get_token(self):
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-
-        parsed_response_text = response.json()
-        x = parsed_response_text['items'][0]
+        # Получение ids токена
+        BaseCase.get_id_from_token(self)
         # ПРОВЕРКИ
-        Assertions.assert_code_status(response, 200)
-        assert "id" in x, "ошибка"
+        assert self.response_status_code == 200, f"Wrong status code {self.response_status_code}"
 
     # Получить список заказов
     def test_get_order_list(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получить список заказов
         data = json.dumps({
@@ -45,13 +34,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить drop-list для фильтрации в разделе продажи
     def test_get_orders_brand(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получить drop-list для фильтрации
         data = json.dumps({
@@ -69,13 +52,8 @@ class TestInternalAnalytics(BaseCase):
     # Получить заказы по недельной статистике
     def test_get_order_weekly_stat(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
+
         data = json.dumps({
             "ids": [
                 f"{self.ids}"
@@ -91,13 +69,8 @@ class TestInternalAnalytics(BaseCase):
     # API для внутреннего использования
     def test_order_count(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
+
         data = json.dumps({
             "token_id": f"{self.ids}",
             "date_start": "2022-09-01",
@@ -116,13 +89,8 @@ class TestInternalAnalytics(BaseCase):
     # Получить список продаж
     def test_get_sales_list(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
+
         data = json.dumps({
             "ids": [
                 f"{self.ids}"
@@ -138,13 +106,8 @@ class TestInternalAnalytics(BaseCase):
     # Получить drop-list для фильтрации в разделе продажи
     def test_get_sales_brand(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
+
         data = json.dumps({
             "ids": [
                 f"{self.ids}"
@@ -160,13 +123,8 @@ class TestInternalAnalytics(BaseCase):
     # Получить продажи по недельной статистике
     def test_get_sales_weekly_stat(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
+
         data = json.dumps({
             "ids": [
                 f"{self.ids}"
@@ -262,14 +220,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить список товаров на складе
     def test_get_stock_list(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
-
+        BaseCase.get_id_from_token(self)
 
         # Получение списка товаров
         data = json.dumps({
@@ -288,13 +239,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить список товаров
     def test_get_product_list(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получение списка товаров
         data = json.dumps({
@@ -361,13 +306,7 @@ class TestInternalAnalytics(BaseCase):
         # Получить drop-list для фильтрации в разделе мои товары
     def test_get_product_brand(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получение списка товаров
         data = json.dumps({
@@ -387,13 +326,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить шаблон excel таблицы
     def test_get_sample(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получение шаблона
         data = json.dumps({
@@ -413,13 +346,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить список реализаций
     def test_get_realization_list(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получение списка реализаций
         data = json.dumps({
@@ -439,13 +366,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить список поставок
     def test_supplies_list(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получение списка реализаций
         data = json.dumps({
@@ -465,13 +386,7 @@ class TestInternalAnalytics(BaseCase):
     # Получение списка артикулов в конкретной поставке
     def test_get_articles_list(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получение incomeId
         data = json.dumps({
@@ -497,13 +412,7 @@ class TestInternalAnalytics(BaseCase):
     # Изменить себестоимость товара в поставке
     def test_change_cost_price(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получения incomeId
         data = json.dumps({
@@ -552,13 +461,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить drop-list для фильтрации в разделе поставки
     def test_list_of_supplies(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получения drop-list
         data = json.dumps({
@@ -579,13 +482,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить drop-list для фильтрации в разделе поставки
     def test_list_of_supplies_by_supply(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получения incomeId
         data = json.dumps({
@@ -611,13 +508,7 @@ class TestInternalAnalytics(BaseCase):
     # Обновить себестоимость товаров в поставке из истории себестоимости
     def test_update_price_in_supply_history(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получения incomeId
         data = json.dumps({
@@ -645,13 +536,7 @@ class TestInternalAnalytics(BaseCase):
     # Получить список по истории себестоимости
     def test_list_of_price_history(self):
         # Получение ids токена
-        response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                                headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
-        parsed_response_text = response.json()
-        for element in parsed_response_text['items']:
-            if element["id"] == 3494:
-                self.ids = element["id"]
+        BaseCase.get_id_from_token(self)
 
         # Получения incomeId
         data = json.dumps({
