@@ -157,9 +157,13 @@ class BaseCase:
         if not resp3:
             return
         coken = resp3.cookies.get("WBToken")
+        response_status_code = resp.status_code
+        response0_status_code = resp0.status_code
+        response1_status_code = resp1.status_code
+        response2_status_code = resp2.status_code
         response3_status_code = resp3.status_code
 
-        return coken, response3_status_code
+        return coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code
 
     # Получение company_id
     # def get_companies(self, *args):

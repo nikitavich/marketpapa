@@ -17,7 +17,11 @@ class TestAdvertisingEndpointsWB:
         5: "https://cmp.wildberries.ru/finance/upd"}
 
     def test_get_new_wb_token_by_wild_auth_new_and_supplier_id(self):
-        coken, response3_status_code = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
+        coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
+        assert response_status_code == 200, f"Wrong status code is {response_status_code}"
+        assert response0_status_code == 200, f"Wrong status code is {response0_status_code}"
+        assert response1_status_code == 200, f"Wrong status code is {response1_status_code}"
+        assert response2_status_code == 200, f"Wrong status code is {response2_status_code}"
         assert response3_status_code == 200, f"Wrong status code is {response3_status_code}"
 
     def test_get_companies(self):
