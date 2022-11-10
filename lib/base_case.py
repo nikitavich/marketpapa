@@ -342,12 +342,12 @@ class BaseCase:
 
 
 # test = BaseCase().get_wb_user_id()
-# test1 = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
+test1 = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
 # test2 = BaseCase().get_id_from_token()
 # test3 = BaseCase().get_wb_user_id()
 # # test4 = BaseCase().get_companies()
 # print(test)
-# print(test1)
+print(test1)
 # print(test2)
 # print(test3)
 # # print(test4)
