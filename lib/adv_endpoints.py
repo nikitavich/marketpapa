@@ -55,6 +55,10 @@ class AdvEndpoints:
                     count = count + 1
                     time.sleep(2)
                     continue
+                if response.status_code in [204]:
+                    count = count + 1
+                    time.sleep(2)
+                    continue
                 if response.status_code in [401, 403]:
                     h += 1
                     if h == 2:
@@ -159,8 +163,6 @@ class AdvEndpoints:
             referer=referer_type.format(company_id=company_id),
             json={"sum": deposit, "type": balance_type},
         )
-        print(response.status_code)
-        print(response.text)
         return response
 
     # Пока не автоматизируем (затрагивает бюджет)
@@ -340,6 +342,9 @@ class AdvEndpoints:
 
 # Кампания для автотестов поиск = 3499821
 # Кампания для автотестов карточка товара = 3501540
-response = AdvEndpoints().get_companies()
+response = AdvEndpoints().deposit(company_id=3501540,deposit=100,balance_type=2)
+# jsondata = response.json()
+# status = jsondata['status']
 print(response.status_code)
 print(response.text)
+# print(status)

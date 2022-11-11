@@ -1,0 +1,2 @@
+python -m pytest -s tests/test_adv_endpoints.py
+python -m pytest -s tests/test_internal_analytics.py

@@ -1,3 +1,5 @@
+import time
+
 from lib.adv_endpoints import AdvEndpoints
 
 
@@ -26,11 +28,24 @@ class TestAdvEndpoints(AdvEndpoints):
         assert response.status_code == 200, f"Wrong status code! Status code is {response.status_code}"
 
     def test_stop_adv_company(self):
-        response = AdvEndpoints().stop_adv_company(company_id=3499821)
-        assert response.status_code == 200, f"Wrong status code! Status code is {response.status_code}"
+        response = AdvEndpoints().get_placement_info(company_id=3499821)
+        jsondata = response.json()
+        current_status = jsondata['status']
+        if current_status == 11:
+            AdvEndpoints().start_adv_company(company_id=3499821)
+            time.sleep(2)
+        response1 = AdvEndpoints().stop_adv_company(company_id=3499821)
+        assert response1.status_code == 200, f"Wrong status code! Status code is {response1.status_code}"
 
     def test_start_adv_company(self):
+        response = AdvEndpoints().get_placement_info(company_id=3499821)
+        jsondata = response.json()
+        current_status = jsondata['status']
+        if current_status == 9:
+            AdvEndpoints().stop_adv_company(company_id=3499821)
+            time.sleep(2)
         response = AdvEndpoints().start_adv_company(company_id=3499821)
+        time.sleep(2)
         response1 = AdvEndpoints().stop_adv_company(company_id=3499821)
         assert response.status_code == 200, f"Wrong status code! Status code is {response.status_code}"
         assert response1.status_code == 200, f"Wrong status code! Status code is {response1.status_code}"
@@ -72,6 +87,12 @@ class TestAdvEndpoints(AdvEndpoints):
         assert response.status_code == 200, f"Wrong status code! Status code is {response.status_code}"
 
     def test_start_adv_card_company(self):
+        response = AdvEndpoints().get_card_placement(company_id=3501540)
+        jsondata = response.json()
+        current_status = jsondata['status']
+        if current_status == 9:
+            AdvEndpoints().stop_adv_card_company(company_id=3501540)
+            time.sleep(2)
         response = AdvEndpoints().start_adv_card_company(company_id=3501540)
         response1 = AdvEndpoints().stop_adv_card_company(company_id=3501540)
         assert response.status_code == 200, f"Wrong status code! Status code is {response.status_code}"
