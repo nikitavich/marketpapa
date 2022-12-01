@@ -7,6 +7,7 @@ class TestAdvEndpoints(AdvEndpoints):
 
     # Кампания для автотестов поиск = 3499821
     # Кампания для автотестов карточка товара = 3501540
+
     def test_get_keywords_new(self):
         response = AdvEndpoints().get_keywords_new(company_id=3499821)
         assert response.status_code == 200, f"Wrong status code! Status code is {response.status_code}"

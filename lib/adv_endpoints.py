@@ -1,5 +1,5 @@
 import json
-
+from lib.base_case import BaseCase
 import requests
 import time
 import random
@@ -15,7 +15,9 @@ class AdvEndpoints:
         5: "https://cmp.wildberries.ru/finance/upd"}
 
     def send_request(self, method, url, referer, data=None, json=None, company_id=3499821):
-        wb_token = "Auuq7QOgyOi2DKCmnbcMMl293xDoYAcLU4MTC3bCyvFzZArnazktiXJDQ7bJL_55XmpyI1slTCY4KV6eqaVqBTgi"
+        with open("E:\MarketPapa\pythonProject\wb_token.txt", 'r') as wb_token_from_file:
+            wb_token = str(wb_token_from_file.readline().rstrip('\n'))
+            wb_token_from_file.close()
         supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
         wb_user_id = "8082795"
         url = url
@@ -46,7 +48,7 @@ class AdvEndpoints:
                 if response.status_code in [401, 403]:
                     h += 1
                     if h == 2:
-                        raise wb_errors.InvalidWBToken(wb_token=wb_token, supplier_id=supplier_id)
+                        BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
                     continue
                 return response
             if method == "put":
@@ -62,7 +64,7 @@ class AdvEndpoints:
                 if response.status_code in [401, 403]:
                     h += 1
                     if h == 2:
-                        raise wb_errors.InvalidWBToken(wb_token=wb_token, supplier_id=supplier_id)
+                        BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
                     continue
                 return response
             if method == "post":
@@ -74,7 +76,7 @@ class AdvEndpoints:
                 if response.status_code in [401, 403]:
                     h += 1
                     if h == 2:
-                        raise wb_errors.InvalidWBToken(wb_token=wb_token, supplier_id=supplier_id)
+                        BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
                     continue
                 return response
 
@@ -342,7 +344,7 @@ class AdvEndpoints:
 
 # Кампания для автотестов поиск = 3499821
 # Кампания для автотестов карточка товара = 3501540
-response = AdvEndpoints().deposit(company_id=3501540,deposit=100,balance_type=2)
+response = AdvEndpoints().start_adv_card_company(company_id=3501540)
 # jsondata = response.json()
 # status = jsondata['status']
 print(response.status_code)

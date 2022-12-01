@@ -22,7 +22,7 @@ class BaseCase:
         ids = None
         response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
                                 headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         parsed_response_text = response.json()
         for element in parsed_response_text['items']:
             if element["key_name"] == "Василий":
@@ -157,6 +157,8 @@ class BaseCase:
         if not resp3:
             return
         coken = resp3.cookies.get("WBToken")
+        with open("E:\MarketPapa\pythonProject\wb_token.txt", 'w') as wb_token:
+            print(coken, file=wb_token)
         response_status_code = resp.status_code
         response0_status_code = resp0.status_code
         response1_status_code = resp1.status_code
@@ -342,12 +344,12 @@ class BaseCase:
 
 
 # test = BaseCase().get_wb_user_id()
-test1 = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
+# test1 = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
 # test2 = BaseCase().get_id_from_token()
 # test3 = BaseCase().get_wb_user_id()
 # # test4 = BaseCase().get_companies()
 # print(test)
-print(test1)
+# print(test1)
 # print(test2)
 # print(test3)
 # # print(test4)

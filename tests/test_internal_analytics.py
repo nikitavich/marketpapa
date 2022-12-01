@@ -29,7 +29,7 @@ class TestInternalAnalytics():
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/orders/",
                                   data=data,
                                   headers={
-                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 200)
 
@@ -47,7 +47,7 @@ class TestInternalAnalytics():
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/orders-drop-list/",
                                   data=data,
                                   headers={
-                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 200)
 
@@ -64,7 +64,7 @@ class TestInternalAnalytics():
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/orders_weekly_stat/",
                                   data=data,
                                   headers={
-                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 200)
 
@@ -101,7 +101,7 @@ class TestInternalAnalytics():
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/sales/",
                                   data=data,
                                   headers={
-                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 200)
 
@@ -118,7 +118,7 @@ class TestInternalAnalytics():
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/sales-drop-list/",
                                   data=data,
                                   headers={
-                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 200)
 
@@ -135,7 +135,7 @@ class TestInternalAnalytics():
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/sales_weekly_stat/",
                                   data=data,
                                   headers={
-                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 200)
 
@@ -145,7 +145,7 @@ class TestInternalAnalytics():
 
         response = requests.post(
             "https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=YjVlY2U0OTEtYmMzYS00YzQ1LWI4YmMtNWI5NzFhNzk2ZmMZ&token_name=new_wb_token_1",
-            headers={"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+            headers={"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response, 201)
         parsed_response_text = response.json()
@@ -154,7 +154,7 @@ class TestInternalAnalytics():
         # Удаление токена
 
         response1 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/",
-                                  headers={"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                  headers={"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         Assertions.assert_code_status(response1, 202)
 
     # Изменить название ключа
@@ -163,7 +163,7 @@ class TestInternalAnalytics():
         response = requests.post(
             "https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=YjVlY2U0OTEtYmMzYS00YzQ1LWI4YmMtNWI5NzFhNzk2ZmMZ&token_name=new_wb_token_1",
             headers={
-                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response, 201)
         parsed_response_text = response.json()
@@ -174,7 +174,7 @@ class TestInternalAnalytics():
             "key_name": "Василий"
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.put(f"https://api.marketpapa.ru/api/internal-analytics/token/{self.token_id}/", data=data, headers=headers)
@@ -183,7 +183,7 @@ class TestInternalAnalytics():
         # Удаление токена
         response2 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/",
                                   headers={
-                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         Assertions.assert_code_status(response2, 202)
 
     # Удаление токена
@@ -192,7 +192,7 @@ class TestInternalAnalytics():
         response = requests.post(
             "https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=YjVlY2U0OTEtYmMzYS00YzQ1LWI4YmMtNWI5NzFhNzk2ZmMZ&token_name=new_wb_token_1",
             headers={
-                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response, 201)
         parsed_response_text = response.json()
@@ -201,7 +201,7 @@ class TestInternalAnalytics():
         # Удаление токена
         response1 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/",
                                   headers={
-                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+                                      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 202)
 
@@ -231,7 +231,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/stocks/", data=data, headers=headers)
@@ -250,7 +250,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/get-products/", data=data,
@@ -271,7 +271,7 @@ class TestInternalAnalytics():
     #     response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/orders/",
     #                               data=data,
     #                               headers={
-    #                                   "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k"})
+    #                                   "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
     #     parsed_response_text = response1.json()
     #     print(parsed_response_text)
     #     nmId = parsed_response_text['items'][0]['nmId']
@@ -291,7 +291,7 @@ class TestInternalAnalytics():
     #           ]
     #         })
     #     headers = {
-    #         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+    #         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
     #         'Content-Type': 'application/json'
     #     }
     #     response2 = requests.put("https://api.marketpapa.ru/api/internal-analytics/product/send-cost-price/", data=data1, headers=headers)
@@ -310,7 +310,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/products-drop-list/", data=data,
@@ -330,7 +330,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/get_excel_sample/", data=data,
@@ -350,7 +350,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/realizations/", data=data,
@@ -370,7 +370,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/supplies/", data=data,
@@ -390,7 +390,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/supplies/", data=data,
@@ -400,7 +400,6 @@ class TestInternalAnalytics():
 
         # Получение списка артикулов
         response2 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/supplies/{self.incomeId}/", data=data, headers=headers)
-        print(response2.text)
         # ПРОВЕРКИ
         Assertions.assert_code_status(response2, 200)
 
@@ -416,7 +415,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/supplies/", data=data,
@@ -446,7 +445,7 @@ class TestInternalAnalytics():
             ]
         })
         headers1 = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response2 = requests.put("https://api.marketpapa.ru/api/internal-analytics/supplies/send-cost-price/", data=data1, headers=headers1)
@@ -465,7 +464,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/supply-drop-list/", data=data,
@@ -486,7 +485,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/supplies/", data=data,
@@ -512,7 +511,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/supplies/", data=data,
@@ -540,7 +539,7 @@ class TestInternalAnalytics():
             ]
         })
         headers = {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY2ODE1NjI5NH0.cbuYC3YGzrxZ74_YoX-10HAKjxeYIGBrJpjZfXSKu_k',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA',
             'Content-Type': 'application/json'
         }
         response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/supplies/", data=data,
