@@ -91,10 +91,6 @@ class AdvEndpoints:
         url = f"https://cmp.wildberries.ru/backend/api/v1/atrevd?advert-id={company_id}"
         response = AdvEndpoints().send_request(method="get", url=url,
                                                referer=referer_type.format(company_id=company_id))
-        print(response.status_code)
-        print(response.text)
-        jsondata = response.json()
-        print(jsondata)
         return response
 
     def get_placement_info(self, company_id):
@@ -344,7 +340,7 @@ class AdvEndpoints:
 
 # Кампания для автотестов поиск = 3499821
 # Кампания для автотестов карточка товара = 3501540
-response = AdvEndpoints().start_adv_card_company(company_id=3501540)
+response = AdvEndpoints().get_companies()
 # jsondata = response.json()
 # status = jsondata['status']
 print(response.status_code)

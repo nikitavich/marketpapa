@@ -15,14 +15,14 @@ class BaseCase:
 
     def __init__(self):
         self.supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        self.wb_token = "Auuq7QPwg5S2DPDhyLYMMs0njfdAkR_sXec77qztRB7X25NAYEk4uTsvbG1-ESzbp5CrRMKbWsZo-rwAhIdxDvZq"
+        self.wb_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MzE1OTg5NX0.sgjCEHFCbEASuGUThH3ErBt3Q7CjDMYJY-oAetfv6x4"
         self.wb_user_id = "8082795"
     # Получение ids токена
     def get_id_from_token(self):
         ids = None
         response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
                                 headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MDY1NjA4NX0.FtQlc64hYZSYzf5y1AuWjtS13oD8YcaXukBHyt77GwA"})
+                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MzE1OTg5NX0.sgjCEHFCbEASuGUThH3ErBt3Q7CjDMYJY-oAetfv6x4"})
         parsed_response_text = response.json()
         for element in parsed_response_text['items']:
             if element["key_name"] == "Василий":
@@ -340,6 +340,7 @@ class BaseCase:
             except:
                 print(f"Unknown error, status is {response.status_code}")
         return response
+
 
 
 
