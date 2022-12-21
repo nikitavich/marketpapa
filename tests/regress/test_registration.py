@@ -28,18 +28,21 @@ class TestRegistration(unittest.TestCase):
         driver.find_element(By.NAME, "name").send_keys('Имя') # Ввод имени
         random_email_name = TestRegistration.generate_random_string(self)
         driver.find_element(By.NAME, "email").send_keys(random_email_name + "@yandex.ru") # Ввод email
-        driver.find_element(By.XPATH, "//*[text()='+7'").click()
+        driver.find_element(By.XPATH, "//div[@class = 'sc-ehCJOs idGXiq dropdown-toggle']").click()
         driver.find_element(By.XPATH, "(//a[@role='button'])[6]").click()
         phone_number = "31251"
         for number in range(4):
             if number <= 4:
                 phone_number = phone_number + str(random.randint(0, 9))
-        driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/div[4]/div/input").click()
-        driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/div[4]/div/input").send_keys(phone_number)
+        driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[4]/div/input").click()
+        driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[4]/div/input").send_keys(phone_number)
         random_password = TestRegistration.generate_random_string(self)
         driver.find_element(By.NAME, "password").send_keys(random_password)
         driver.find_element(By.NAME, "passwordRepeat").send_keys(random_password)
-        driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/div[9]/button/span').click()
+        driver.find_element(By.XPATH, "//span[@class='sc-iJKOTD ksUpGB']").click()
         driver.find_element(By.NAME, 'code').send_keys('1111')
-        time.sleep(1)
+        time.sleep(3)
         driver.find_element(By.XPATH, "//*[text()='Готово']").click()
+        time.sleep(5)
+        driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[3]/div[3]/label").click()
+        driver.find_element(By.XPATH, "/html/body/div[1]/div/div/button").click()
