@@ -4,6 +4,8 @@ import requests
 import time
 import requests
 
+from environment import token
+
 
 class BaseCase:
     referer_types = {
@@ -17,12 +19,15 @@ class BaseCase:
         self.supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
         self.wb_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MzE1OTg5NX0.sgjCEHFCbEASuGUThH3ErBt3Q7CjDMYJY-oAetfv6x4"
         self.wb_user_id = "8082795"
+
     # Получение ids токена
-    def get_id_from_token(self):
+    def get_id_from_token(self, token):
         ids = None
         response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
                                 headers={
-                                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MzE1OTg5NX0.sgjCEHFCbEASuGUThH3ErBt3Q7CjDMYJY-oAetfv6x4"})
+                                    "Authorization": "Bearer " + str(token)
+                                }
+                            )
         parsed_response_text = response.json()
         for element in parsed_response_text['items']:
             if element["key_name"] == "Василий":
@@ -30,18 +35,47 @@ class BaseCase:
         response_status_code = response.status_code
         return response_status_code, ids
 
+
     def get_new_wb_token_by_wild_auth_new_and_supplier_id(self):
         supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
+        wild_auth_new = "43FEF9A0C9852B9196F5D7D41C01BA0A44D4AC16FEFAD2673791DEE9E7F09BB32E45DD186902A3E36A16C14BDEF683F2F8FA406C32DA3B4DA357AAAE855999E4DB0BC303156F39C2B717DA06EA2E2A40067879DDCDD84112D1A793004A597E432E496AE0D762D89E2BD309C9EF1B706B4295AA92AD758A50B3B7079A14CA377F556E018F4B6EDD5ADB3B7864CF2DC2542DA3DDB0F6742BDAC1713AAB980ABFCBE47E594F4ED2F04341D1FDB78E431EC68EB60137C553BA01AC4AB93D8526CD9AF827CA1311A5D1108BF88B0D73E6F27B192B0BF91FBF20691FDAE21FBE17E59299CFB36CD279107B30C9F84627C83DF28CE5656A8DDDD6C36931FD868306342C85A04D148200E9792DB7A8F3D92458903E1E999168DE91AD320D5FA2EE8805F5AA320827"
+        headers = {
+            "Host": "seller.wildberries.ru",
+            "Connection": "keep-alive",
+            "Content-Length": "22",
+            "sec-ch-ua": '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+            "sec-ch-ua-platform": '"macOS"',
+            "sec-ch-ua-mobile": "?0",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+            "Content-type": "application/json",
+            "Accept": "*/*",
+            "Origin": "https://seller.wildberries.ru",
+            "Sec-Fetch-Site": "same-origin",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Dest": "empty",
+            "Referer": "https://seller.wildberries.ru/",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+            "Cookie": f"WILDAUTHNEW_V3={wild_auth_new};",
+        }
+
         url = "https://seller.wildberries.ru/passport/api/v2/auth/wild_v3_upgrade"
-        wild_auth_new = "ADAE31160B93B82E84E65E48E2F6750AC0F83548B13EED70696340D540F6BDF8BDF931CAC8D3ED1488B213146CC446FFD0648F7D3CC1BDF63A62911BEA312968E4998DD131693D206F740AE44689E6DF084DA5A7916B58BA47929F986FDABD5282EAEB289A08080E59D2D4DE0190C7FED7326E020E735628A82D22CA30331BD6F1F5D74E2B56E265D07B9AA677860D8387CB5478DAC232B69EA0A17C5F04CCD41FC7C522249E1C071472DA9AF88BD83787828D213906585944C5849427CD677ECF190F3DB1F452FFE70FF1CDE64809FFCF4D65ED54E270878C17F523DB32B2D4D26AC2A8AE6792147229F8399232A2E63C06C209E795F26EDD872DD9B038FADB411E4DBD1024C4A3303C22E14D7C51CF25C01D8C4BBABFFE42AD494EACD284F3D5C0A24FE19D4438606F8FEC89F8541EEC01E6EB3364ADBD197F22241A89B9ACDABB19D6ED80462DB8B4C4472BC95F2AA21B8443"
         cookies = {"WILDAUTHNEW_V3": wild_auth_new}
         resp = None
-        resp = requests.post(
-            url,
-            cookies=cookies,
-            json={"device": "Macintosh,Google Chrome 104.0"},
-            timeout=5.0,
-        )
+        for i in range(3):
+            try:
+                resp = requests.post(
+                    url,
+                    cookies=cookies,
+                    json={"device": "Macintosh"},
+                    headers=headers,
+                    timeout=5.0,
+                )
+                break
+            except ():
+                pass
+        if not resp:
+            return
         WBToken = resp.cookies.get("WBToken")
         url0 = "https://seller.wildberries.ru/passport/api/v2/auth/grant"
         cookies0 = {"WBToken": WBToken}
@@ -58,16 +92,19 @@ class BaseCase:
             "Cookie": f"WBToken={WBToken}",
         }
         resp0 = None
-        try:
-            resp0 = requests.post(
-                url0,
-                cookies=cookies0,
-                headers=headers0,
-                timeout=3.0,
-            )
-        except Exception as err:
-            # print(err)
-            pass
+        for i in range(3):
+            try:
+                resp0 = requests.post(
+                    url0,
+                    cookies=cookies0,
+                    headers=headers0,
+                    timeout=3.0,
+                )
+                break
+            except Exception as err:
+                pass
+        if not resp0:
+            return
         WBToken = resp0.json().get("token")
         url1 = "https://passport.wildberries.ru/api/v2/auth/login"
         json1 = {"token": WBToken, "device": "Macintosh,Google Chrome 104.0"}
@@ -82,6 +119,7 @@ class BaseCase:
             "Connection": "keep-alive",
             "Referer": "https://seller.wildberries.ru/",
         }
+        resp1 = None
         for i in range(3):
             try:
                 resp1 = requests.post(
@@ -94,6 +132,8 @@ class BaseCase:
             except Exception as err:
                 pass
                 # print(err)
+        if not resp1:
+            return
         wb_token_temp1 = resp1.cookies.get("WBToken")
         url2 = "https://passport.wildberries.ru/api/v2/auth/grant"
         json2 = {}
@@ -157,7 +197,7 @@ class BaseCase:
         if not resp3:
             return
         coken = resp3.cookies.get("WBToken")
-        with open("E:\MarketPapa\pythonProject\wb_token.txt", 'w') as wb_token:
+        with open("../wb_token.txt", 'w') as wb_token:
             print(coken, file=wb_token)
         response_status_code = resp.status_code
         response0_status_code = resp0.status_code
@@ -213,6 +253,7 @@ class BaseCase:
                 return resp.json().get("userID")
             except:
                 pass
+
     def get_keywords_new(self):
         wb_token = "Auuq7QPwg5S2DPDhyLYMMs0njfdAkR_sXec77qztRB7X25NAYEk4uTsvbG1-ESzbp5CrRMKbWsZo-rwAhIdxDvZq"
         supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
@@ -294,7 +335,7 @@ class BaseCase:
         supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
         wb_user_id = "8082795"
         company_id = 2798829
-        keywords= ["одежда"]
+        keywords = ["одежда"]
         referer_type = self.referer_types[2]
         url = f"https://cmp.wildberries.ru/backend/api/v2/search/{company_id}/placement"
         headers = {
@@ -341,16 +382,21 @@ class BaseCase:
                 print(f"Unknown error, status is {response.status_code}")
         return response
 
-
-
-
-# test = BaseCase().get_wb_user_id()
-# test1 = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
-# test2 = BaseCase().get_id_from_token()
+test = BaseCase().get_id_from_token(token)
+# resp = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
+# , response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code
+# test2 = BaseCase().get_id_from_token(token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MzE1OTg5NX0.sgjCEHFCbEASuGUThH3ErBt3Q7CjDMYJY-oAetfv6x4")
 # test3 = BaseCase().get_wb_user_id()
 # # test4 = BaseCase().get_companies()
-# print(test)
-# print(test1)
+# print(resp.status_code)
+# jsondata = resp.json()
+# print(resp.cookies)
+print(test)
+# print(response_status_code)
+# print(response0_status_code)
+# print(response1_status_code)
+# print(response2_status_code)
+# print(response3_status_code)
 # print(test2)
 # print(test3)
 # # print(test4)

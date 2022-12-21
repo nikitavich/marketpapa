@@ -14,8 +14,8 @@ class AdvEndpoints:
         4: "https://cmp.wildberries.ru/statistics",
         5: "https://cmp.wildberries.ru/finance/upd"}
 
-    def send_request(self, method, url, referer, data=None, json=None, company_id=3499821):
-        with open("E:\MarketPapa\pythonProject\wb_token.txt", 'r') as wb_token_from_file:
+    def send_request(self, method, url, referer, data=None, json=None):
+        with open("../wb_token.txt", 'r') as wb_token_from_file:
             wb_token = str(wb_token_from_file.readline().rstrip('\n'))
             wb_token_from_file.close()
         supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
@@ -44,9 +44,11 @@ class AdvEndpoints:
                 if response.status_code in [429, 418]:
                     count = count + 1
                     time.sleep(random.randint(10, 30))
+                    print(response.status_code, response.text)
                     continue
                 if response.status_code in [401, 403]:
                     h += 1
+                    print(response.status_code, response.text)
                     if h == 2:
                         BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
                     continue
@@ -340,7 +342,7 @@ class AdvEndpoints:
 
 # Кампания для автотестов поиск = 3499821
 # Кампания для автотестов карточка товара = 3501540
-response = AdvEndpoints().get_companies()
+response = AdvEndpoints().get_placement_info(company_id=3499821)
 # jsondata = response.json()
 # status = jsondata['status']
 print(response.status_code)
