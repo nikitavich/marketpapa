@@ -32,7 +32,7 @@ class AdvEndpoints:
             "Connection": "keep-alive",
             "Referer": referer,
             "Cookie": f"WBToken={wb_token}; x-supplier-id-external={supplier_id}",
-            "X-User-Id": f"{wb_user_id}"
+            "X-User-Id": f"{wb_user_id}",
         }
         cookies = {"WBToken": wb_token, "x-supplier-id-external": supplier_id}
         response = None
@@ -40,15 +40,13 @@ class AdvEndpoints:
         h = 0
         while count < 20:
             if method == "get":
-                response = requests.get(url, headers=headers, cookies=cookies)
+                response = requests.get(url=url, headers=headers, cookies=cookies)
                 if response.status_code in [429, 418]:
                     count = count + 1
                     time.sleep(random.randint(10, 30))
-                    print(response.status_code, response.text)
                     continue
                 if response.status_code in [401, 403]:
                     h += 1
-                    print(response.status_code, response.text)
                     if h == 2:
                         BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
                     continue
@@ -342,9 +340,9 @@ class AdvEndpoints:
 
 # Кампания для автотестов поиск = 3499821
 # Кампания для автотестов карточка товара = 3501540
-response = AdvEndpoints().get_placement_info(company_id=3499821)
+# response = AdvEndpoints().start_adv_card_company(company_id=3499821)
 # jsondata = response.json()
 # status = jsondata['status']
-print(response.status_code)
-print(response.text)
+# print(response.status_code)
+# print(response.text)
 # print(status)

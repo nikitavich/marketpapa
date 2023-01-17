@@ -1,10 +1,14 @@
+import os
 import random
-
+import string
+import pickle
 import requests
 import time
 import requests
-
+from selenium import webdriver
 from environment import token
+from selenium.webdriver.common.by import By
+
 
 
 class BaseCase:
@@ -38,7 +42,7 @@ class BaseCase:
 
     def get_new_wb_token_by_wild_auth_new_and_supplier_id(self):
         supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        wild_auth_new = "43FEF9A0C9852B9196F5D7D41C01BA0A44D4AC16FEFAD2673791DEE9E7F09BB32E45DD186902A3E36A16C14BDEF683F2F8FA406C32DA3B4DA357AAAE855999E4DB0BC303156F39C2B717DA06EA2E2A40067879DDCDD84112D1A793004A597E432E496AE0D762D89E2BD309C9EF1B706B4295AA92AD758A50B3B7079A14CA377F556E018F4B6EDD5ADB3B7864CF2DC2542DA3DDB0F6742BDAC1713AAB980ABFCBE47E594F4ED2F04341D1FDB78E431EC68EB60137C553BA01AC4AB93D8526CD9AF827CA1311A5D1108BF88B0D73E6F27B192B0BF91FBF20691FDAE21FBE17E59299CFB36CD279107B30C9F84627C83DF28CE5656A8DDDD6C36931FD868306342C85A04D148200E9792DB7A8F3D92458903E1E999168DE91AD320D5FA2EE8805F5AA320827"
+        wild_auth_new = "7255F34755CDC024A4BE3B7EAF84A2A1D4B24AFE173C2748293673093E85236AFEFBB33C895B9F9EA3A6030DD60BFA3D973C05B2ED5706952413B3B9CA55BEB8C1877ECB417F1F5A88359A1C66FB3CA6C017A7E0DEE4EE8A31568DC287D0F53225D9253D48062EE01B64B4CDEA4A870E477630216A611BBB4B325D8DD7A0B4419AFF92961AF488E65391753AD240403914169716E95FB42C4E026B91D336624AD5E57B4FC601A51643F27188FF5830A90E4A88553302EB348517A3926B2C2315E8279C7AEFE1DAB6F0B6912BDEB43DEE6D83426CB2162D64C1CADC6C85E59ED13345ECFB0512D4C158E462ADA391176F56A8096F3F97B54B4B42FE3717100775F3F4743AF1BB67B326F37D69E3C6A44DAC27BA4FF0BF4662586A7AE40BBE0E6420522D38"
         headers = {
             "Host": "seller.wildberries.ru",
             "Connection": "keep-alive",
@@ -62,20 +66,13 @@ class BaseCase:
         url = "https://seller.wildberries.ru/passport/api/v2/auth/wild_v3_upgrade"
         cookies = {"WILDAUTHNEW_V3": wild_auth_new}
         resp = None
-        for i in range(3):
-            try:
-                resp = requests.post(
+        resp = requests.post(
                     url,
                     cookies=cookies,
                     json={"device": "Macintosh"},
                     headers=headers,
                     timeout=5.0,
                 )
-                break
-            except ():
-                pass
-        if not resp:
-            return
         WBToken = resp.cookies.get("WBToken")
         url0 = "https://seller.wildberries.ru/passport/api/v2/auth/grant"
         cookies0 = {"WBToken": WBToken}
@@ -206,6 +203,11 @@ class BaseCase:
         response3_status_code = resp3.status_code
 
         return coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code
+
+    def generate_random_string(self):
+        letters = string.ascii_lowercase
+        rand_string = ''.join(random.choice(letters) for i in range(random.randint(8, 10)))
+        return rand_string
 
     # Получение company_id
     # def get_companies(self, *args):
@@ -382,21 +384,32 @@ class BaseCase:
                 print(f"Unknown error, status is {response.status_code}")
         return response
 
-test = BaseCase().get_id_from_token(token)
-# resp = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
-# , response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code
-# test2 = BaseCase().get_id_from_token(token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MzE1OTg5NX0.sgjCEHFCbEASuGUThH3ErBt3Q7CjDMYJY-oAetfv6x4")
-# test3 = BaseCase().get_wb_user_id()
-# # test4 = BaseCase().get_companies()
-# print(resp.status_code)
-# jsondata = resp.json()
-# print(resp.cookies)
-print(test)
-# print(response_status_code)
-# print(response0_status_code)
-# print(response1_status_code)
-# print(response2_status_code)
-# print(response3_status_code)
-# print(test2)
-# print(test3)
-# # print(test4)
+    def save_cookies(self):
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option("detach", True)
+        driver = webdriver.Chrome(options=options, executable_path="path/to/executable")
+        driver.maximize_window()
+        driver.get("https://dev.marketpapa.ru/login")
+        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Номер телефона']").send_keys("+79877120164")
+        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Пароль']").send_keys("q1w2e3r4t5y6")
+        driver.find_element(By.CSS_SELECTOR, ".sc-bBHxTw.jqrcgG").click()
+        time.sleep(5)
+        pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
+
+
+    def add_cookie_to_chrome(self, driver):
+        driver.get("https://dev.marketpapa.ru/news")
+        time.sleep(1)
+        for cookie in pickle.load(open("cookies.pkl", "rb")):
+            driver.add_cookie(cookie)
+        time.sleep(1)
+        driver.refresh()
+
+# Проверка добавления cookies
+# BaseCase().add_cookie_to_chrome()
+
+
+# Проверка обновления токена
+# coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
+# print(coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code)
+
