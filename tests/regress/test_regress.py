@@ -84,28 +84,39 @@ class TestRegress:
         new_company = driver.find_element(By.XPATH, "(//div[@role='row'])[5]").is_displayed()
         assert new_company == True, "Новая кампания не найдена"
 
-    # def test_phrases(self, driver):
-    #     BaseCase().add_cookie_to_chrome(driver)
-    #     driver.get("https://dev.marketpapa.ru/phrases")
-    #     driver.find_element(By.NAME, "articul").send_keys("74322224")
-    #     driver.find_element(By.CSS_SELECTOR, "input[placeholder='Начните вводить ключевое слово']").send_keys("носки", Keys.RETURN)
-    #     # TESTS
-    #     main_table = driver.find_element(By.XPATH, "/html/body/div[2]/div[2]/table").is_displayed()
-    #     assert main_table == True, "Не отображается элемент Id категории в подборе фраз"
-    #     category = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/table/tbody/tr/td[2]/span").is_displayed()
-    #     assert category == True, "Не отображается элемент 'Категории' в подборе фраз"
-    #     delivery_time = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/table/tbody/tr/td[3]/span").is_displayed()
-    #     assert delivery_time == True, "Не отображается элемент 'Срок доставки' в подборе фраз"
-    #     frequency_per_month = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div[5]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div/div/div[1]/div[1]/div/div/div/div[1]/span").is_displayed()
-    #     assert frequency_per_month == True, "Не отображается частотность за месяц в подборе фраз"
-    #     frequency_per_day = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div[5]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div/div/div[1]/div[1]/div/div/div/div[2]/span").is_displayed()
-    #     assert frequency_per_day == True, "Не отображается частотность за день в подборе фраз"
-    #     first_phrase = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div[5]/div/div[1]/div/div[2]/div[2]/div[3]/div[1]/div[1]/div/div/div/div").is_displayed()
-    #     assert first_phrase == True, "Не отображается фраза в подборе фраз"
-    #     id_priority_category = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div[5]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div/div/div[1]/div[3]/div/div/div/div[1]/span").is_displayed()
-    #     assert id_priority_category == True, "Не отображается Id приоритетной категории в подборе фраз"
-    #     max_delivery_time = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div[5]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div/div/div[1]/div[4]/div/div").is_displayed()
-    #     assert max_delivery_time == True, "Не отображается максимальное время доставки в подборе фраз"
-    #     first_place = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div[5]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div/div/div[1]/div[5]").is_displayed()
-    #     assert first_place == True, "Не отображается первое место в таблице в подборе фраз"
+    def test_phrases(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.get("https://dev.marketpapa.ru/phrases")
+        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Артикул']").send_keys("74322224")
+        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Начните вводить ключевое слово']").send_keys("носки", Keys.RETURN)
+        # TESTS
+        main_table = driver.find_element(By.XPATH, "/html/body/div[2]/div[2]/table").is_displayed()
+        assert main_table == True, "Не отображается элемент Id категории в подборе фраз"
+
+    def test_phrases_without_priority_step1(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.get("https://dev.marketpapa.ru/bad_priority_phrases")
+        driver.find_element(By.CSS_SELECTOR, "input[class='sc-jvvksu ethFhE']").send_keys("9285253", Keys.RETURN)
+        time.sleep(3)
+        # TESTS
+        left_side_of_table = driver.find_element(By.NAME, "left").is_displayed()
+        assert left_side_of_table == True, "Не отображается таблица на странице приоритетной категории"
+        center_of_table = driver.find_element(By.NAME, "center").is_displayed()
+        assert center_of_table == True, "Не отображается таблица на странице приоритетной категории"
+
+    def test_phrases_without_priority_step2(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.get("https://dev.marketpapa.ru/bad_priority_phrases")
+        driver.find_element(By.XPATH, '//*[@id="react-aria2091194943-3"]').click()
+        driver.find_element(By.XPATH, "//div[contains(text(),'Ключевое слово')]").click()
+        driver.find_element(By.XPATH, "//input[@class='sc-hkgtus gRNWA-d']").send_keys("носки", Keys.RETURN)
+        time.sleep(3)
+        # TESTS
+        left_side_of_table = driver.find_element(By.NAME, "left").is_displayed()
+        assert left_side_of_table == True, "Не отображается таблица на странице приоритетной категории"
+        center_of_table = driver.find_element(By.NAME, "center").is_displayed()
+        assert center_of_table == True, "Не отображается таблица на странице приоритетной категории"
+
+
+
 

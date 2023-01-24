@@ -194,6 +194,7 @@ class TestInternalAnalytics:
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 202)
 
+''' Не актуально
     def test_update_new_token(self):
         # Обновление токена на новый формат
         url = "https://api.marketpapa.ru/api/internal-analytics/token/change/5673/"
@@ -201,7 +202,7 @@ class TestInternalAnalytics:
         data = json.dumps({"key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2YWIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oM"})
         response = requests.put(url=url, headers=headers, data=data)
         Assertions.assert_code_status(response, 202)
-
+'''
     # API для внутреннего использования
     def test_add_token_from_ads(self):
         data = json.dumps({
