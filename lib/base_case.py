@@ -1,14 +1,11 @@
-import os
 import random
 import string
 import pickle
-import requests
 import time
+import settings
 import requests
 from selenium import webdriver
-from environment import token
 from selenium.webdriver.common.by import By
-
 
 
 class BaseCase:
@@ -19,11 +16,6 @@ class BaseCase:
         4: "https://cmp.wildberries.ru/statistics",
         5: "https://cmp.wildberries.ru/finance/upd"}
 
-    def __init__(self):
-        self.supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        self.wb_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY3MzE1OTg5NX0.sgjCEHFCbEASuGUThH3ErBt3Q7CjDMYJY-oAetfv6x4"
-        self.wb_user_id = "8082795"
-
     # Получение ids токена
     def get_id_from_token(self, token):
         ids = None
@@ -31,14 +23,13 @@ class BaseCase:
                                 headers={
                                     "Authorization": "Bearer " + str(token)
                                 }
-                            )
+                                )
         parsed_response_text = response.json()
         for element in parsed_response_text['items']:
             if element["key_name"] == "Василий":
                 ids = element["id"]
         response_status_code = response.status_code
         return response_status_code, ids
-
 
     def get_new_wb_token_by_wild_auth_new_and_supplier_id(self):
         supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
@@ -67,12 +58,12 @@ class BaseCase:
         cookies = {"WILDAUTHNEW_V3": wild_auth_new}
         resp = None
         resp = requests.post(
-                    url,
-                    cookies=cookies,
-                    json={"device": "Macintosh"},
-                    headers=headers,
-                    timeout=5.0,
-                )
+            url,
+            cookies=cookies,
+            json={"device": "Macintosh"},
+            headers=headers,
+            timeout=5.0,
+        )
         WBToken = resp.cookies.get("WBToken")
         url0 = "https://seller.wildberries.ru/passport/api/v2/auth/grant"
         cookies0 = {"WBToken": WBToken}
@@ -194,7 +185,7 @@ class BaseCase:
         if not resp3:
             return
         coken = resp3.cookies.get("WBToken")
-        with open("../wb_token.txt", 'w') as wb_token:
+        with open("./wb_token.txt", 'w') as wb_token:
             print(coken, file=wb_token)
         response_status_code = resp.status_code
         response0_status_code = resp0.status_code
@@ -234,7 +225,7 @@ class BaseCase:
 
     def get_wb_user_id(self):
         url = "https://cmp.wildberries.ru/passport/api/v2/auth/introspect"
-        cookies = {"WBToken": self.wb_token, "x-supplier-id-external": self.supplier_id}
+        cookies = {"WBToken": settings.wb_token, "x-supplier-id-external": settings.supplier_id}
         headers = {
             "Accept": "application/json, text/plain, */*",
             "Pragma": "no-cache",
@@ -245,7 +236,7 @@ class BaseCase:
             "Accept-Encoding": "gzip, deflate, br",
             "Connection": "keep-alive",
             "Referer": "https://cmp.wildberries.ru/campaigns/list/all?type=auction",
-            "Cookie": f"WBToken={self.wb_token}; x-supplier-id-external={self.supplier_id}",
+            "Cookie": f"WBToken={settings.wb_token}; x-supplier-id-external={settings.supplier_id}",
         }
         for i in range(5):
             try:
@@ -396,7 +387,6 @@ class BaseCase:
         time.sleep(5)
         pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
 
-
     def add_cookie_to_chrome(self, driver):
         driver.get("https://dev.marketpapa.ru/news")
         time.sleep(1)
@@ -412,4 +402,3 @@ class BaseCase:
 # Проверка обновления токена
 # coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
 # print(coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code)
-

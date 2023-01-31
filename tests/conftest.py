@@ -5,7 +5,7 @@ import pytest
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from environment import token
+from settings import token
 from lib.base_case import BaseCase
 
 

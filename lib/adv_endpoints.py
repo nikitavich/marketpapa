@@ -3,7 +3,7 @@ from lib.base_case import BaseCase
 import requests
 import time
 import random
-import wb_errors
+import settings
 
 
 class AdvEndpoints:
@@ -15,11 +15,9 @@ class AdvEndpoints:
         5: "https://cmp.wildberries.ru/finance/upd"}
 
     def send_request(self, method, url, referer, data=None, json=None):
-        with open("../wb_token.txt", 'r') as wb_token_from_file:
+        with open('./wb_token.txt', 'r') as wb_token_from_file:
             wb_token = str(wb_token_from_file.readline().rstrip('\n'))
             wb_token_from_file.close()
-        supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        wb_user_id = "8082795"
         url = url
         headers = {
             "Accept": "application/json, text/plain, */*",
@@ -31,10 +29,10 @@ class AdvEndpoints:
             "Accept-Encoding": "gzip, deflate, br",
             "Connection": "keep-alive",
             "Referer": referer,
-            "Cookie": f"WBToken={wb_token}; x-supplier-id-external={supplier_id}",
-            "X-User-Id": f"{wb_user_id}",
+            "Cookie": f"WBToken={wb_token}; x-supplier-id-external={settings.supplier_id}",
+            "X-User-Id": f"{settings.wb_user_id}",
         }
-        cookies = {"WBToken": wb_token, "x-supplier-id-external": supplier_id}
+        cookies = {"WBToken": wb_token, "x-supplier-id-external": settings.supplier_id}
         response = None
         count = 0
         h = 0

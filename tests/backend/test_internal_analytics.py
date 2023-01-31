@@ -1,9 +1,8 @@
 import json
 import requests
 
-from environment import token
+from settings import token
 from lib.assertions import Assertions
-from lib.base_case import BaseCase
 
 
 class TestInternalAnalytics:
@@ -166,7 +165,8 @@ class TestInternalAnalytics:
             'Authorization': "Bearer " + str(token),
             'Content-Type': 'application/json'
         }
-        response1 = requests.put(f"https://api.marketpapa.ru/api/internal-analytics/token/{self.token_id}/", data=data, headers=headers)
+        response1 = requests.put(f"https://api.marketpapa.ru/api/internal-analytics/token/{self.token_id}/", data=data,
+                                 headers=headers)
         Assertions.assert_code_status(response1, 202)
 
         # Удаление токена
@@ -194,15 +194,6 @@ class TestInternalAnalytics:
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 202)
 
-''' Не актуально
-    def test_update_new_token(self):
-        # Обновление токена на новый формат
-        url = "https://api.marketpapa.ru/api/internal-analytics/token/change/5673/"
-        headers = {"Authorization": "Bearer " + str(token)}
-        data = json.dumps({"key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2YWIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oM"})
-        response = requests.put(url=url, headers=headers, data=data)
-        Assertions.assert_code_status(response, 202)
-'''
     # API для внутреннего использования
     def test_add_token_from_ads(self):
         data = json.dumps({
@@ -213,7 +204,8 @@ class TestInternalAnalytics:
             'Authorization': '4191e77c-1126-42b0-b41f-cb2315f97da3',
             'Content-Type': 'application/json'
         }
-        response = requests.post("https://api.marketpapa.ru/api/internal-analytics/add_token_from_ads/", data=data, headers=headers)
+        response = requests.post("https://api.marketpapa.ru/api/internal-analytics/add_token_from_ads/", data=data,
+                                 headers=headers)
         # ПРОВЕРКИ
         Assertions.assert_code_status(response, 201)
 
@@ -230,7 +222,8 @@ class TestInternalAnalytics:
             'Authorization': "Bearer " + str(token),
             'Content-Type': 'application/json'
         }
-        response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/stocks/", data=data, headers=headers)
+        response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/stocks/", data=data,
+                                  headers=headers)
         # Проверки
         Assertions.assert_code_status(response1, 200)
 
@@ -251,7 +244,6 @@ class TestInternalAnalytics:
                                   headers=headers)
         # Проверки
         Assertions.assert_code_status(response1, 200)
-
 
     # Получить drop-list для фильтрации в разделе мои товары
     def test_get_product_brand(self, get_id_from_token):
@@ -308,7 +300,7 @@ class TestInternalAnalytics:
         Assertions.assert_code_status(response1, 200)
 
     # Получить список поставок
-    def test_supplies_list(self,get_id_from_token):
+    def test_supplies_list(self, get_id_from_token):
         response_status_code, ids = get_id_from_token
         # Получение списка реализаций
         data = json.dumps({
@@ -344,7 +336,9 @@ class TestInternalAnalytics:
         self.incomeId = parsed_response_text1['items'][0]['incomeId']
 
         # Получение списка артикулов
-        response2 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/supplies/{self.incomeId}/", data=data, headers=headers)
+        response2 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/supplies/{self.incomeId}/",
+                                  data=data,
+                                  headers=headers)
         # ПРОВЕРКИ
         Assertions.assert_code_status(response2, 200)
 
@@ -368,7 +362,8 @@ class TestInternalAnalytics:
         incomeId = parsed_response_text1['items'][0]['incomeId']
 
         # Получение nmId и api_key
-        response2 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/supplies/{incomeId}/", data=data, headers=headers)
+        response2 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/supplies/{incomeId}/", data=data,
+                                  headers=headers)
         parsed_response_text2 = response2.json()
         api_key = parsed_response_text2['items'][0]['api_key']
         nmId = parsed_response_text2['items'][0]['nmId']
@@ -391,7 +386,9 @@ class TestInternalAnalytics:
             'Authorization': "Bearer " + str(token),
             'Content-Type': 'application/json'
         }
-        response2 = requests.put("https://api.marketpapa.ru/api/internal-analytics/supplies/send-cost-price/", data=data1, headers=headers1)
+        response2 = requests.put("https://api.marketpapa.ru/api/internal-analytics/supplies/send-cost-price/",
+                                 data=data1,
+                                 headers=headers1)
         # ПРОВЕРКА
         Assertions.assert_code_status(response2, 202)
 
@@ -434,7 +431,9 @@ class TestInternalAnalytics:
         incomeId = parsed_response_text1['items'][0]['incomeId']
 
         # Получение drop-list
-        response2 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/supply-drop-list-by-income-id/{incomeId}/", data=data, headers=headers)
+        response2 = requests.post(
+            f"https://api.marketpapa.ru/api/internal-analytics/supply-drop-list-by-income-id/{incomeId}/", data=data,
+            headers=headers)
         # Проверки
         Assertions.assert_code_status(response2, 200)
 
@@ -490,15 +489,8 @@ class TestInternalAnalytics:
         nmId = parsed_response_text1['items'][0]['nmId']
 
         # Получение истории себестоимости
-        response2= requests.post(f"https://api.marketpapa.ru/api/internal-analytics/cost-price-history/{nmId}/", data=data, headers=headers)
+        response2 = requests.post(f"https://api.marketpapa.ru/api/internal-analytics/cost-price-history/{nmId}/",
+                                  data=data,
+                                  headers=headers)
         # Проверки
         Assertions.assert_code_status(response2, 200)
-
-
-
-
-
-
-
-
-
