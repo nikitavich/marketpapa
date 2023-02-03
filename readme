@@ -1,3 +1,3 @@
 python -m pytest -s tests/backend/test_adv_endpoints.py
 python -m pytest -s tests/backend/test_internal_analytics.py
-python -m pytest -s tests/backend/test_deposit.py
+python -m pytest -s tests/backend/test_authorization.py

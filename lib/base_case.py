@@ -1,11 +1,13 @@
+import pickle
 import random
 import string
-import pickle
 import time
-import settings
+
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
+import settings
 
 
 class BaseCase:
@@ -64,6 +66,7 @@ class BaseCase:
             headers=headers,
             timeout=5.0,
         )
+
         WBToken = resp.cookies.get("WBToken")
         url0 = "https://seller.wildberries.ru/passport/api/v2/auth/grant"
         cookies0 = {"WBToken": WBToken}
@@ -395,10 +398,48 @@ class BaseCase:
         time.sleep(1)
         driver.refresh()
 
-# Проверка добавления cookies
-# BaseCase().add_cookie_to_chrome()
+    # Проверка добавления cookies
+    # BaseCase().add_cookie_to_chrome()
+    def update_token(self):
+        supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
+        wild_auth_new = "7255F34755CDC024A4BE3B7EAF84A2A1D4B24AFE173C2748293673093E85236AFEFBB33C895B9F9EA3A6030DD60BFA3D973C05B2ED5706952413B3B9CA55BEB8C1877ECB417F1F5A88359A1C66FB3CA6C017A7E0DEE4EE8A31568DC287D0F53225D9253D48062EE01B64B4CDEA4A870E477630216A611BBB4B325D8DD7A0B4419AFF92961AF488E65391753AD240403914169716E95FB42C4E026B91D336624AD5E57B4FC601A51643F27188FF5830A90E4A88553302EB348517A3926B2C2315E8279C7AEFE1DAB6F0B6912BDEB43DEE6D83426CB2162D64C1CADC6C85E59ED13345ECFB0512D4C158E462ADA391176F56A8096F3F97B54B4B42FE3717100775F3F4743AF1BB67B326F37D69E3C6A44DAC27BA4FF0BF4662586A7AE40BBE0E6420522D38"
+        headers = {
+            "Host": "seller.wildberries.ru",
+            "Connection": "keep-alive",
+            "Content-Length": "22",
+            "sec-ch-ua": '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+            "sec-ch-ua-platform": '"macOS"',
+            "sec-ch-ua-mobile": "?0",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+            "Content-type": "application/json",
+            "Accept": "*/*",
+            "Origin": "https://seller.wildberries.ru",
+            "Sec-Fetch-Site": "same-origin",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Dest": "empty",
+            "Referer": "https://seller.wildberries.ru/",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+            "Cookie": f"WILDAUTHNEW_V3={wild_auth_new};",
+        }
 
+        url = "https://seller.wildberries.ru/passport/api/v2/auth/wild_v3_upgrade"
+        cookies = {"WILDAUTHNEW_V3": wild_auth_new}
+        resp = None
+        resp = requests.post(
+            url,
+            cookies=cookies,
+            json={"device": "Macintosh"},
+            headers=headers,
+            timeout=5.0,
+        )
+        return resp
+
+
+resp = BaseCase().update_token()
+print(resp.status_code, resp.text)
 
 # Проверка обновления токена
 # coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
-# print(coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code)
+# print(coken, response_status_code, response0_status_code, response1_status_code, response2_status_code,
+#       response3_status_code)

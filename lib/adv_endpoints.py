@@ -1,9 +1,11 @@
 import json
-from lib.base_case import BaseCase
-import requests
-import time
 import random
+import time
+
+import requests
+
 import settings
+from lib.base_case import BaseCase
 
 
 class AdvEndpoints:
@@ -15,7 +17,7 @@ class AdvEndpoints:
         5: "https://cmp.wildberries.ru/finance/upd"}
 
     def send_request(self, method, url, referer, data=None, json=None):
-        with open('./wb_token.txt', 'r') as wb_token_from_file:
+        with open('../wb_token.txt', 'r') as wb_token_from_file:
             wb_token = str(wb_token_from_file.readline().rstrip('\n'))
             wb_token_from_file.close()
         url = url
@@ -81,7 +83,8 @@ class AdvEndpoints:
     def get_keywords_new(self, company_id):
         referer_type = self.referer_types[2]
         url = f"https://cmp.wildberries.ru/backend/api/v2/search/{company_id}/words"
-        response = AdvEndpoints().send_request(method="get", url=url, referer=referer_type.format(company_id=company_id))
+        response = AdvEndpoints().send_request(method="get", url=url,
+                                               referer=referer_type.format(company_id=company_id))
         return response
 
     def get_company_info(self, company_id):
@@ -219,7 +222,7 @@ class AdvEndpoints:
     def get_balance(self):
         referer_type = self.referer_types[1]
         url = "https://cmp.wildberries.ru/backend/api/v3/balance"
-        response =  AdvEndpoints().send_request(method="get", url=url, referer=referer_type)
+        response = AdvEndpoints().send_request(method="get", url=url, referer=referer_type)
         return response
 
     def get_search_stats(self, company_id):
@@ -331,10 +334,6 @@ class AdvEndpoints:
                 for company in jsondata1.get("content"):
                     jsondata.get("content").append(company)
         return response
-
-
-
-
 
 # Кампания для автотестов поиск = 3499821
 # Кампания для автотестов карточка товара = 3501540
