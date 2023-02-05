@@ -436,8 +436,8 @@ class BaseCase:
         return resp
 
 
-resp = BaseCase().update_token()
-print(resp.status_code, resp.text)
+# resp = BaseCase().update_token()
+# print(resp.status_code, resp.text)
 
 # Проверка обновления токена
 # coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
