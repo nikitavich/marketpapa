@@ -147,7 +147,7 @@ class Authorization:
             "Cookie": f"WBToken={WBToken}",
         }
         resp0 = None
-        for i in range(3):
+        for i in range(10):
             try:
                 resp0 = requests.post(
                     url0,
@@ -260,9 +260,9 @@ class Authorization:
 wb_token, resp2, resp1 = Authorization().get_wb_token_by_phone_number(phone_number='79998074678',
                                                                       wild_auth_new=settings.wild_auth_new)
 print(wb_token)
-coken, res1, res2, resp3 = Authorization().get_new_wb_token_by_wb_token_and_supplier_id(wb_token=wb_token,
-                                                                                        supplier_id=settings.supplier_id)
-print(res1.status_code)
-print(res2.status_code)
-print(resp3.status_code)
-print(coken)
+# coken, res1, res2, resp3 = Authorization().get_new_wb_token_by_wb_token_and_supplier_id(wb_token=wb_token,
+#                                                                                         supplier_id=settings.supplier_id)
+# print(res1.status_code)
+# print(res2.status_code)
+# print(resp3.status_code)
+# print(coken)

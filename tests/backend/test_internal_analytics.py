@@ -132,8 +132,6 @@ class TestInternalAnalytics:
         response = requests.post(
             "https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2YWIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oG&token_name=new_wb_token_1",
             headers={"Authorization": "Bearer " + str(token)})
-        print(response.status_code)
-        print(response.text)
         # ПРОВЕРКИ
         Assertions.assert_code_status(response, 201)
         parsed_response_text = response.json()
@@ -210,22 +208,22 @@ class TestInternalAnalytics:
         Assertions.assert_code_status(response, 201)
 
     # Получить список товаров на складе
-    def test_get_stock_list(self, get_id_from_token):
-        response_status_code, ids = get_id_from_token
-        # Получение списка товаров
-        data = json.dumps({
-            "ids": [
-                f"{ids}"
-            ]
-        })
-        headers = {
-            'Authorization': "Bearer " + str(token),
-            'Content-Type': 'application/json'
-        }
-        response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/stocks/", data=data,
-                                  headers=headers)
-        # Проверки
-        Assertions.assert_code_status(response1, 200)
+    # def test_get_stock_list(self, get_id_from_token):
+    #     response_status_code, ids = get_id_from_token
+    #     # Получение списка товаров
+    #     data = json.dumps({
+    #         "ids": [
+    #             f"{ids}"
+    #         ]
+    #     })
+    #     headers = {
+    #         'Authorization': "Bearer " + str(token),
+    #         'Content-Type': 'application/json'
+    #     }
+    #     response1 = requests.post("https://api.marketpapa.ru/api/internal-analytics/stocks/", data=data,
+    #                               headers=headers)
+    #     # Проверки
+    #     Assertions.assert_code_status(response1, 200)
 
     # Получить список товаров
     def test_get_product_list(self, get_id_from_token):

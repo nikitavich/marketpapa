@@ -28,7 +28,7 @@ class BaseCase:
                                 )
         parsed_response_text = response.json()
         for element in parsed_response_text['items']:
-            if element["key_name"] == "Василий":
+            if element["key_name"] == "NEW_ВАСИЛИЙ":
                 ids = element["id"]
         response_status_code = response.status_code
         return response_status_code, ids

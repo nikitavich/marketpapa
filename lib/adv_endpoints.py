@@ -1,11 +1,15 @@
+import asyncio
 import json
 import random
 import time
+import datetime
 
+from fake_useragent import UserAgent
 import requests
 
 import settings
 from lib.base_case import BaseCase
+from wb_errors import TooManyTime, InvalidWBToken
 
 
 class AdvEndpoints:
@@ -23,13 +27,13 @@ class AdvEndpoints:
         url = url
         headers = {
             "Accept": "application/json, text/plain, */*",
-            "Pragma": "no-cache",
-            "Cache-Control": "no-cache",
+            # "Pragma": "no-cache",
+            # "Cache-Control": "no-cache",
             "Host": "cmp.wildberries.ru",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15",
-            "Accept-Language": "en-GB,en;q=0.9",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Connection": "keep-alive",
+            # "Accept-Language": "en-GB,en;q=0.9",
+            # "Accept-Encoding": "gzip, deflate, br",
+            # "Connection": "keep-alive",
             "Referer": referer,
             "Cookie": f"WBToken={wb_token}; x-supplier-id-external={settings.supplier_id}",
             "X-User-Id": f"{settings.wb_user_id}",
@@ -335,11 +339,78 @@ class AdvEndpoints:
                     jsondata.get("content").append(company)
         return response
 
+    def __try_request(self, method, url, referer, data=None, json=None):
+        with open('../wb_token.txt', 'r') as wb_token_from_file:
+            wb_token = str(wb_token_from_file.readline().rstrip('\n'))
+            wb_token_from_file.close()
+        cookies = {"WBToken": wb_token, "x-supplier-id-external": settings.supplier_id}
+        headers = {
+            "Accept": "application/json, text/plain, */*",
+            "Pragma": "no-cache",
+            "Cache-Control": "no-cache",
+            "Host": "cmp.wildberries.ru",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15",
+            "Accept-Language": "en-GB,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive",
+            "Referer": referer,
+            "Cookie": f"WBToken={wb_token}; x-supplier-id-external={settings.supplier_id}",
+            "X-User-Id": f"{settings.wb_user_id}",
+        }
+        count = 0
+        h = 0
+        while count < 20:
+            if method == "get":
+                response = requests.get(url=url, headers=headers, cookies=cookies)
+                if response.status_code in [429, 418]:
+                    count = count + 1
+                    time.sleep(random.randint(10, 30))
+                    continue
+                if response.status_code in [401, 403]:
+                    h += 1
+                    if h == 2:
+                        raise InvalidWBToken(wb_token, settings.supplier_id)
+                    continue
+                return response
+            if method == "put":
+                response = requests.put(url=url, headers=headers, cookies=cookies, data=data)
+                if response.status_code in [429, 418]:
+                    count = count + 1
+                    time.sleep(2)
+                    continue
+                if response.status_code in [204]:
+                    count = count + 1
+                    time.sleep(2)
+                    continue
+                if response.status_code in [401, 403]:
+                    h += 1
+                    if h == 2:
+                        BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
+                    continue
+                return response
+            if method == "post":
+                response = requests.post(url=url, headers=headers, cookies=cookies, json=json)
+                if response.status_code in [429, 418]:
+                    count = count + 1
+                    time.sleep(2)
+                    continue
+                if response.status_code in [401, 403]:
+                    h += 1
+                    if h == 2:
+                        BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
+                    continue
+                return response
+
+    def get_placement_info1(self, company_id):
+        referer_type = self.referer_types[2]
+        url = f"https://cmp.wildberries.ru/backend/api/v2/search/{company_id}/placement"
+        response = AdvEndpoints().__try_request(method="get", url=url,
+                                                referer=referer_type.format(company_id=company_id))
+        return response
+
+
 # Кампания для автотестов поиск = 3499821
 # Кампания для автотестов карточка товара = 3501540
-# response = AdvEndpoints().start_adv_card_company(company_id=3499821)
-# jsondata = response.json()
-# status = jsondata['status']
-# print(response.status_code)
-# print(response.text)
-# print(status)
+if __name__ == '__main__':
+    response = AdvEndpoints().get_placement_info1(company_id=3499821)
+    print(response.status_code)

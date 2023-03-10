@@ -2,3 +2,11 @@ allure-pytest
 requests
 pytest
 selenium
+pydantic
+psycopg2-binary
+httplib2
+oauth2client
+apiclient
+google_auth_oauthlib
+clickhouse-connect
+fake-useragent==1.1.1
