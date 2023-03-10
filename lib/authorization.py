@@ -37,7 +37,6 @@ class Authorization:
                 )
                 break
             except Exception as err:
-                print(err)
                 pass
         token = resp1.json().get("token")
         headers = {
@@ -257,9 +256,7 @@ class Authorization:
         return coken, resp1, resp2, resp3
 
 
-wb_token, resp2, resp1 = Authorization().get_wb_token_by_phone_number(phone_number='79998074678',
-                                                                      wild_auth_new=settings.wild_auth_new)
-print(wb_token)
+
 # coken, res1, res2, resp3 = Authorization().get_new_wb_token_by_wb_token_and_supplier_id(wb_token=wb_token,
 #                                                                                         supplier_id=settings.supplier_id)
 # print(res1.status_code)
