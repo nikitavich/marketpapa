@@ -97,11 +97,15 @@ class TestAdvEndpoints:
         assert products_nm_fiend in data['products'][0], f"Key {products_nm_fiend} doesn't exist in the dictionary"
         assert products_name_field in data['products'][0], f"Key {products_name_field} doesn't exist in the dictionary"
         assert subject_field in data['products'][0], f"Key {subject_field} doesn't exist in the dictionary"
-        assert subject_id_field in data['products'][0]['subject'], f"Key {subject_id_field} doesn't exist in the dictionary"
-        assert subject_name_field in data['products'][0]['subject'], f"Key {subject_name_field} doesn't exist in the dictionary"
-        assert products_brand_field in data['products'][0], f"Key {products_brand_field} doesn't exist in the dictionary"
+        assert subject_id_field in data['products'][0][
+            'subject'], f"Key {subject_id_field} doesn't exist in the dictionary"
+        assert subject_name_field in data['products'][0][
+            'subject'], f"Key {subject_name_field} doesn't exist in the dictionary"
+        assert products_brand_field in data['products'][
+            0], f"Key {products_brand_field} doesn't exist in the dictionary"
         assert brand_id_field in data['products'][0]['brand'], f"Key {brand_id_field} doesn't exist in the dictionary"
-        assert brand_name_field in data['products'][0]['brand'], f"Key {brand_name_field} doesn't exist in the dictionary"
+        assert brand_name_field in data['products'][0][
+            'brand'], f"Key {brand_name_field} doesn't exist in the dictionary"
         assert products_kind_field in data['products'][0], f"Key {products_kind_field} doesn't exist in the dictionary"
         assert kind_id in data['products'][0]['kind'], f"Key {kind_id} doesn't exist in the dictionary"
         assert kind_name in data['products'][0]['kind'], f"Key {kind_name} doesn't exist in the dictionary"
@@ -155,31 +159,48 @@ class TestAdvEndpoints:
         assert place_keyWord_field in data['place'][0], f"Key {place_keyWord_field} doesn't exist in the dictionary"
         assert place_subjectId_field in data['place'][0], f"Key {place_subjectId_field} doesn't exist in the dictionary"
         assert place_price_field in data['place'][0], f"Key {place_price_field} doesn't exist in the dictionary"
-        assert place_placesInfo_field in data['place'][0], f"Key {place_placesInfo_field} doesn't exist in the dictionary"
-        assert placesInfo_estimatedPlaces_field in data['place'][0]['placesInfo'], f"Key {placesInfo_estimatedPlaces_field} doesn't exist in the dictionary"
-        assert placesInfo_entryPrices_field in data['place'][0]['placesInfo'], f"Key {placesInfo_entryPrices_field} doesn't exist in the dictionary"
-        assert placesInfo_info_field in data['place'][0]['placesInfo'], f"Key {placesInfo_info_field} doesn't exist in the dictionary"
-        assert info_place_field in data['place'][0]['placesInfo']['info'][0], f"Key {info_place_field} doesn't exist in the dictionary"
-        assert info_price_field in data['place'][0]['placesInfo']['info'][0], f"Key {info_price_field} doesn't exist in the dictionary"
-        assert info_count_field in data['place'][0]['placesInfo']['info'][0], f"Key {info_count_field} doesn't exist in the dictionary"
-        assert place_searchElements_field in data['place'][0], f"Key {place_searchElements_field} doesn't exist in the dictionary"
-        assert searchElements_nm_field in data['place'][0]['searchElements'][0], f"Key {searchElements_nm_field} doesn't exist in the dictionary"
-        assert searchElements_name_field in data['place'][0]['searchElements'][0], f"Key {searchElements_name_field} doesn't exist in the dictionary"
-        assert searchElements_brand_field in data['place'][0]['searchElements'][0], f"Key {searchElements_brand_field} doesn't exist in the dictionary"
-        assert searchElements_active_field in data['place'][0]['searchElements'][0], f"Key {searchElements_active_field} doesn't exist in the dictionary"
-        assert searchElements_stock_field in data['place'][0]['searchElements'][0], f"Key {searchElements_stock_field} doesn't exist in the dictionary"
-        assert place_dailyBudget_field in data['place'][0], f"Key {place_dailyBudget_field} doesn't exist in the dictionary"
+        assert place_placesInfo_field in data['place'][
+            0], f"Key {place_placesInfo_field} doesn't exist in the dictionary"
+        assert placesInfo_estimatedPlaces_field in data['place'][0][
+            'placesInfo'], f"Key {placesInfo_estimatedPlaces_field} doesn't exist in the dictionary"
+        assert placesInfo_entryPrices_field in data['place'][0][
+            'placesInfo'], f"Key {placesInfo_entryPrices_field} doesn't exist in the dictionary"
+        assert placesInfo_info_field in data['place'][0][
+            'placesInfo'], f"Key {placesInfo_info_field} doesn't exist in the dictionary"
+        assert info_place_field in data['place'][0]['placesInfo']['info'][
+            0], f"Key {info_place_field} doesn't exist in the dictionary"
+        assert info_price_field in data['place'][0]['placesInfo']['info'][
+            0], f"Key {info_price_field} doesn't exist in the dictionary"
+        assert info_count_field in data['place'][0]['placesInfo']['info'][
+            0], f"Key {info_count_field} doesn't exist in the dictionary"
+        assert place_searchElements_field in data['place'][
+            0], f"Key {place_searchElements_field} doesn't exist in the dictionary"
+        assert searchElements_nm_field in data['place'][0]['searchElements'][
+            0], f"Key {searchElements_nm_field} doesn't exist in the dictionary"
+        assert searchElements_name_field in data['place'][0]['searchElements'][
+            0], f"Key {searchElements_name_field} doesn't exist in the dictionary"
+        assert searchElements_brand_field in data['place'][0]['searchElements'][
+            0], f"Key {searchElements_brand_field} doesn't exist in the dictionary"
+        assert searchElements_active_field in data['place'][0]['searchElements'][
+            0], f"Key {searchElements_active_field} doesn't exist in the dictionary"
+        assert searchElements_stock_field in data['place'][0]['searchElements'][
+            0], f"Key {searchElements_stock_field} doesn't exist in the dictionary"
+        assert place_dailyBudget_field in data['place'][
+            0], f"Key {place_dailyBudget_field} doesn't exist in the dictionary"
         assert place_intervals_field in data['place'][0], f"Key {place_intervals_field} doesn't exist in the dictionary"
         assert limited_field in data, f"Key {limited_field} doesn't exist in the dictionary"
         assert nmsCount_field in data, f"Key {nmsCount_field} doesn't exist in the dictionary"
         assert name_field in data, f"Key {name_field} doesn't exist in the dictionary"
         assert status_field in data, f"Key {status_field} doesn't exist in the dictionary"
         assert fixed_field in data, f"Key {fixed_field} doesn't exist in the dictionary"
-        assert place_excludedWords_field in data['place'][0], f"Key {place_excludedWords_field} doesn't exist in the dictionary"
-
+        assert place_excludedWords_field in data['place'][
+            0], f"Key {place_excludedWords_field} doesn't exist in the dictionary"
 
     def test_set_excluded_keywords(self):
         response = self.advendpoints.set_excluded_keywords(company_id=3499821, keywords=["одежда"])
+        print(response.status_code)
+        print(response.text)
+
         assert response.status_code == 200, f"Wrong status code! Status code is {response.status_code}"
 
     def test_set_new_price(self):
@@ -270,20 +291,27 @@ class TestAdvEndpoints:
         assert place_kindId_field in data['place'][0], f"Key {place_kindId_field} doesn't exist in the dictionary"
         assert place_kind_field in data['place'][0], f"Key {place_kind_field} doesn't exist in the dictionary"
         assert place_price_field in data['place'][0], f"Key {place_price_field} doesn't exist in the dictionary"
-        assert place_placesInfo_field in data['place'][0], f"Key {place_placesInfo_field} doesn't exist in the dictionary"
-        assert placesInfo_estimatedPlaces_field in data['place'][0]['placesInfo'], f"Key {placesInfo_estimatedPlaces_field} doesn't exist in the dictionary"
-        assert placesInfo_entryPrices_field in data['place'][0]['placesInfo'], f"Key {placesInfo_entryPrices_field} doesn't exist in the dictionary"
-        assert place_carouselElements_field in data['place'][0], f"Key {place_carouselElements_field} doesn't exist in the dictionary"
-        assert carouselElements_nm_field in data['place'][0]['carouselElements'][0], f"Key {carouselElements_nm_field} doesn't exist in the dictionary"
-        assert carouselElements_name_field in data['place'][0]['carouselElements'][0], f"Key {carouselElements_name_field} doesn't exist in the dictionary"
-        assert carouselElements_brand_field in data['place'][0]['carouselElements'][0], f"Key {carouselElements_brand_field} doesn't exist in the dictionary"
-        assert carouselElements_active_field in data['place'][0]['carouselElements'][0], f"Key {carouselElements_active_field} doesn't exist in the dictionary"
+        assert place_placesInfo_field in data['place'][
+            0], f"Key {place_placesInfo_field} doesn't exist in the dictionary"
+        assert placesInfo_estimatedPlaces_field in data['place'][0][
+            'placesInfo'], f"Key {placesInfo_estimatedPlaces_field} doesn't exist in the dictionary"
+        assert placesInfo_entryPrices_field in data['place'][0][
+            'placesInfo'], f"Key {placesInfo_entryPrices_field} doesn't exist in the dictionary"
+        assert place_carouselElements_field in data['place'][
+            0], f"Key {place_carouselElements_field} doesn't exist in the dictionary"
+        assert carouselElements_nm_field in data['place'][0]['carouselElements'][
+            0], f"Key {carouselElements_nm_field} doesn't exist in the dictionary"
+        assert carouselElements_name_field in data['place'][0]['carouselElements'][
+            0], f"Key {carouselElements_name_field} doesn't exist in the dictionary"
+        assert carouselElements_brand_field in data['place'][0]['carouselElements'][
+            0], f"Key {carouselElements_brand_field} doesn't exist in the dictionary"
+        assert carouselElements_active_field in data['place'][0]['carouselElements'][
+            0], f"Key {carouselElements_active_field} doesn't exist in the dictionary"
         assert place_intervals_field in data['place'][0], f"Key {place_intervals_field} doesn't exist in the dictionary"
         assert limited_field in data, f"Key {limited_field} doesn't exist in the dictionary"
         assert nmsCount_field in data, f"Key {nmsCount_field} doesn't exist in the dictionary"
         assert name_field in data, f"Key {name_field} doesn't exist in the dictionary"
         assert status_field in data, f"Key {status_field} doesn't exist in the dictionary"
-
 
     def test_get_card_budget(self):
         response, data = self.advendpoints.get_card_budget(company_id=3501540)
@@ -324,7 +352,6 @@ class TestAdvEndpoints:
         assert content_balance_field in data['content'], f"Key {content_balance_field} doesn't exist in the dictionary"
         assert content_net_field in data['content'], f"Key {content_net_field} doesn't exist in the dictionary"
 
-
     def test_get_search_stats(self):
         response = self.advendpoints.get_search_stats(company_id=3499821)
         data = response.json()
@@ -358,7 +385,6 @@ class TestAdvEndpoints:
         assert cpc_field in data[0], f"Key {cpc_field} doesn't exist in the dictionary"
         assert duration_field in data[0], f"Key {duration_field} doesn't exist in the dictionary"
         assert sum_field in data[0], f"Key {sum_field} doesn't exist in the dictionary"
-
 
     def test_get_card_stats(self):
         response = self.advendpoints.get_card_stats(company_id=3501540)
@@ -395,7 +421,6 @@ class TestAdvEndpoints:
         assert cpc_field in data[0], f"Key {cpc_field} doesn't exist in the dictionary"
         assert duration_field in data[0], f"Key {duration_field} doesn't exist in the dictionary"
         assert sum_field in data[0], f"Key {sum_field} doesn't exist in the dictionary"
-
 
     def test_get_supplier_info(self):
         response = self.advendpoints.get_supplier_info()
@@ -435,27 +460,41 @@ class TestAdvEndpoints:
         assert isSpecial_field in data, f"Key {isSpecial_field} doesn't exist in the dictionary"
         assert supplier_field in data, f"Key {supplier_field} doesn't exist in the dictionary"
         assert supplier_id_field in data['supplier'], f"Key {supplier_id_field} doesn't exist in the dictionary"
-        assert supplier_address_field in data['supplier'], f"Key {supplier_address_field} doesn't exist in the dictionary"
-        assert supplier_bankAccount_field in data['supplier'], f"Key {supplier_bankAccount_field} doesn't exist in the dictionary"
+        assert supplier_address_field in data[
+            'supplier'], f"Key {supplier_address_field} doesn't exist in the dictionary"
+        assert supplier_bankAccount_field in data[
+            'supplier'], f"Key {supplier_bankAccount_field} doesn't exist in the dictionary"
         assert supplier_bic_field in data['supplier'], f"Key {supplier_bic_field} doesn't exist in the dictionary"
-        assert supplier_correspondentAccount_field in data['supplier'], f"Key {supplier_correspondentAccount_field} doesn't exist in the dictionary"
+        assert supplier_correspondentAccount_field in data[
+            'supplier'], f"Key {supplier_correspondentAccount_field} doesn't exist in the dictionary"
         assert supplier_email_field in data['supplier'], f"Key {supplier_email_field} doesn't exist in the dictionary"
-        assert supplier_fullName_field in data['supplier'], f"Key {supplier_fullName_field} doesn't exist in the dictionary"
+        assert supplier_fullName_field in data[
+            'supplier'], f"Key {supplier_fullName_field} doesn't exist in the dictionary"
         assert supplier_inn_field in data['supplier'], f"Key {supplier_inn_field} doesn't exist in the dictionary"
         assert supplier_kpp_field in data['supplier'], f"Key {supplier_kpp_field} doesn't exist in the dictionary"
-        assert supplier_manager_field in data['supplier'], f"Key {supplier_manager_field} doesn't exist in the dictionary"
-        assert supplier_shortName_field in data['supplier'], f"Key {supplier_shortName_field} doesn't exist in the dictionary"
+        assert supplier_manager_field in data[
+            'supplier'], f"Key {supplier_manager_field} doesn't exist in the dictionary"
+        assert supplier_shortName_field in data[
+            'supplier'], f"Key {supplier_shortName_field} doesn't exist in the dictionary"
         assert supplier_ogrn_field in data['supplier'], f"Key {supplier_ogrn_field} doesn't exist in the dictionary"
         assert supplier_phone_field in data['supplier'], f"Key {supplier_phone_field} doesn't exist in the dictionary"
-        assert supplier_mainContractId_field in data['supplier'], f"Key {supplier_mainContractId_field} doesn't exist in the dictionary"
-        assert supplier_changeDate_field in data['supplier'], f"Key {supplier_changeDate_field} doesn't exist in the dictionary"
-        assert supplier_notificationEmail_field in data['supplier'], f"Key {supplier_notificationEmail_field} doesn't exist in the dictionary"
-        assert supplier_notificationPhone_field in data['supplier'], f"Key {supplier_notificationPhone_field} doesn't exist in the dictionary"
-        assert supplier_isSpecial_field in data['supplier'], f"Key {supplier_isSpecial_field} doesn't exist in the dictionary"
-        assert supplier_isAgency_field in data['supplier'], f"Key {supplier_isAgency_field} doesn't exist in the dictionary"
+        assert supplier_mainContractId_field in data[
+            'supplier'], f"Key {supplier_mainContractId_field} doesn't exist in the dictionary"
+        assert supplier_changeDate_field in data[
+            'supplier'], f"Key {supplier_changeDate_field} doesn't exist in the dictionary"
+        assert supplier_notificationEmail_field in data[
+            'supplier'], f"Key {supplier_notificationEmail_field} doesn't exist in the dictionary"
+        assert supplier_notificationPhone_field in data[
+            'supplier'], f"Key {supplier_notificationPhone_field} doesn't exist in the dictionary"
+        assert supplier_isSpecial_field in data[
+            'supplier'], f"Key {supplier_isSpecial_field} doesn't exist in the dictionary"
+        assert supplier_isAgency_field in data[
+            'supplier'], f"Key {supplier_isAgency_field} doesn't exist in the dictionary"
         assert contract_field in data, f"Key {contract_field} doesn't exist in the dictionary"
-        assert contract_ContractId_field in data['contract'], f"Key {contract_ContractId_field} doesn't exist in the dictionary"
-        assert contract_SupplierId_field in data['contract'], f"Key {contract_SupplierId_field} doesn't exist in the dictionary"
+        assert contract_ContractId_field in data[
+            'contract'], f"Key {contract_ContractId_field} doesn't exist in the dictionary"
+        assert contract_SupplierId_field in data[
+            'contract'], f"Key {contract_SupplierId_field} doesn't exist in the dictionary"
         assert contract_Date_field in data['contract'], f"Key {contract_Date_field} doesn't exist in the dictionary"
         assert contract_Code_field in data['contract'], f"Key {contract_Code_field} doesn't exist in the dictionary"
 
