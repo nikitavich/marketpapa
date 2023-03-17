@@ -1,3 +1,2 @@
-python -m pytest -s tests/backend/test_adv_endpoints.py
-python -m pytest -s tests/backend/test_internal_analytics.py
-python -m pytest -s tests/backend/test_authorization.py
+python -m pytest -s -q --tb=line tests/backend/test_internal_analytics.py
+python -m pytest -s -q --tb=line tests/backend/test_authorization.py

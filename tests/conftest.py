@@ -24,6 +24,7 @@ def get_id_from_token():
     response_status_code = response.status_code
     return response_status_code, ids
 
+
 @pytest.fixture()
 def driver():
     options = webdriver.ChromeOptions()
@@ -41,7 +42,6 @@ def add_cookies_for_auth(driver):
         driver.add_cookie(cookie)
     time.sleep(5)
     driver.refresh()
-
 
 
 @pytest.fixture()
