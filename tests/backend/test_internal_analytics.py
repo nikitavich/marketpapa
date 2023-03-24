@@ -28,6 +28,7 @@ class TestInternalAnalytics:
                                       "Authorization": "Bearer " + str(token)
                                   }
                                   )
+        print(response1.status_code, response1.text)
         # ПРОВЕРКИ
         Assertions.assert_code_status(response1, 200)
 
@@ -505,6 +506,41 @@ class TestInternalAnalytics:
                     "nmId": 25629612,
                     "costPrice": 20,
                     "api_key_id": 15625
+                }
+            ]
+        })
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0',
+            'Accept': '*/*',
+            'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Referer': 'https://dev.marketpapa.ru/',
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + str(token),
+            'Origin': 'https://dev.marketpapa.ru',
+            'Connection': 'keep-alive',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-site',
+            'TE': 'trailers'
+        }
+
+        response = requests.request("PUT", url, headers=headers, data=payload)
+
+        Assertions.assert_code_status(response, 202)
+
+    def test_orders_self_purchase(self, get_id_from_token):
+        url = "https://api.marketpapa.ru/api/internal-analytics/orders-self-purchase/"
+
+        payload = json.dumps({
+            "ids": [
+                15625,
+                13219
+            ],
+            "items": [
+                {
+                    "odid": 9002248958959,
+                    "self_purchase": True
                 }
             ]
         })

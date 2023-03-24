@@ -19,7 +19,7 @@ def get_id_from_token():
     parsed_response_text = response.json()
     ids = None
     for element in parsed_response_text['items']:
-        if element["key_name"] == "NEW_ВАСИЛИЙ":
+        if element["key_name"] == "NEW_Василий":
             ids = element["id"]
     response_status_code = response.status_code
     return response_status_code, ids
