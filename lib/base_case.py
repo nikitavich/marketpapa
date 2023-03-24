@@ -436,6 +436,178 @@ class BaseCase:
         return resp
 
 
+def update_wb_token():
+    supplier_id = settings.supplier_id
+    wild_auth_new = settings.wild_auth_new
+    headers = {
+        "Host": "seller.wildberries.ru",
+        "Connection": "keep-alive",
+        "Content-Length": "22",
+        "sec-ch-ua": '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+        "sec-ch-ua-platform": '"macOS"',
+        "sec-ch-ua-mobile": "?0",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        "Content-type": "application/json",
+        "Accept": "*/*",
+        "Origin": "https://seller.wildberries.ru",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Dest": "empty",
+        "Referer": "https://seller.wildberries.ru/",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "Cookie": f"WILDAUTHNEW_V3={wild_auth_new};",
+    }
+
+    url = "https://seller.wildberries.ru/passport/api/v2/auth/wild_v3_upgrade"
+    cookies = {"WILDAUTHNEW_V3": wild_auth_new}
+    resp = None
+    resp = requests.post(
+        url,
+        cookies=cookies,
+        json={"device": "Macintosh"},
+        headers=headers,
+        timeout=5.0,
+    )
+
+    WBToken = resp.cookies.get("WBToken")
+    url0 = "https://seller.wildberries.ru/passport/api/v2/auth/grant"
+    cookies0 = {"WBToken": WBToken}
+    headers0 = {
+        "Accept": "application/json, text/plain, */*",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache",
+        "Host": "seller.wildberries.ru",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Referer": "https://seller.wildberries.ru/login/en?redirect_url=/",
+        "Cookie": f"WBToken={WBToken}",
+    }
+    resp0 = None
+    for i in range(3):
+        try:
+            resp0 = requests.post(
+                url0,
+                cookies=cookies0,
+                headers=headers0,
+                timeout=3.0,
+            )
+            break
+        except Exception as err:
+            pass
+    if not resp0:
+        return
+    WBToken = resp0.json().get("token")
+    url1 = "https://passport.wildberries.ru/api/v2/auth/login"
+    json1 = {"token": WBToken, "device": "Macintosh,Google Chrome 104.0"}
+    headers1 = {
+        "Accept": "application/json, text/plain, */*",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache",
+        "Host": "passport.wildberries.ru",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Referer": "https://seller.wildberries.ru/",
+    }
+    resp1 = None
+    for i in range(3):
+        try:
+            resp1 = requests.post(
+                url1,
+                headers=headers1,
+                json=json1,
+                timeout=3.0,
+            )
+            break
+        except Exception as err:
+            pass
+            # print(err)
+    if not resp1:
+        return
+    wb_token_temp1 = resp1.cookies.get("WBToken")
+    url2 = "https://passport.wildberries.ru/api/v2/auth/grant"
+    json2 = {}
+    headers2 = {
+        "Accept": "application/json, text/plain, */*",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache",
+        "Host": "passport.wildberries.ru",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Referer": "https://cmp.wildberries.ru/",
+        "Cookie": f"WBToken={wb_token_temp1}; x-supplier-id-external={supplier_id}",
+    }
+    resp2 = None
+    for i in range(3):
+        try:
+            resp2 = requests.post(
+                url2,
+                headers=headers2,
+                json=json2,
+                timeout=3.0,
+            )
+            break
+        except Exception as err:
+            pass
+            # print(err)
+    if not resp2:
+        return
+    wb_token_temp2 = resp2.json().get("token")
+    url3 = "https://cmp.wildberries.ru/passport/api/v2/auth/login"
+    cookies3 = {"x-supplier-id-external": supplier_id}
+    headers3 = {
+        "Accept": "application/json, text/plain, */*",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache",
+        "Host": "cmp.wildberries.ru",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Referer": "https://cmp.wildberries.ru/",
+        "Cookie": f"x-supplier-id-external={supplier_id}",
+    }
+    json3 = {"token": wb_token_temp2, "device": "Macintosh, Chrome 104.0"}
+    resp3 = None
+    for i in range(3):
+        try:
+            resp3 = requests.post(
+                url3,
+                cookies=cookies3,
+                headers=headers3,
+                json=json3,
+                timeout=3.0,
+            )
+            break
+        except Exception as err:
+            # print(err)
+            pass
+    if not resp3:
+        return
+    coken = resp3.cookies.get("WBToken")
+    with open("./wb_token.txt", 'w') as wb_token:
+        print(coken, file=wb_token)
+    response_status_code = resp.status_code
+    response0_status_code = resp0.status_code
+    response1_status_code = resp1.status_code
+    response2_status_code = resp2.status_code
+    response3_status_code = resp3.status_code
+
+    return coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code
+
+
+if __name__ == '__main__':
+    coken, response_status_code = update_wb_token()
+    print(response_status_code)
+
+
+
 # resp = BaseCase().update_token()
 # print(resp.status_code, resp.text)
 
