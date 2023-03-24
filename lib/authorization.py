@@ -256,10 +256,10 @@ class Authorization:
         return coken, resp1, resp2, resp3
 
 
-
-# coken, res1, res2, resp3 = Authorization().get_new_wb_token_by_wb_token_and_supplier_id(wb_token=wb_token,
-#                                                                                         supplier_id=settings.supplier_id)
-# print(res1.status_code)
-# print(res2.status_code)
-# print(resp3.status_code)
-# print(coken)
+if __name__ == '__main__':
+    coken, res1, res2, resp3 = Authorization().get_new_wb_token_by_wb_token_and_supplier_id(wb_token=settings.wb_token,
+                                                                                            supplier_id=settings.supplier_id)
+    print(res1.status_code)
+    print(res2.status_code)
+    print(resp3.status_code)
+    print(coken)
