@@ -293,7 +293,5 @@ class TestAdvertisingCabinet:
         assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
 
 
-
-                  
-                  
-                  
+    # def test_update_token_stat(self):
+    #     pass

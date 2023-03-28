@@ -1,2 +1,3 @@
 python -m pytest -s -q --tb=line --alluredir=/tmp/my_allure_results tests/backend/test_internal_analytics.py
+python -m pytest -s -q --tb=line --alluredir=/tmp/my_allure_results tests/backend/test_advertising_cabinet.py
 python -m pytest -s -q --tb=line tests/backend/test_authorization.py
