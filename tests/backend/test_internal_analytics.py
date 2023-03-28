@@ -13,7 +13,6 @@ class TestInternalAnalytics:
     # Получить список заказов
     def test_get_order_list(self, get_id_from_token):
         response_status_code, ids = get_id_from_token
-        print(ids)
         response = send_request(method='post',
                                 url='https://api.marketpapa.ru/api/internal-analytics/orders/',
                                 data=json.dumps({

@@ -138,4 +138,162 @@ class TestAdvertisingCabinet:
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/compare_card_prices/3499821/')
         assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
 
+    def test_keyword_hint(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/keyword_hint/?keyword=%D0%BA%D0%B0%D0%B1%D0%BB%D1%83%D0%BA%D0%B8&product_id=51358326')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
 
+    def test_adv_products(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/adv_products?token_id=1')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_update_company(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/update_company/3499821')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        response1 = send_request(method='post',
+                                 url='https://api.marketpapa.ru/api/advertising-cabinet/update_company/',
+                                 data=json.dumps({
+                                     "max_price": 500,
+                                     "manage_type_max_price": 0,
+                                     "manage_type_same_price": 0,
+                                     "daily_budget": 1000,
+                                     "intervals": [],
+                                     "manage_type": 0,
+                                     "target_place": "3",
+                                     "company_id": 3499821,
+                                     "city": 1,
+                                     "keyword": [
+                                         {
+                                             "keyword": "брюки",
+                                             "is_master": True
+                                         },
+                                         {
+                                             "keyword": "еда",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "картошка",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "брюки женские",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "манты",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "ложка",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "кофта",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "капюшон",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "шоколад",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "батарейка",
+                                             "is_master": False
+                                         },
+                                         {
+                                             "keyword": "брюки женские утепленные",
+                                             "is_master": False
+                                         }
+                                     ]
+                                 }))
+        assert response1.status_code == 201, f'Wrong response code! - {response1.status_code}'
+
+    def test_enable_company(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/enable_company/3499821/')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        response1 = send_request(method='get',
+                                 url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/3499821/')
+        assert response1.status_code == 200, f'Wrong response code! - {response1.status_code}'
+        jsondata = response1.json()
+        assert jsondata['status'] == 'OK', f'Wrong status! - {jsondata["status"]}'
+
+    def test_expenses(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/expenses?company_id=3499821')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_get_copy_companies(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/get_copy_companies/?token_id=1')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_extended_stat_by_date(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_date/3499821/?sales=1')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_update_search_stat(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/update_search_stat/3499821')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_extended_stat_by_product(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_product/3499821/')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_extended_stat_by_app(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_app/3499821/')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_full_product_stat(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/full_product_stat?token_id=1')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_create_company(self):
+        response = send_request(method='post',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/create_company?token_id=1',
+                                data=json.dumps({
+                                    "company_type": "search",
+                                    "data": {
+                                        "campaignName": "тест создание",
+                                        "groups": [
+                                            {
+                                                "nms": [
+                                                    51349857
+                                                ],
+                                                "key_word": "Брюки"
+                                            }
+                                        ]
+                                    }
+                                }))
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_tg_accounts(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/tg_accounts')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_new_supplier_products(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/new_supplier_products?token_id=1&subject_id=11&type=search')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+
+    def test_new_tg_link(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/new_tg_link')
+        assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
+
+
+
+                  
+                  
+                  

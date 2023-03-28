@@ -2,7 +2,7 @@ import json
 import requests
 
 
-def send_request(method, url, data=None, json=None, headers=None):
+def send_request(method, url, data=None, json=None, headers=None, files=None):
     with open('../wb_token.txt', 'r') as wb_token_from_file:
         wb_token = str(wb_token_from_file.readline().rstrip('\n'))
         wb_token_from_file.close()
@@ -30,7 +30,7 @@ def send_request(method, url, data=None, json=None, headers=None):
         response = requests.put(url=url, headers=headers, data=data)
         return response
     if method == "post":
-        response = requests.post(url=url, headers=headers, data=data)
+        response = requests.post(url=url, headers=headers, data=data,files=files)
         return response
 
 
