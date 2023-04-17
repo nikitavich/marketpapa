@@ -25,6 +25,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
     url = url
     if method == "get":
         response = requests.get(url=url, headers=headers)
+        print(response.text)
         return response
     if method == "put":
         response = requests.put(url=url, headers=headers, data=data)
