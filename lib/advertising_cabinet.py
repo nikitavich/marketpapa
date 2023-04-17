@@ -1,4 +1,6 @@
 import json
+import time
+
 import requests
 
 
@@ -23,20 +25,36 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
             'TE': 'trailers'
         }
     url = url
-    if method == "get":
-        response = requests.get(url=url, headers=headers)
-        return response
-    if method == "put":
-        response = requests.put(url=url, headers=headers, data=data)
-        return response
-    if method == "post":
-        response = requests.post(url=url, headers=headers, data=data,files=files)
-        return response
+    count = 0
+    while count < 5:
+        if method == "get":
+            response = requests.get(url=url, headers=headers)
+            if response.status_code == '502':
+                count += 1
+                time.sleep(3)
+                continue
+            return response
+        if method == "put":
+            response = requests.put(url=url, headers=headers, data=data)
+            if response.status_code == '502':
+                count += 1
+                time.sleep(3)
+                continue
+            return response
+        if method == "post":
+            response = requests.post(url=url, headers=headers, data=data, files=files)
+            if response.status_code == '502':
+                count += 1
+                time.sleep(3)
+                continue
+            return response
+    else:
+        raise TimeoutError
 
 
 if __name__ == '__main__':
     response = send_request(method='get',
-                            url='https://api.marketpapa.ru/api/advertising-cabinet/company_keywords/3499821/'
+                            url='https://api.marketpapa.ru/api/advertising-cabinet/excluded_keywords/3499821/'
                             )
     print(response.status_code)
     print(response.text)

@@ -17,3 +17,6 @@ class TestAuthorization:
         assert res1.status_code == 200, f'Wrong status code, {res1.status_code}'
         assert res2.status_code == 200, f'Wrong status code, {res2.status_code}'
         assert resp3.status_code == 200, f'Wrong status code, {resp3.status_code}'
+
+
+
