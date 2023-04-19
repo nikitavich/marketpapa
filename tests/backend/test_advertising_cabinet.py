@@ -1,5 +1,6 @@
 import json
 from lib.advertising_cabinet import send_request
+from lib.base_case import get_id_test_companies, delete_test_companies
 
 
 class TestAdvertisingCabinet:
@@ -292,6 +293,5 @@ class TestAdvertisingCabinet:
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/new_tg_link')
         assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
 
-
-    # def test_update_token_stat(self):
-    #     pass
+    def test_delete_companies(self):
+        delete_test_companies(get_id_test_companies())

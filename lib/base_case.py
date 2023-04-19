@@ -1,3 +1,4 @@
+import json
 import pickle
 import random
 import string
@@ -602,12 +603,70 @@ def update_wb_token():
     return coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code
 
 
+def get_id_test_companies():
+    url = "https://cmp.wildberries.ru/backend/api/v3/atrevds?pageNumber=1&pageSize=10&search=%D1%82%D0%B5%D1%81%D1%82%20%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5&status=%5B0,11,1,15,2,4,9,3,14,16,6,17,5,10,13,12,7,8%5D&order=createDate&direction=desc&type=%5B2,3,4,5,6,7%5D"
+
+    payload = {}
+    headers = {
+        'Accept': 'application/json',
+        'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+        'Cache-control': 'no-store',
+        'Connection': 'keep-alive',
+        'Content-Type': 'application/json',
+        'Cookie': 'BasketUID=f7e8c013-b7fe-490f-8076-ecb314ba2554; _wbauid=9825255681680533850; ___wbu=e6679407-4b0e-4619-bc9b-26e50e496663.1680533859; x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QPol-vDDOj1n8QMMp9z9heDaP4bC3HiU5C4sTw7afVAHsdWueUscdHECGYz-hlinz6x_FIxmViZ5eYuCoNs; ___wbs=9d58cb3a-0b58-4a65-97f3-b96d8809a765.1681899798',
+        'Referer': 'https://cmp.wildberries.ru/campaigns/list/all',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+        'X-User-Id': '8082795',
+        'sec-ch-ua': '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"'
+    }
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    dict = json.loads(response.text)
+    list_of_companies = []
+    for item in dict['content']:
+        if item['campaignName'] == 'тест создание':
+            list_of_companies.append(item['id'])
+    return list_of_companies
+
+
+def delete_test_companies(func):
+    if func:
+        for company_id in func:
+            url = f"https://cmp.wildberries.ru/backend/api/v1/atrevd/{company_id}/to-delete"
+            payload = {}
+            headers = {
+                'Accept': 'application/json',
+                'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                'Cache-control': 'no-store',
+                'Connection': 'keep-alive',
+                'Content-Length': '0',
+                'Content-Type': 'application/json',
+                'Cookie': 'BasketUID=f7e8c013-b7fe-490f-8076-ecb314ba2554; _wbauid=9825255681680533850; ___wbu=e6679407-4b0e-4619-bc9b-26e50e496663.1680533859; x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QPol-vDDOj1n8QMMp9z9heDaP4bC3HiU5C4sTw7afVAHsdWueUscdHECGYz-hlinz6x_FIxmViZ5eYuCoNs; ___wbs=9d58cb3a-0b58-4a65-97f3-b96d8809a765.1681899798',
+                'Origin': 'https://cmp.wildberries.ru',
+                'Referer': 'https://cmp.wildberries.ru/campaigns/list/all',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'same-origin',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+                'X-User-Id': '8082795',
+                'sec-ch-ua': '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"Windows"'
+            }
+
+            response = requests.request("PUT", url, headers=headers, data=payload)
+            return response.status_code
+
+
 if __name__ == '__main__':
-    coken, response_status_code = update_wb_token()
-    print(response_status_code)
-
-
-
+    print(delete_test_companies(get_id_test_companies()))
+    # print(get_id_test_companies())
 # resp = BaseCase().update_token()
 # print(resp.status_code, resp.text)
 

@@ -29,21 +29,21 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
     while count < 5:
         if method == "get":
             response = requests.get(url=url, headers=headers)
-            if response.status_code == '502':
+            if response.status_code == ['502', '500']:
                 count += 1
                 time.sleep(3)
                 continue
             return response
         if method == "put":
             response = requests.put(url=url, headers=headers, data=data)
-            if response.status_code == '502':
+            if response.status_code == ['502', '500']:
                 count += 1
                 time.sleep(3)
                 continue
             return response
         if method == "post":
             response = requests.post(url=url, headers=headers, data=data, files=files)
-            if response.status_code == '502':
+            if response.status_code == ['502', '500']:
                 count += 1
                 time.sleep(3)
                 continue
