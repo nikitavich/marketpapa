@@ -54,7 +54,9 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
 
 if __name__ == '__main__':
     response = send_request(method='get',
-                            url='https://api.marketpapa.ru/api/advertising-cabinet/excluded_keywords/3499821/'
-                            )
+                            url='https://api.marketpapa.ru/api/advertising-cabinet/excluded_keywords/3499821/')
+    assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+    jsondata = response.json()
+    # assert jsondata["result"][0] == 'одежда'
     print(response.status_code)
     print(response.text)

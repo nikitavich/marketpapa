@@ -1,4 +1,6 @@
 import json
+import time
+
 from lib.advertising_cabinet import send_request
 from lib.base_case import get_id_test_companies, delete_test_companies
 
@@ -293,5 +295,14 @@ class TestAdvertisingCabinet:
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/new_tg_link')
         assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
 
+    def test_keyword_hint_full(self):
+        response = send_request(method='get',
+                                url='https://api.marketpapa.ru/api/keyword_hint_full?keyword=%D0%B1%D1%80%D1%8E%D0%BA%D0%B8')
+        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        jsondata = json.loads(response.text)
+        print(jsondata)
+        assert jsondata['rows'], "Пустой ответ по keyword_hint_full"
+
     def test_delete_companies(self):
-        delete_test_companies(get_id_test_companies())
+        time.sleep(10)
+        print(delete_test_companies(get_id_test_companies()))
