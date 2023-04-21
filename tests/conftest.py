@@ -38,7 +38,7 @@ def driver():
 @pytest.fixture()
 def add_cookies_for_auth(driver):
     driver.get("https://dev.marketpapa.ru/news")
-    for cookie in pickle.load(open("../lib/cookies.pkl", "rb")):
+    for cookie in pickle.load(open("smoke/cookies.pkl", "rb")):
         driver.add_cookie(cookie)
     time.sleep(5)
     driver.refresh()

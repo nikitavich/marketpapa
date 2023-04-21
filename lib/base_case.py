@@ -384,15 +384,15 @@ class BaseCase:
         options.add_experimental_option("detach", True)
         driver = webdriver.Chrome(options=options, executable_path="path/to/executable")
         driver.maximize_window()
-        driver.get("https://dev.marketpapa.ru/login")
-        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Номер телефона']").send_keys("+79877120164")
-        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Пароль']").send_keys("q1w2e3r4t5y6")
-        driver.find_element(By.CSS_SELECTOR, ".sc-bBHxTw.jqrcgG").click()
+        driver.get('https://marketpapa.ru/login')
+        driver.find_element(By.NAME, 'phone').send_keys('+79877120164')
+        driver.find_element(By.NAME, 'password').send_keys('q1w2e3r4t5y6')
+        driver.find_element(By.XPATH, "//span[@class='sc-iJnaPW izGUBw']").click()
         time.sleep(5)
-        pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
+        pickle.dump(driver.get_cookies(), open("../tests/smoke/cookies.pkl", "wb"))
 
     def add_cookie_to_chrome(self, driver):
-        driver.get("https://dev.marketpapa.ru/news")
+        driver.get("https://marketpapa.ru/news")
         time.sleep(1)
         for cookie in pickle.load(open("cookies.pkl", "rb")):
             driver.add_cookie(cookie)
@@ -665,12 +665,4 @@ def delete_test_companies(func):
 
 
 if __name__ == '__main__':
-    print(delete_test_companies(get_id_test_companies()))
-    # print(get_id_test_companies())
-# resp = BaseCase().update_token()
-# print(resp.status_code, resp.text)
-
-# Проверка обновления токена
-# coken, response_status_code, response0_status_code, response1_status_code, response2_status_code, response3_status_code = BaseCase().get_new_wb_token_by_wild_auth_new_and_supplier_id()
-# print(coken, response_status_code, response0_status_code, response1_status_code, response2_status_code,
-#       response3_status_code)
+    BaseCase().save_cookies()

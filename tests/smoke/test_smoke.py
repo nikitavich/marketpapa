@@ -1,5 +1,5 @@
 import time
-
+from lib.base_case import BaseCase
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
@@ -12,3 +12,94 @@ class TestSmoke:
         driver.find_element(By.XPATH, "//span[@class='sc-iJnaPW izGUBw']").click()
         time.sleep(3)
         assert driver.current_url == "https://marketpapa.ru/find", "Не работает авторизация"
+
+    def test_actual_rates(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.get("https://marketpapa.ru/rates")
+        driver.find_element(By.XPATH, "//input[@placeholder='Введите фразу']").send_keys("шапка")
+        driver.find_element(By.XPATH, "//input[@placeholder='Введите артикул']").send_keys("16530207", Keys.RETURN)
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-stat')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-compare')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-frequency-month')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-frequency-day')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-delivery-time')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-category')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-your-product')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'rate-city-tab')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'rate-page')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'table-master-phrase-rates')]")
+
+    def test_monitoring_positions(self, driver):
+        pass
+
+    def test_list_of_advertising_campaigns(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.get("https://marketpapa.ru/ad_cabinet/1/campaigns?name=%D0%9D%D0%B0%D1%88%20%D0%9A%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'cabinet-dropdown')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'table-campaigns')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'centered-button')]")
+
+    def test_advertising_campaign_search(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.get("https://marketpapa.ru/ad_cabinet_view/1/3499821?category_name=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA")
+        assert driver.find_element(By.XPATH, "//a[contains(@data-test,'campaign-header-link-wb')]")
+        assert driver.find_element(By.XPATH, "//span[contains(@data-test,'campaign-name')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-status')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-daily-limit')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-header-interval')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-info')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-type')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-supplier-name')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-id-link')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-id')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-subject-id')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-subject-name')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-delivery-time')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-total-budget')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-stat')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-frequency-month')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-delivery-time')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-category')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-compare')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-your-product')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-phrase-delivery-time')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-value')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-your-delivery-time')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-value')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-phrase-priority-category')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-id')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-value')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-your-priority-category')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-id')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-value')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'compare-value')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'master-phrase-chance')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'rate-city-tabs')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'rate-pages')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'table-master-phrase-rates')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'upload-phrase')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'download-phrase')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-search-phrase')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-plus-phrase')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-plus-phrase-count')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-minus-phrase')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-manage-all-phrase')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-manage-plus-phrase')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-manage-plus-phrase-count')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-manage-minus-phrase')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'ctr-views')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'ctr-ctr')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'ctr-cpc')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'ctr-confirm')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'ctr-cancel')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'campaign-stat')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'stat-wb-link')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'stat-date')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'stat-update')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'stat-tabs')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'btn-export')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'table-stat-by-date')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'btn-save-campaign')]")
+        assert driver.find_element(By.XPATH, "//div[contains(@data-test,'btn-manage-campaign')]")
+
+
