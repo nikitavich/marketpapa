@@ -303,5 +303,4 @@ class TestAdvertisingCabinet:
         assert jsondata['rows'], "Пустой ответ по keyword_hint_full"
 
     def test_delete_companies(self):
-        time.sleep(10)
-        delete_test_companies(get_id_test_companies())
+        delete_test_companies()

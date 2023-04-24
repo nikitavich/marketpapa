@@ -613,20 +613,20 @@ def get_id_test_companies():
         'Cache-control': 'no-store',
         'Connection': 'keep-alive',
         'Content-Type': 'application/json',
-        'Cookie': 'BasketUID=f7e8c013-b7fe-490f-8076-ecb314ba2554; _wbauid=9825255681680533850; ___wbu=e6679407-4b0e-4619-bc9b-26e50e496663.1680533859; x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QPol-vDDOj1n8QMMp9z9heDaP4bC3HiU5C4sTw7afVAHsdWueUscdHECGYz-hlinz6x_FIxmViZ5eYuCoNs; ___wbs=9d58cb3a-0b58-4a65-97f3-b96d8809a765.1681899798',
-        'Referer': 'https://cmp.wildberries.ru/campaigns/list/all',
+        'Cookie': 'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QOQz6vEDJCt4MQMMtj9zbdBXsHyjUmZ0442VaeoyNpNW5ZDTV7uxEWynuWmCbGD9LqQEtRZGQMOFrW08PwF',
+        'Referer': 'https://cmp.wildberries.ru/campaigns/list/active',
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
         'X-User-Id': '8082795',
         'sec-ch-ua': '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
         'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"'
+        'sec-ch-ua-platform': '"macOS"'
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
-
+    print(response.status_code)
     dict = json.loads(response.text)
     list_of_companies = []
     for item in dict['content']:
@@ -635,7 +635,8 @@ def get_id_test_companies():
     return list_of_companies
 
 
-def delete_test_companies(func):
+def delete_test_companies():
+    func = get_id_test_companies()
     if func:
         for company_id in func:
             url = f"https://cmp.wildberries.ru/backend/api/v1/atrevd/{company_id}/to-delete"
@@ -647,22 +648,23 @@ def delete_test_companies(func):
                 'Connection': 'keep-alive',
                 'Content-Length': '0',
                 'Content-Type': 'application/json',
-                'Cookie': 'BasketUID=f7e8c013-b7fe-490f-8076-ecb314ba2554; _wbauid=9825255681680533850; ___wbu=e6679407-4b0e-4619-bc9b-26e50e496663.1680533859; x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QPol-vDDOj1n8QMMp9z9heDaP4bC3HiU5C4sTw7afVAHsdWueUscdHECGYz-hlinz6x_FIxmViZ5eYuCoNs; ___wbs=9d58cb3a-0b58-4a65-97f3-b96d8809a765.1681899798',
+                'Cookie': 'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QOQz6vEDJCt4MQMMtj9zbdBXsHyjUmZ0442VaeoyNpNW5ZDTV7uxEWynuWmCbGD9LqQEtRZGQMOFrW08PwF',
                 'Origin': 'https://cmp.wildberries.ru',
-                'Referer': 'https://cmp.wildberries.ru/campaigns/list/all',
+                'Referer': 'https://cmp.wildberries.ru/campaigns/list/active',
                 'Sec-Fetch-Dest': 'empty',
                 'Sec-Fetch-Mode': 'cors',
                 'Sec-Fetch-Site': 'same-origin',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
                 'X-User-Id': '8082795',
                 'sec-ch-ua': '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
                 'sec-ch-ua-mobile': '?0',
-                'sec-ch-ua-platform': '"Windows"'
+                'sec-ch-ua-platform': '"macOS"'
             }
 
             response = requests.request("PUT", url, headers=headers, data=payload)
-            return response.status_code
+        return response.status_code
 
 
 if __name__ == '__main__':
-    BaseCase().save_cookies()
+    print(get_id_test_companies())
+
