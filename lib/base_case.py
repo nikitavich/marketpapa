@@ -636,6 +636,7 @@ def get_id_test_companies():
 
 
 def delete_test_companies():
+    time.sleep(3)
     func = get_id_test_companies()
     if func:
         for company_id in func:
