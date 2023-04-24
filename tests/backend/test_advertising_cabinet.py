@@ -1,8 +1,7 @@
 import json
-import time
 
 from lib.advertising_cabinet import send_request
-from lib.base_case import get_id_test_companies, delete_test_companies
+from lib.base_case import delete_test_companies
 
 
 class TestAdvertisingCabinet:
