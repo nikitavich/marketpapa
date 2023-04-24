@@ -27,29 +27,30 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
     url = url
     count = 0
     while count < 5:
+        print("Попытка номер: " + str(count))
         if method == "get":
             response = requests.get(url=url, headers=headers)
-            if response.status_code == ['502', '500']:
+            if response.status_code in [502, 500]:
                 count += 1
-                time.sleep(3)
+                time.sleep(1)
                 continue
             return response
         if method == "put":
             response = requests.put(url=url, headers=headers, data=data)
-            if response.status_code == ['502', '500']:
+            if response.status_code in [502, 500]:
                 count += 1
-                time.sleep(3)
+                time.sleep(1)
                 continue
             return response
         if method == "post":
             response = requests.post(url=url, headers=headers, data=data, files=files)
-            if response.status_code == ['502', '500']:
+            if response.status_code in [502, 500]:
                 count += 1
-                time.sleep(3)
+                time.sleep(1)
                 continue
             return response
     else:
-        raise TimeoutError
+        return response
 
 
 if __name__ == '__main__':
