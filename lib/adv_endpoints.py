@@ -21,7 +21,7 @@ class AdvEndpoints:
         5: "https://cmp.wildberries.ru/finance/upd"}
 
     def send_request(self, method, url, referer, data=None, json=None):
-        with open('../wb_token.txt', 'r') as wb_token_from_file:
+        with open('../tests/backend/wb_token.txt', 'r') as wb_token_from_file:
             wb_token = str(wb_token_from_file.readline().rstrip('\n'))
             wb_token_from_file.close()
         url = url
@@ -340,7 +340,7 @@ class AdvEndpoints:
         return response
 
     def __try_request(self, method, url, referer, data=None, json=None):
-        with open('../wb_token.txt', 'r') as wb_token_from_file:
+        with open('../tests/backend/wb_token.txt', 'r') as wb_token_from_file:
             wb_token = str(wb_token_from_file.readline().rstrip('\n'))
             wb_token_from_file.close()
         cookies = {"WBToken": wb_token, "x-supplier-id-external": settings.supplier_id}

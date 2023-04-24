@@ -5,7 +5,7 @@ import requests
 
 
 def send_request(method, url, data=None, json=None, headers=None, files=None):
-    with open('../wb_token.txt', 'r') as wb_token_from_file:
+    with open('wb_token.txt', 'r') as wb_token_from_file:
         wb_token = str(wb_token_from_file.readline().rstrip('\n'))
         wb_token_from_file.close()
     if headers is None:
@@ -27,7 +27,6 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
     url = url
     count = 0
     while count < 5:
-        print("Попытка номер: " + str(count))
         if method == "get":
             response = requests.get(url=url, headers=headers)
             if response.status_code in [502, 500]:
