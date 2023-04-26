@@ -417,6 +417,7 @@ class TestInternalAnalytics:
     # Отправить себестоимость
     def test_send_cost_price(self, get_id_from_token):
         response_status_code, ids = get_id_from_token
+        print(ids)
         response = send_request(method='put',
                                 url='https://api.marketpapa.ru/api/internal-analytics/product/send-cost-price/',
                                 data=json.dumps({
@@ -425,12 +426,14 @@ class TestInternalAnalytics:
                                     ],
                                     "items": [
                                         {
-                                            "nmId": 25629612,
-                                            "costPrice": 20,
-                                            "api_key_id": 15625
+                                            "nmId": 45242007,
+                                            "costPrice": 1200,
+                                            "api_key_id": 20352
                                         }
                                     ]
                                 }))
+        print(response.status_code)
+        print(response.text)
         assert response.status_code == 202, f'Wrong response code! - {response.status_code}'
 
     # самовыкуп для товара
@@ -450,4 +453,3 @@ class TestInternalAnalytics:
                                     ]
                                 }))
         assert response.status_code == 202, f'Wrong response code! - {response.status_code}'
-
