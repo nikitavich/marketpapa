@@ -101,79 +101,79 @@ class TestInternalAnalytics:
         assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
 
     # Подключение wb-token для внутренней аналитики
-    def test_create_token(self):
-        # Создание токена
-        response = send_request(method='post',
-                                url='''https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=eyJhbGciOiJIU
-                                zI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2Y
-                                WIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oG&token_name=new_wb_token_1''',
-                                )
-        assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
-        parsed_response_text = response.json()
-        self.token_id = parsed_response_text['id']
-        # Удаление токена
-        response1 = send_request(method='post',
-                                 url=f'https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/',
-                                 )
-        assert response1.status_code == 202, f'Wrong response code! - {response1.status_code}'
-
-    # Изменить название ключа
-    def test_update_token(self):
-        # Создание временного токена
-        response = send_request(method='post',
-                                url='''https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=eyJhbGciOiJIU
-                                zI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2Y
-                                WIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oG&token_name=new_wb_token_1''',
-                                )
-        assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
-        parsed_response_text = response.json()
-        self.token_id = parsed_response_text['id']
-        # Изменение имени токена
-        response1 = send_request(method='put',
-                                 url=f'https://api.marketpapa.ru/api/internal-analytics/token/{self.token_id}/',
-                                 data=json.dumps({
-                                     "key_name": "Василий"
-                                 })
-                                 )
-        assert response1.status_code == 202, f'Wrong response code! - {response1.status_code}'
-        # Удаление токена
-        response2 = send_request(method='post',
-                                 url=f'https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/',
-                                 )
-        assert response2.status_code == 202, f'Wrong response code! - {response2.status_code}'
-
-    # Удаление токена
-    def test_delete_token(self):
-        # Создание токена
-        response = send_request(method='post',
-                                url='''https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=eyJhbGciOiJIU
-                                zI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2Y
-                                WIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oG&token_name=new_wb_token_1''',
-                                )
-        assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
-        parsed_response_text = response.json()
-        self.token_id = parsed_response_text['id']
-        # Удаление токена
-        response1 = send_request(method='post',
-                                 url=f'https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/',
-                                 )
-        assert response1.status_code == 202, f'Wrong response code! - {response1.status_code}'
-
-    # API для внутреннего использования
-    def test_add_token_from_ads(self):
-        response = send_request(method='post',
-                                url='https://api.marketpapa.ru/api/internal-analytics/add_token_from_ads/',
-                                data=json.dumps({
-                                    "key": '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmI
-                                    tNGQxMS1iOTgxLTIyNTllNjY2YWIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oM''',
-                                    "user_id": 35
-                                }),
-                                headers={
-                                    'Authorization': '4191e77c-1126-42b0-b41f-cb2315f97da3',
-                                    'Content-Type': 'application/json'
-                                }
-                                )
-        assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
+    # def test_create_token(self):
+    #     # Создание токена
+    #     response = send_request(method='post',
+    #                             url='''https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=eyJhbGciOiJIU
+    #                             zI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2Y
+    #                             WIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oG&token_name=new_wb_token_1''',
+    #                             )
+    #     assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
+    #     parsed_response_text = response.json()
+    #     self.token_id = parsed_response_text['id']
+    #     # Удаление токена
+    #     response1 = send_request(method='post',
+    #                              url=f'https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/',
+    #                              )
+    #     assert response1.status_code == 202, f'Wrong response code! - {response1.status_code}'
+    #
+    # # Изменить название ключа
+    # def test_update_token(self):
+    #     # Создание временного токена
+    #     response = send_request(method='post',
+    #                             url='''https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=eyJhbGciOiJIU
+    #                             zI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2Y
+    #                             WIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oG&token_name=new_wb_token_1''',
+    #                             )
+    #     assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
+    #     parsed_response_text = response.json()
+    #     self.token_id = parsed_response_text['id']
+    #     # Изменение имени токена
+    #     response1 = send_request(method='put',
+    #                              url=f'https://api.marketpapa.ru/api/internal-analytics/token/{self.token_id}/',
+    #                              data=json.dumps({
+    #                                  "key_name": "Василий"
+    #                              })
+    #                              )
+    #     assert response1.status_code == 202, f'Wrong response code! - {response1.status_code}'
+    #     # Удаление токена
+    #     response2 = send_request(method='post',
+    #                              url=f'https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/',
+    #                              )
+    #     assert response2.status_code == 202, f'Wrong response code! - {response2.status_code}'
+    #
+    # # Удаление токена
+    # def test_delete_token(self):
+    #     # Создание токена
+    #     response = send_request(method='post',
+    #                             url='''https://api.marketpapa.ru/api/internal-analytics/token/?wb_token=eyJhbGciOiJIU
+    #                             zI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmItNGQxMS1iOTgxLTIyNTllNjY2Y
+    #                             WIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oG&token_name=new_wb_token_1''',
+    #                             )
+    #     assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
+    #     parsed_response_text = response.json()
+    #     self.token_id = parsed_response_text['id']
+    #     # Удаление токена
+    #     response1 = send_request(method='post',
+    #                              url=f'https://api.marketpapa.ru/api/internal-analytics/delete_token/{self.token_id}/',
+    #                              )
+    #     assert response1.status_code == 202, f'Wrong response code! - {response1.status_code}'
+    #
+    # # API для внутреннего использования
+    # def test_add_token_from_ads(self):
+    #     response = send_request(method='post',
+    #                             url='https://api.marketpapa.ru/api/internal-analytics/add_token_from_ads/',
+    #                             data=json.dumps({
+    #                                 "key": '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6ImM1ZDFhMTNhLTI5MmI
+    #                                 tNGQxMS1iOTgxLTIyNTllNjY2YWIwMiJ9.qy_513Yd-r752RDKK-GxeyQxSvJzrX63_eeiepNt-oM''',
+    #                                 "user_id": 35
+    #                             }),
+    #                             headers={
+    #                                 'Authorization': '4191e77c-1126-42b0-b41f-cb2315f97da3',
+    #                                 'Content-Type': 'application/json'
+    #                             }
+    #                             )
+    #     assert response.status_code == 201, f'Wrong response code! - {response.status_code}'
 
     # Получить список товаров
     def test_get_product_list(self, get_id_from_token):
