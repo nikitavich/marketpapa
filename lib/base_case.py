@@ -3,10 +3,14 @@ import pickle
 import random
 import string
 import time
+import psycopg2
+import datetime
+import jwt
 
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from pathlib import Path
 
 import settings
 
@@ -612,8 +616,10 @@ def get_id_test_companies():
         'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
         'Cache-control': 'no-store',
         'Connection': 'keep-alive',
+        'Content-Length': '0',
         'Content-Type': 'application/json',
-        'Cookie': 'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QOQz6vEDJCt4MQMMtj9zbdBXsHyjUmZ0442VaeoyNpNW5ZDTV7uxEWynuWmCbGD9LqQEtRZGQMOFrW08PwF',
+        'Cookie': 'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QPg7InFDODKvsUMMku0Z410UOgD1-yS1DjvUUlZn4PrL443J1gMV0kpOnqiBAPdnlWv-65ABrYqddsqmk-m',
+        'Origin': 'https://cmp.wildberries.ru',
         'Referer': 'https://cmp.wildberries.ru/campaigns/list/active',
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
@@ -649,7 +655,7 @@ def delete_test_companies():
                 'Connection': 'keep-alive',
                 'Content-Length': '0',
                 'Content-Type': 'application/json',
-                'Cookie': 'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QOQz6vEDJCt4MQMMtj9zbdBXsHyjUmZ0442VaeoyNpNW5ZDTV7uxEWynuWmCbGD9LqQEtRZGQMOFrW08PwF',
+                'Cookie': 'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QPg7InFDODKvsUMMku0Z410UOgD1-yS1DjvUUlZn4PrL443J1gMV0kpOnqiBAPdnlWv-65ABrYqddsqmk-m',
                 'Origin': 'https://cmp.wildberries.ru',
                 'Referer': 'https://cmp.wildberries.ru/campaigns/list/active',
                 'Sec-Fetch-Dest': 'empty',
@@ -663,9 +669,24 @@ def delete_test_companies():
             }
 
             response = requests.request("PUT", url, headers=headers, data=payload)
+            print(response.text)
         return response.status_code
 
 
-if __name__ == '__main__':
-    print(get_id_test_companies())
+def update_wb_token1():
+    dt = datetime.datetime.now() + datetime.timedelta(days=30)
 
+    token = jwt.encode({
+        'id': 35,
+        'exp': int(dt.strftime('%s'))
+    }, 'django-insecure-^w2dn__h@(%+(y%wm@qa=a$_j@zf1rkm7_6)!(bl4csb1*933o', algorithm='HS256')
+    token.encode('utf-8')
+    with open('./wb_token.txt', 'w') as file:
+        file.write(token)
+
+
+
+
+
+if __name__ == '__main__':
+    update_wb_token1()

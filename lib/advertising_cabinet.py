@@ -1,5 +1,6 @@
 import json
 import time
+from lib.base_case import update_wb_token1
 
 import requests
 
@@ -33,6 +34,13 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 count += 1
                 time.sleep(1)
                 continue
+            if response.status_code in [403]:
+                update_wb_token1()
+                return "Статус код 403!"
+            if response.status_code in [429]:
+                count += 1
+                time.sleep(1)
+                continue
             return response
         if method == "put":
             response = requests.put(url=url, headers=headers, data=data)
@@ -40,10 +48,24 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 count += 1
                 time.sleep(1)
                 continue
+            if response.status_code in [403]:
+                update_wb_token1()
+                return "Статус код 403!"
+            if response.status_code in [429]:
+                count += 1
+                time.sleep(1)
+                continue
             return response
         if method == "post":
             response = requests.post(url=url, headers=headers, data=data, files=files)
             if response.status_code in [502, 500]:
+                count += 1
+                time.sleep(1)
+                continue
+            if response.status_code in [403]:
+                update_wb_token1()
+                return "Статус код 403!"
+            if response.status_code in [429]:
                 count += 1
                 time.sleep(1)
                 continue

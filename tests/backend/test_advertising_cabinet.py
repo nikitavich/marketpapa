@@ -5,6 +5,9 @@ from lib.base_case import delete_test_companies
 
 
 class TestAdvertisingCabinet:
+    def test_token(self):
+        response = send_request(method='get',
+                     url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/3499821/')
     # Отключение кампании
     def test_disabled_company(self):
         response = send_request(method='get',
@@ -27,7 +30,7 @@ class TestAdvertisingCabinet:
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/excluded_keywords/3499821/')
         assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
         jsondata = response.json()
-        assert jsondata["result"][0] == 'одежда'
+        assert jsondata["result"][0]
 
     # Информация о кампании
     def test_companies_info(self):

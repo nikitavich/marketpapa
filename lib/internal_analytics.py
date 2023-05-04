@@ -1,9 +1,12 @@
 import json
+import time
 
 import requests
 
+from lib.base_case import update_wb_token1
 
-def send_request(method, url, data=None, json=None, headers=None):
+
+def send_request(method, url, data=None, json=None, headers=None, files=None):
     with open('wb_token.txt', 'r') as wb_token_from_file:
         wb_token = str(wb_token_from_file.readline().rstrip('\n'))
         wb_token_from_file.close()
@@ -24,15 +27,53 @@ def send_request(method, url, data=None, json=None, headers=None):
             'sec-fetch-site': 'same-site',
             'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
         }
+    print(headers)
     url = url
-    if method == "get":
-        response = requests.get(url=url, headers=headers)
-        return response
-    if method == "put":
-        response = requests.put(url=url, headers=headers, data=data)
-        return response
-    if method == "post":
-        response = requests.post(url=url, headers=headers, data=data)
+    count = 0
+    while count < 5:
+        if method == "get":
+            response = requests.get(url=url, headers=headers)
+            if response.status_code in [502, 500]:
+                count += 1
+                time.sleep(1)
+                continue
+            if response.status_code in [401]:
+                update_wb_token1()
+                return "Статус код 403!"
+            if response.status_code in [429]:
+                count += 1
+                time.sleep(1)
+                continue
+            return response
+        if method == "put":
+            response = requests.put(url=url, headers=headers, data=data)
+            if response.status_code in [502, 500]:
+                count += 1
+                time.sleep(1)
+                continue
+            if response.status_code in [401]:
+                update_wb_token1()
+                return "Статус код 403!"
+            if response.status_code in [429]:
+                count += 1
+                time.sleep(1)
+                continue
+            return response
+        if method == "post":
+            response = requests.post(url=url, headers=headers, data=data, files=files)
+            if response.status_code in [502, 500]:
+                count += 1
+                time.sleep(1)
+                continue
+            if response.status_code in [401]:
+                update_wb_token1()
+                return "Статус код 403!"
+            if response.status_code in [429]:
+                count += 1
+                time.sleep(1)
+                continue
+            return response
+    else:
         return response
 
 

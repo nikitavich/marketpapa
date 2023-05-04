@@ -3,6 +3,9 @@ from lib.internal_analytics import send_request
 
 
 class TestInternalAnalytics:
+    def test_token(self):
+        response = send_request(method='get',
+                     url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/3499821/')
 
     # Проверка получения ключей для авторизованного пользователя
     def test_get_token(self, get_id_from_token):
