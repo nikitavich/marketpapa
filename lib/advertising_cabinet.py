@@ -1,6 +1,8 @@
 import json
+import random
 import time
 from lib.base_case import update_wb_token1
+from lib.proxies import PROXIES
 
 import requests
 
@@ -28,8 +30,14 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
     url = url
     count = 0
     while count < 5:
+        proxy = random.choice(PROXIES)
         if method == "get":
-            response = requests.get(url=url, headers=headers)
+            try:
+                response = requests.get(url=url, headers=headers, proxies={"http": proxy, "https": proxy})
+            except requests.exceptions.ProxyError:
+                count += 1
+                time.sleep(1)
+                continue
             if response.status_code in [502, 500]:
                 count += 1
                 time.sleep(1)
@@ -43,7 +51,12 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 continue
             return response
         if method == "put":
-            response = requests.put(url=url, headers=headers, data=data)
+            try:
+                response = requests.put(url=url, headers=headers, data=data, proxies={"http": proxy, "https": proxy}, timeout=3)
+            except requests.exceptions.ProxyError:
+                count += 1
+                time.sleep(1)
+                continue
             if response.status_code in [502, 500]:
                 count += 1
                 time.sleep(1)
@@ -57,7 +70,12 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 continue
             return response
         if method == "post":
-            response = requests.post(url=url, headers=headers, data=data, files=files)
+            try:
+                response = requests.post(url=url, headers=headers, data=data, files=files, proxies={"http": proxy, "https": proxy}, timeout=3)
+            except requests.exceptions.ProxyError:
+                count += 1
+                time.sleep(1)
+                continue
             if response.status_code in [502, 500]:
                 count += 1
                 time.sleep(1)

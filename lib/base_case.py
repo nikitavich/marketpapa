@@ -13,6 +13,7 @@ from selenium.webdriver.common.by import By
 from pathlib import Path
 
 import settings
+from lib.proxies import PROXIES
 
 
 class BaseCase:
@@ -608,6 +609,7 @@ def update_wb_token():
 
 
 def get_id_test_companies():
+    global response
     url = "https://cmp.wildberries.ru/backend/api/v3/atrevds?pageNumber=1&pageSize=10&search=%D1%82%D0%B5%D1%81%D1%82%20%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5&status=%5B0,11,1,15,2,4,9,3,14,16,6,17,5,10,13,12,7,8%5D&order=createDate&direction=desc&type=%5B2,3,4,5,6,7%5D"
 
     payload = {}
@@ -630,19 +632,29 @@ def get_id_test_companies():
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"macOS"'
     }
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-    print(response.status_code)
+    count = 0
+    while count < 5:
+        proxy = random.choice(PROXIES)
+        try:
+            response = requests.request("GET", url, headers=headers, data=payload, proxies={"http": proxy, "https": proxy})
+        except requests.exceptions.ProxyError:
+            count += 1
+            time.sleep(1)
+            continue
+        if response.status_code in [429]:
+            count += 1
+            time.sleep(1)
+            continue
     dict = json.loads(response.text)
     list_of_companies = []
     for item in dict['content']:
         if item['campaignName'] == 'тест создание':
             list_of_companies.append(item['id'])
+    print(list_of_companies)
     return list_of_companies
 
 
 def delete_test_companies():
-    time.sleep(3)
     func = get_id_test_companies()
     if func:
         for company_id in func:
@@ -667,9 +679,20 @@ def delete_test_companies():
                 'sec-ch-ua-mobile': '?0',
                 'sec-ch-ua-platform': '"macOS"'
             }
-
-            response = requests.request("PUT", url, headers=headers, data=payload)
-            print(response.text)
+            count = 0
+            while count < 5:
+                proxy = random.choice(PROXIES)
+                try:
+                    response = requests.request("PUT", url, headers=headers, data=payload,  proxies={"http": proxy, "https": proxy})
+                except requests.exceptions.ProxyError:
+                    count += 1
+                    time.sleep(1)
+                    continue
+                if response.status_code in [429]:
+                    count += 1
+                    time.sleep(1)
+                    continue
+                return response
         return response.status_code
 
 
