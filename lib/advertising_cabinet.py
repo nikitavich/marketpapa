@@ -29,11 +29,12 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
         }
     url = url
     count = 0
+    response = None
     while count < 5:
         proxy = random.choice(PROXIES)
         if method == "get":
             try:
-                response = requests.get(url=url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=3)
+                response = requests.get(url=url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=60)
             except requests.exceptions.ProxyError:
                 count += 1
                 time.sleep(1)
@@ -43,9 +44,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
-                count += 1
-                time.sleep(1)
-                continue
+                return response
             if response.status_code in [403]:
                 update_wb_token1()
                 return "Статус код 403!"
@@ -56,7 +55,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
             return response
         if method == "put":
             try:
-                response = requests.put(url=url, headers=headers, data=data, proxies={"http": proxy, "https": proxy}, timeout=3)
+                response = requests.put(url=url, headers=headers, data=data, proxies={"http": proxy, "https": proxy}, timeout=60)
             except requests.exceptions.ProxyError:
                 count += 1
                 time.sleep(1)
@@ -66,9 +65,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
-                count += 1
-                time.sleep(1)
-                continue
+                return response
             if response.status_code in [403]:
                 update_wb_token1()
                 return "Статус код 403!"
@@ -79,7 +76,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
             return response
         if method == "post":
             try:
-                response = requests.post(url=url, headers=headers, data=data, files=files, proxies={"http": proxy, "https": proxy}, timeout=3)
+                response = requests.post(url=url, headers=headers, data=data, files=files, proxies={"http": proxy, "https": proxy}, timeout=60)
             except requests.exceptions.ProxyError:
                 count += 1
                 time.sleep(1)
@@ -89,9 +86,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
-                count += 1
-                time.sleep(1)
-                continue
+                return response
             if response.status_code in [403]:
                 update_wb_token1()
                 return "Статус код 403!"
@@ -100,15 +95,12 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 time.sleep(1)
                 continue
             return response
-    else:
-         pass
+    return response
 
 
 if __name__ == '__main__':
     response = send_request(method='get',
-                            url='https://api.marketpapa.ru/api/advertising-cabinet/excluded_keywords/3499821/')
+                            url='https://api.marketpapa.ru/api/advertising-cabinet/compare_card_prices/3499821/')
     assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
-    jsondata = response.json()
-    # assert jsondata["result"][0] == 'одежда'
     print(response.status_code)
     print(response.text)

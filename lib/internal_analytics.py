@@ -27,7 +27,6 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
             'sec-fetch-site': 'same-site',
             'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
         }
-    print(headers)
     url = url
     count = 0
     while count < 5:

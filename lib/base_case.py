@@ -3,16 +3,15 @@ import pickle
 import random
 import string
 import time
-import psycopg2
 import datetime
 import jwt
+from lib.authorization import Authorization
 
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from pathlib import Path
 
-import settings
+from lib import settings
 from lib.proxies import PROXIES
 
 
@@ -609,32 +608,34 @@ def update_wb_token():
 
 
 def get_id_test_companies():
-    url = "https://cmp.wildberries.ru/backend/api/v3/atrevds?pageNumber=1&pageSize=10&search=%D1%82%D0%B5%D1%81%D1%82%20%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5&status=%5B0,11,1,15,2,4,9,3,14,16,6,17,5,10,13,12,7,8%5D&order=createDate&direction=desc&type=%5B2,3,4,5,6,7%5D"
-
-    payload = {}
-    headers = {
-        'Accept': 'application/json',
-        'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-        'Cache-control': 'no-store',
-        'Connection': 'keep-alive',
-        'Content-Length': '0',
-        'Content-Type': 'application/json',
-        'Cookie': 'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QPg7InFDODKvsUMMku0Z410UOgD1-yS1DjvUUlZn4PrL443J1gMV0kpOnqiBAPdnlWv-65ABrYqddsqmk-m',
-        'Origin': 'https://cmp.wildberries.ru',
-        'Referer': 'https://cmp.wildberries.ru/campaigns/list/active',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
-        'X-User-Id': '8082795',
-        'sec-ch-ua': '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"macOS"'
-    }
     count = 0
     response = None
     while count < 5:
         proxy = random.choice(PROXIES)
+        with open('./WBToken', 'r') as wb_token_from_file:
+            WBToken = str(wb_token_from_file.readline().rstrip('\n'))
+            wb_token_from_file.close()
+        url = "https://cmp.wildberries.ru/backend/api/v3/atrevds?pageNumber=1&pageSize=10&search=%D1%82%D0%B5%D1%81%D1%82%20%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5&status=%5B0,11,1,15,2,4,9,3,14,16,6,17,5,10,13,12,7,8%5D&order=createDate&direction=desc&type=%5B2,3,4,5,6,7%5D"
+        payload = {}
+        headers = {
+            'Accept': 'application/json',
+            'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Cache-control': 'no-store',
+            'Connection': 'keep-alive',
+            'Content-Length': '0',
+            'Content-Type': 'application/json',
+            'Cookie': f'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken={WBToken}',
+            'Origin': 'https://cmp.wildberries.ru',
+            'Referer': 'https://cmp.wildberries.ru/campaigns/list/active',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-origin',
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+            'X-User-Id': '8082795',
+            'sec-ch-ua': '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"macOS"'
+        }
         try:
             response = requests.request("GET", url, headers=headers, data=payload, proxies={"http": proxy, "https": proxy})
         except requests.exceptions.ProxyError:
@@ -645,7 +646,13 @@ def get_id_test_companies():
             count += 1
             time.sleep(1)
             continue
-    print(response.text)
+        if response.status_code in [401]:
+            update_wbtoken()
+            time.sleep(1)
+            continue
+        break
+    else:
+        raise Exception
     list_of_companies = []
     if response.text:
         dict = json.loads(response.text)
@@ -656,35 +663,39 @@ def get_id_test_companies():
 
 
 def delete_test_companies():
+
     func = get_id_test_companies()
+    with open('./WBToken', 'r') as wb_token_from_file:
+        WBToken = str(wb_token_from_file.readline().rstrip('\n'))
+        wb_token_from_file.close()
     if func:
         for company_id in func:
-            url = f"https://cmp.wildberries.ru/backend/api/v1/atrevd/{company_id}/to-delete"
-            payload = {}
-            headers = {
-                'Accept': 'application/json',
-                'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-                'Cache-control': 'no-store',
-                'Connection': 'keep-alive',
-                'Content-Length': '0',
-                'Content-Type': 'application/json',
-                'Cookie': 'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken=Auuq7QPg7InFDODKvsUMMku0Z410UOgD1-yS1DjvUUlZn4PrL443J1gMV0kpOnqiBAPdnlWv-65ABrYqddsqmk-m',
-                'Origin': 'https://cmp.wildberries.ru',
-                'Referer': 'https://cmp.wildberries.ru/campaigns/list/active',
-                'Sec-Fetch-Dest': 'empty',
-                'Sec-Fetch-Mode': 'cors',
-                'Sec-Fetch-Site': 'same-origin',
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
-                'X-User-Id': '8082795',
-                'sec-ch-ua': '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
-                'sec-ch-ua-mobile': '?0',
-                'sec-ch-ua-platform': '"macOS"'
-            }
             count = 0
             while count < 5:
                 proxy = random.choice(PROXIES)
+                url = f"https://cmp.wildberries.ru/backend/api/v1/atrevd/{company_id}/to-delete"
+                payload = {}
+                headers = {
+                    'Accept': 'application/json',
+                    'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                    'Cache-control': 'no-store',
+                    'Connection': 'keep-alive',
+                    'Content-Length': '0',
+                    'Content-Type': 'application/json',
+                    'Cookie': f'x-supplier-id-external=234dea95-0f26-48f5-8c4d-e0e0c35b2a8d; WBToken={WBToken}',
+                    'Origin': 'https://cmp.wildberries.ru',
+                    'Referer': 'https://cmp.wildberries.ru/campaigns/list/active',
+                    'Sec-Fetch-Dest': 'empty',
+                    'Sec-Fetch-Mode': 'cors',
+                    'Sec-Fetch-Site': 'same-origin',
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+                    'X-User-Id': '8082795',
+                    'sec-ch-ua': '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': '"macOS"'
+                }
                 try:
-                    response = requests.request("PUT", url, headers=headers, data=payload,  proxies={"http": proxy, "https": proxy})
+                    response = requests.request("PUT", url, headers=headers, data=payload,  proxies={"http": proxy, "https": proxy}, timeout=3)
                 except requests.exceptions.ProxyError:
                     count += 1
                     time.sleep(1)
@@ -693,10 +704,9 @@ def delete_test_companies():
                     count += 1
                     time.sleep(1)
                     continue
-                return response
-        return response.status_code
-    else:
-        pass
+                break
+
+
 
 
 def update_wb_token1():
@@ -710,9 +720,17 @@ def update_wb_token1():
     with open('./wb_token.txt', 'w') as file:
         file.write(token)
 
+def update_wbtoken():
+    wb_token, resp2, resp1 = Authorization().get_wb_token_by_phone_number(phone_number='79998074678',
+                                                                          wild_auth_new=settings.wild_auth_new)
+    coken, res1, res2, resp3 = Authorization().get_new_wb_token_by_wb_token_and_supplier_id(wb_token=wb_token,
+                                                                                            supplier_id=settings.supplier_id)
+    with open('../WBToken', 'w') as file:
+        file.write(coken)
+        file.close()
 
 
 
 
 if __name__ == '__main__':
-    update_wb_token1()
+    delete_test_companies()

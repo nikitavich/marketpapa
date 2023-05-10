@@ -1,6 +1,6 @@
 import requests
 
-import settings
+from lib import settings
 
 
 class Authorization:

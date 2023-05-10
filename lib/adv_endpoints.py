@@ -1,15 +1,12 @@
-import asyncio
 import json
 import random
 import time
-import datetime
 
-from fake_useragent import UserAgent
 import requests
 
-import settings
+from lib import settings
 from lib.base_case import BaseCase
-from wb_errors import TooManyTime, InvalidWBToken
+from wb_errors import InvalidWBToken
 
 
 class AdvEndpoints:

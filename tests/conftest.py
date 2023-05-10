@@ -5,7 +5,7 @@ import pytest
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from settings import token
+from lib import settings
 from lib.base_case import BaseCase
 
 
@@ -13,7 +13,7 @@ from lib.base_case import BaseCase
 def get_id_from_token():
     response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
                             headers={
-                                "Authorization": "Bearer " + str(token)
+                                "Authorization": "Bearer " + str(settings.token)
                             }
                             )
     parsed_response_text = response.json()
