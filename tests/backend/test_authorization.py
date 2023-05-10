@@ -6,7 +6,6 @@ class TestAuthorization:
     def test_get_wb_token_by_phone_number(self):
         wb_token, resp2, resp1 = Authorization().get_wb_token_by_phone_number(phone_number='79998074678',
                                                                               wild_auth_new=settings.wild_auth_new)
-        print(wb_token)
         assert resp2.status_code == 200, f'Wrong status code, {resp2.status_code}'
         assert resp1.status_code == 200, f'Wrong status code, {resp1.status_code}'
 

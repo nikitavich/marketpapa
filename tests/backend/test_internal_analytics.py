@@ -420,7 +420,6 @@ class TestInternalAnalytics:
     # Отправить себестоимость
     def test_send_cost_price(self, get_id_from_token):
         response_status_code, ids = get_id_from_token
-        print(ids)
         response = send_request(method='put',
                                 url='https://api.marketpapa.ru/api/internal-analytics/product/send-cost-price/',
                                 data=json.dumps({
@@ -435,8 +434,6 @@ class TestInternalAnalytics:
                                         }
                                     ]
                                 }))
-        print(response.status_code)
-        print(response.text)
         assert response.status_code == 202, f'Wrong response code! - {response.status_code}'
 
     # самовыкуп для товара

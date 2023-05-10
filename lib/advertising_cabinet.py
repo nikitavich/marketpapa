@@ -33,8 +33,12 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
         proxy = random.choice(PROXIES)
         if method == "get":
             try:
-                response = requests.get(url=url, headers=headers, proxies={"http": proxy, "https": proxy})
+                response = requests.get(url=url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=3)
             except requests.exceptions.ProxyError:
+                count += 1
+                time.sleep(1)
+                continue
+            except requests.exceptions.ReadTimeout:
                 count += 1
                 time.sleep(1)
                 continue
@@ -57,6 +61,10 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 count += 1
                 time.sleep(1)
                 continue
+            except requests.exceptions.ReadTimeout:
+                count += 1
+                time.sleep(1)
+                continue
             if response.status_code in [502, 500]:
                 count += 1
                 time.sleep(1)
@@ -76,6 +84,10 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 count += 1
                 time.sleep(1)
                 continue
+            except requests.exceptions.ReadTimeout:
+                count += 1
+                time.sleep(1)
+                continue
             if response.status_code in [502, 500]:
                 count += 1
                 time.sleep(1)
@@ -89,7 +101,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 continue
             return response
     else:
-        return response
+         pass
 
 
 if __name__ == '__main__':

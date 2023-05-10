@@ -609,7 +609,6 @@ def update_wb_token():
 
 
 def get_id_test_companies():
-    global response
     url = "https://cmp.wildberries.ru/backend/api/v3/atrevds?pageNumber=1&pageSize=10&search=%D1%82%D0%B5%D1%81%D1%82%20%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5&status=%5B0,11,1,15,2,4,9,3,14,16,6,17,5,10,13,12,7,8%5D&order=createDate&direction=desc&type=%5B2,3,4,5,6,7%5D"
 
     payload = {}
@@ -633,6 +632,7 @@ def get_id_test_companies():
         'sec-ch-ua-platform': '"macOS"'
     }
     count = 0
+    response = None
     while count < 5:
         proxy = random.choice(PROXIES)
         try:
@@ -645,12 +645,13 @@ def get_id_test_companies():
             count += 1
             time.sleep(1)
             continue
-    dict = json.loads(response.text)
+    print(response.text)
     list_of_companies = []
-    for item in dict['content']:
-        if item['campaignName'] == 'тест создание':
-            list_of_companies.append(item['id'])
-    print(list_of_companies)
+    if response.text:
+        dict = json.loads(response.text)
+        for item in dict['content']:
+            if item['campaignName'] == 'тест создание':
+                list_of_companies.append(item['id'])
     return list_of_companies
 
 
@@ -694,6 +695,8 @@ def delete_test_companies():
                     continue
                 return response
         return response.status_code
+    else:
+        pass
 
 
 def update_wb_token1():
