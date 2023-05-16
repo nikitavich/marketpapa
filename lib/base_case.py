@@ -642,6 +642,14 @@ def get_id_test_companies():
             count += 1
             time.sleep(1)
             continue
+        except requests.exceptions.SSLError:
+            count += 1
+            time.sleep(1)
+            continue
+        except requests.exceptions.ReadTimeout:
+            count += 1
+            time.sleep(1)
+            continue
         if response.status_code in [429]:
             count += 1
             time.sleep(1)
@@ -652,7 +660,7 @@ def get_id_test_companies():
             continue
         break
     else:
-        raise Exception
+        raise
     list_of_companies = []
     if response.text:
         dict = json.loads(response.text)
@@ -663,7 +671,6 @@ def get_id_test_companies():
 
 
 def delete_test_companies():
-
     func = get_id_test_companies()
     with open('./WBToken', 'r') as wb_token_from_file:
         WBToken = str(wb_token_from_file.readline().rstrip('\n'))
@@ -695,8 +702,12 @@ def delete_test_companies():
                     'sec-ch-ua-platform': '"macOS"'
                 }
                 try:
-                    response = requests.request("PUT", url, headers=headers, data=payload,  proxies={"http": proxy, "https": proxy}, timeout=3)
+                    response = requests.request("PUT", url, headers=headers, data=payload,  proxies={"http": proxy, "https": proxy})
                 except requests.exceptions.ProxyError:
+                    count += 1
+                    time.sleep(1)
+                    continue
+                except requests.exceptions.ReadTimeout:
                     count += 1
                     time.sleep(1)
                     continue
@@ -705,6 +716,8 @@ def delete_test_companies():
                     time.sleep(1)
                     continue
                 break
+            else:
+                return response
 
 
 
@@ -733,4 +746,4 @@ def update_wbtoken():
 
 
 if __name__ == '__main__':
-    delete_test_companies()
+    BaseCase().save_cookies()

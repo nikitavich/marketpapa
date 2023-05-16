@@ -33,6 +33,7 @@ def driver():
     driver.maximize_window()
     driver.implicitly_wait(15)
     yield driver
+    driver.quit()
 
 
 @pytest.fixture()
