@@ -61,3 +61,9 @@ class TooManyTime(Exception):
     def __init__(self):
         self.message = f""
         super().__init__(self.message)
+
+
+class Error500(Exception):
+    def __init__(self):
+        self.message = f"500 Error"
+        super().__init__(self.message)

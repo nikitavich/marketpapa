@@ -81,7 +81,7 @@ class TestAdvertisingCabinet:
                                          "куртка женская весна"
                                      ]
                                  }))
-        assert response1.status_code == 204, f'Wrong response code! - {response1.status_code}'
+        assert response1.status_code == 204, f'strong_excluded_words 1 code! - {response1.status_code}'
 
     def test_notification(self):
         response = send_request(method='get',

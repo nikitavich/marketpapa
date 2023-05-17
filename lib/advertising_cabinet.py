@@ -3,6 +3,7 @@ import random
 import time
 from lib.base_case import update_wb_token1
 from lib.proxies import PROXIES
+import wb_errors
 
 import requests
 
@@ -30,21 +31,33 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
     url = url
     count = 0
     response = None
+    proxy_count = 0
+    timeout_count = 0
+    five_count = 0
     while count < 5:
         proxy = random.choice(PROXIES)
         if method == "get":
             try:
                 response = requests.get(url=url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=60)
             except requests.exceptions.ProxyError:
+                proxy_count += 1
                 count += 1
+                if proxy_count > 3:
+                    raise requests.exceptions.ProxyError
                 time.sleep(1)
                 continue
             except requests.exceptions.ReadTimeout:
                 count += 1
+                timeout_count += 1
+                if timeout_count > 3:
+                    raise requests.exceptions.ReadTimeout
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
-                return response
+                five_count += 1
+                if five_count > 3:
+                    raise wb_errors.Error500
+                continue
             if response.status_code in [403]:
                 update_wb_token1()
                 return "Статус код 403!"
@@ -57,15 +70,24 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
             try:
                 response = requests.put(url=url, headers=headers, data=data, proxies={"http": proxy, "https": proxy}, timeout=60)
             except requests.exceptions.ProxyError:
+                proxy_count += 1
                 count += 1
+                if proxy_count > 3:
+                    raise requests.exceptions.ProxyError
                 time.sleep(1)
                 continue
             except requests.exceptions.ReadTimeout:
                 count += 1
+                timeout_count += 1
+                if timeout_count > 3:
+                    raise requests.exceptions.ReadTimeout
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
-                return response
+                five_count += 1
+                if five_count > 3:
+                    raise wb_errors.Error500
+                continue
             if response.status_code in [403]:
                 update_wb_token1()
                 return "Статус код 403!"
@@ -78,15 +100,24 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
             try:
                 response = requests.post(url=url, headers=headers, data=data, files=files, proxies={"http": proxy, "https": proxy}, timeout=60)
             except requests.exceptions.ProxyError:
+                proxy_count += 1
                 count += 1
+                if proxy_count > 3:
+                    raise requests.exceptions.ProxyError
                 time.sleep(1)
                 continue
             except requests.exceptions.ReadTimeout:
                 count += 1
+                timeout_count += 1
+                if timeout_count > 3:
+                    raise requests.exceptions.ReadTimeout
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
-                return response
+                five_count += 1
+                if five_count > 3:
+                    raise wb_errors.Error500
+                continue
             if response.status_code in [403]:
                 update_wb_token1()
                 return "Статус код 403!"
