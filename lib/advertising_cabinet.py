@@ -40,6 +40,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
             try:
                 response = requests.get(url=url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=60)
             except requests.exceptions.ProxyError:
+                print("ProxyError")
                 proxy_count += 1
                 count += 1
                 if proxy_count > 3:
@@ -47,6 +48,7 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 time.sleep(1)
                 continue
             except requests.exceptions.ReadTimeout:
+                print("ReadTimeout")
                 count += 1
                 timeout_count += 1
                 if timeout_count > 3:
@@ -54,14 +56,18 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
+                print(response.status_code)
                 five_count += 1
+                count += 1
                 if five_count > 3:
                     raise wb_errors.Error500
                 continue
             if response.status_code in [403]:
+                print("Статус код 403!")
                 update_wb_token1()
                 return "Статус код 403!"
             if response.status_code in [429]:
+                print("Статус код 429!")
                 count += 1
                 time.sleep(1)
                 continue
