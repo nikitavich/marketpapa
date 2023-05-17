@@ -1,4 +1,4 @@
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY4NDMxMjkwMn0.vchc3x-qQipCSXK3Q4uH13pUhaBQ8fHJZRwkz-kphw8"
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY4NjkwMTY2NX0.EaodDMM0_0pcHBHPMJnYMs_dVzd0qwjWcIlpafSCc40"
 supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
 wb_user_id = "8082795"
 wb_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTY4NDMxMjkwMn0.vchc3x-qQipCSXK3Q4uH13pUhaBQ8fHJZRwkz-kphw8"
