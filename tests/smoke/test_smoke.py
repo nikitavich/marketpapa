@@ -29,12 +29,10 @@ class TestSmoke:
         assert driver.find_element(By.XPATH, "//div[contains(@data-test,'rate-page')]")
         assert driver.find_element(By.XPATH, "//div[contains(@data-test,'table-master-phrase-rates')]")
 
-    def test_monitoring_positions(self, driver):
-        pass
-
     def test_list_of_advertising_campaigns(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        driver.get("https://marketpapa.ru/ad_cabinet/1/campaigns?name=%D0%9D%D0%B0%D1%88%20%D0%9A%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82")
+        driver.get(
+            "https://marketpapa.ru/ad_cabinet/1/campaigns?name=%D0%9D%D0%B0%D1%88%20%D0%9A%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82")
         assert driver.find_element(By.XPATH, "//span[@data-test='cabinet-status']")
         assert driver.find_element(By.XPATH, "//span[@data-test='cabinet-updated-at']")
         assert driver.find_element(By.XPATH, "//span[@data-test='btn-update-cabinet']")
@@ -135,6 +133,43 @@ class TestSmoke:
         assert driver.find_element(By.XPATH, "//button[@data-test='btn-save-campaign']")
         assert driver.find_element(By.XPATH, "//button[@data-test='btn-manage-campaign']")
 
+    def test_monitoring_positions(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.get("https://marketpapa.ru/positions?product_id=48902763")
+        assert driver.find_element(By.XPATH, "//div[@data-test='search-wrapper']")
+        assert driver.find_element(By.XPATH, "//button[@data-test='search-button']")
+        assert driver.find_element(By.XPATH, "//span[@data-test='favorite-icon']")
+        assert driver.find_element(By.XPATH, "//span[@data-test='filter-date-start']")
+        assert driver.find_element(By.XPATH, "//span[@data-test='filter-date-end']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='filter-date-month']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='filter-date-week']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='filter-date-twoweeks']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='filter-date-twomonths']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='filter-date-threemonths']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='phrase-search']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='search-wrapper']")
+        assert driver.find_element(By.XPATH, "//button[@data-test='search-button']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='monitoring-position-table']")
 
-
-
+    def test_phrase_selection(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.get("https://marketpapa.ru/phrase_selection")
+        assert driver.find_element(By.XPATH, "//div[@data-test='phrase-selection']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='tabs']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='tab-selection']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='tab-selected']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='tab-description']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='selection-wrapper']")
+        assert driver.find_element(By.XPATH, "//input[@data-test='phrase-search']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='phrase-search-icon']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='btn-export']")
+        assert driver.find_element(By.XPATH, "//span[@data-test='dd-columns']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='phrase-table']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='selected-wrapper']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='phrase-in-title']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='phrase-in-description']")
+        assert driver.find_element(By.XPATH, "//div[@data-test='description-wrapper']")
+        assert driver.find_element(By.XPATH, "//textarea[@data-test='input-name']")
+        assert driver.find_element(By.XPATH, "//button[@data-test='copy-name']")
+        assert driver.find_element(By.XPATH, "//textarea[@data-test='input-description']")
+        assert driver.find_element(By.XPATH, "//button[@data-test='copy-description']")
