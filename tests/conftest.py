@@ -3,10 +3,11 @@ import random
 import time
 import pytest
 import requests
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from lib import settings
 from lib.base_case import BaseCase
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 @pytest.fixture(scope="session")
@@ -29,7 +30,7 @@ def get_id_from_token():
 def driver():
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
-    driver = webdriver.Chrome(options=options, executable_path="path/to/executable")
+    driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.maximize_window()
     driver.implicitly_wait(15)
     yield driver
