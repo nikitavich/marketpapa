@@ -393,7 +393,7 @@ class BaseCase:
         driver.find_element(By.NAME, 'password').send_keys('q1w2e3r4t5y6')
         driver.find_element(By.XPATH, "//span[@class='sc-iJnaPW izGUBw']").click()
         time.sleep(5)
-        pickle.dump(driver.get_cookies(), open("../tests/smoke/cookies.pkl", "wb"))
+        pickle.dump(driver.get_cookies(), open("../cookies.pkl", "wb"))
 
     def add_cookie_to_chrome(self, driver):
         driver.get("https://marketpapa.ru/news")
