@@ -28,7 +28,7 @@ def get_id_from_token():
 
 @pytest.fixture()
 def driver():
-    HOST = "0.0.0.0"
+    HOST = "194.87.110.113"
     capabilities = {
         "browserName": "firefox",
         "version": "72.0",
