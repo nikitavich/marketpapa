@@ -28,11 +28,15 @@ def get_id_from_token():
 
 @pytest.fixture()
 def driver():
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option("detach", True)
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.maximize_window()
-    driver.implicitly_wait(15)
+    HOST = "localhost"
+    capabilities = {
+        "browserName": "firefox",
+        "version": "72.0",
+        "enableVNC": False,
+        "enableVideo": False
+    }
+    driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(HOST),
+                               desired_capabilities=capabilities)
     yield driver
     driver.quit()
 
