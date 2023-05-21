@@ -31,7 +31,7 @@ def driver():
     HOST = "localhost"
     capabilities = {
         "browserName": "firefox",
-        "version": "108.0",
+        "browserVersion": "108.0",
         "enableVNC": False,
         "enableVideo": False    }
     driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(HOST),
