@@ -33,7 +33,8 @@ def driver():
         "browserName": "firefox",
         "version": "72.0",
         "enableVNC": False,
-        "enableVideo": False
+        "enableVideo": False,
+        "sessionTimeout": "5m"
     }
     driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(HOST),
                                desired_capabilities=capabilities)
