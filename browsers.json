@@ -1,7 +1,7 @@
 {
 	"MicrosoftEdge": {
 		"default": "108.0",
-		"versions": {
+		"browserVersion": {
 			"108.0": {
 				"image": "browsers/edge:108.0",
 				"port": "4444",
@@ -11,7 +11,7 @@
 	},
 	"chrome": {
 		"default": "108.0",
-		"versions": {
+		"browserVersion": {
 			"108.0": {
 				"image": "selenoid/chrome:108.0",
 				"port": "4444",
@@ -21,7 +21,7 @@
 	},
 	"firefox": {
 		"default": "108.0",
-		"versions": {
+		"browserVersion": {
 			"108.0": {
 				"image": "selenoid/firefox:108.0",
 				"port": "4444",
