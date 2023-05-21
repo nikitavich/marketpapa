@@ -1,29 +1,9 @@
 {
-	"MicrosoftEdge": {
-		"default": "108.0",
-		"browserVersion": {
-			"108.0": {
-				"image": "browsers/edge:108.0",
-				"port": "4444",
-				"path": "/"
-			}
-		}
-	},
-	"chrome": {
-		"default": "108.0",
-		"browserVersion": {
-			"108.0": {
-				"image": "selenoid/chrome:108.0",
-				"port": "4444",
-				"path": "/"
-			}
-		}
-	},
 	"firefox": {
-		"default": "108.0",
+		"default": "latest",
 		"browserVersion": {
-			"108.0": {
-				"image": "selenoid/firefox:108.0",
+			"latest": {
+				"image": "selenoid/firefox:latest",
 				"port": "4444",
 				"path": "/wd/hub"
 			}
