@@ -746,4 +746,4 @@ def update_wbtoken():
 
 
 if __name__ == '__main__':
-    BaseCase().save_cookies()
+    print(get_id_test_companies())

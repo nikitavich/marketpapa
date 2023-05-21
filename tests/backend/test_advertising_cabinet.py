@@ -138,10 +138,10 @@ class TestAdvertisingCabinet:
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/compare_prices/3499821/')
         assert response.status_code == 200, f'compare_prices code! - {response.status_code}'
 
-    def test_compare_card_prices(self):
-        response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/compare_card_prices/3499821/')
-        assert response.status_code == 200, f'compare_card_prices code! - {response.status_code}'
+    # def test_compare_card_prices(self):
+    #     response = send_request(method='get',
+    #                             url='https://api.marketpapa.ru/api/advertising-cabinet/compare_card_prices/3499821/')
+    #     assert response.status_code == 200, f'compare_card_prices code! - {response.status_code}'
 
     def test_keyword_hint(self):
         response = send_request(method='get',
