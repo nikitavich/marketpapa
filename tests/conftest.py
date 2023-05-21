@@ -28,10 +28,10 @@ def get_id_from_token():
 
 @pytest.fixture()
 def driver():
-    HOST = "127.0.0.1"
+    HOST = "localhost"
     capabilities = {
         "browserName": "firefox",
-        "version": "72.0",
+        "version": "108.0",
         "enableVNC": False,
         "enableVideo": False,
         "sessionTimeout": "5m"
