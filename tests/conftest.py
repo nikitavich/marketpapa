@@ -33,9 +33,7 @@ def driver():
         "browserName": "firefox",
         "version": "108.0",
         "enableVNC": False,
-        "enableVideo": False,
-        "sessionTimeout": "5m"
-    }
+        "enableVideo": False    }
     driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(HOST),
                                desired_capabilities=capabilities)
     yield driver
