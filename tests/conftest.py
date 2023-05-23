@@ -32,13 +32,15 @@ def driver():
         "browserName": "firefox",
         "browserVersion": "72.0",
         "selenoid:options": {
-            "enableVideo": False
+            "enableVideo": False,
+            "headless": True
         }
     }
 
     driver = webdriver.Remote(
         command_executor="http://localhost:4444/wd/hub",
         desired_capabilities=capabilities)
+
     yield driver
     driver.quit()
 
