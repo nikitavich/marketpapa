@@ -1,9 +1,9 @@
 {
 	"firefox": {
-		"default": "latest",
+		"default": "113.0",
 		"browserVersion": {
-			"latest": {
-				"image": "selenoid/firefox:latest",
+			"113.0": {
+				"image": "selenoid/firefox:113.0",
 				"port": "4444",
 				"path": "/wd/hub"
 			}
