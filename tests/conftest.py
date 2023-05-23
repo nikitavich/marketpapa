@@ -28,15 +28,18 @@ def get_id_from_token():
 
 @pytest.fixture()
 def driver():
-    HOST = "0.0.0.0"
+    HOST = "localhost"
     capabilities = {
         "browserName": "chrome",
         "browserVersion": "113.0",
-        "enableVNC": False,
-        "enableVideo": False
+        "selenoid:options": {
+            "enableVideo": False
+        }
     }
-    driver = webdriver.Remote(command_executor='http://{}:4444//wd/hub'.format(HOST),
-                              options=webdriver.ChromeOptions())
+
+    driver = webdriver.Remote(
+        command_executor="http://localhost:4444/wd/hub",
+        desired_capabilities=capabilities)
     yield driver
     driver.quit()
 
