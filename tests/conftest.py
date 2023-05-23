@@ -36,7 +36,7 @@ def driver():
         "enableVideo": False
     }
     driver = webdriver.Remote(command_executor='http://{}:4444//wd/hub'.format(HOST),
-                               desired_capabilities=capabilities)
+                              options=webdriver.ChromeOptions())
     yield driver
     driver.quit()
 
@@ -72,4 +72,3 @@ def registration(driver):
     time.sleep(3)
     driver.find_element(By.CSS_SELECTOR, ".sc-bBHxTw.sc-clIzBv.jqrcgG.fEXwZu").click()
     driver.find_element(By.CSS_SELECTOR, "")
-
