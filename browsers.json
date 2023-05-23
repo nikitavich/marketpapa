@@ -1,11 +1,11 @@
 {
-	"firefox": {
+	"chrome": {
 		"default": "113.0",
-		"browserVersion": {
+		"versions": {
 			"113.0": {
-				"image": "selenoid/vnc_firefox:113.0",
+				"image": "selenoid/chrome:113.0",
 				"port": "4444",
-				"path": "/wd/hub"
+				"path": "/"
 			}
 		}
 	}

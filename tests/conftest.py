@@ -30,7 +30,7 @@ def get_id_from_token():
 def driver():
     HOST = "localhost"
     capabilities = {
-        "browserName": "firefox",
+        "browserName": "chrome",
         "browserVersion": "113.0",
         "enableVNC": False,
         "enableVideo": False    }
