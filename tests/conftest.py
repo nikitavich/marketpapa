@@ -31,10 +31,9 @@ def driver():
     HOST = "localhost"
     capabilities = {
         "browserName": "chrome",
-        "browserVersion": "113.0",
-        "enableVNC": False,
-        "enableVideo": False    }
-    driver = webdriver.Remote(command_executor='http://{}:4444/wd/hub'.format(HOST),
+        "browserVersion": "113.0"
+    }
+    driver = webdriver.Remote(command_executor='http://{}:4444/'.format(HOST),
                                desired_capabilities=capabilities)
     yield driver
     driver.quit()
