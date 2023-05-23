@@ -1,11 +1,17 @@
 {
-	"chrome": {
-		"default": "113.0",
+	"firefox": {
+		"default": "72.0",
 		"versions": {
-			"113.0": {
-				"image": "selenoid/chrome:113.0",
+			"72.0": {
+				"image": "selenoid/firefox:72.0",
 				"port": "4444",
-				"path": "/"
+				"path": "/wd/hub",
+				"env": [
+					"TZ=Europe/Moscow",
+					"LANG=ru_RU.UTF-8",
+					"LANGUAGE=ru:en",
+					"LC_ALL=ru_RU.UTF-8"
+				]
 			}
 		}
 	}
