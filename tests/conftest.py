@@ -32,6 +32,8 @@ def driver():
     capabilities = {
         "browserName": "chrome",
         "browserVersion": "113.0",
+        "enableVNC": False,
+        "enableVideo": False
     }
     driver = webdriver.Remote(command_executor='http://{}:4444//wd/hub'.format(HOST),
                                desired_capabilities=capabilities)
