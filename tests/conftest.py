@@ -33,7 +33,7 @@ def driver():
         "browserVersion": "113.0",
         "selenoid:options": {
             "enableVideo": False,
-            "timeout": "180"
+            "timeouts": "180"
         }
     }
 
