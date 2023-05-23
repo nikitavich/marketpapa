@@ -36,10 +36,14 @@ def driver():
             "timeouts": "180"
         }
     }
-
+    options = webdriver.ChromeOptions()
+    options.add_argument("no-sandbox")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=800,600")
+    options.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Remote(
         command_executor="http://localhost:4444/wd/hub",
-        desired_capabilities=capabilities)
+        options=options)
 
     yield driver
     driver.quit()
