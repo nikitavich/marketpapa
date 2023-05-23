@@ -28,12 +28,12 @@ def get_id_from_token():
 
 @pytest.fixture()
 def driver():
-    HOST = "localhost"
+    HOST = "0.0.0.0"
     capabilities = {
         "browserName": "chrome",
         "browserVersion": "113.0"
     }
-    driver = webdriver.Remote(command_executor='http://{}:4444/'.format(HOST),
+    driver = webdriver.Remote(command_executor='http://{}:4444//wd/hub'.format(HOST),
                                desired_capabilities=capabilities)
     yield driver
     driver.quit()
