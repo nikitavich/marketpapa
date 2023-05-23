@@ -3,7 +3,7 @@
 		"default": "113.0",
 		"browserVersion": {
 			"113.0": {
-				"image": "selenoid/firefox:113.0",
+				"image": "selenoid/vnc_firefox:113.0",
 				"port": "4444",
 				"path": "/wd/hub"
 			}
