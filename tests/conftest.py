@@ -29,11 +29,10 @@ def get_id_from_token():
 @pytest.fixture()
 def driver():
     capabilities = {
-        "browserName": "firefox",
-        "browserVersion": "72.0",
+        "browserName": "chrome",
+        "browserVersion": "113.0",
         "selenoid:options": {
-            "enableVideo": False,
-            "headless": True
+            "enableVideo": False
         }
     }
 
