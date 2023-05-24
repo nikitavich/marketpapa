@@ -38,7 +38,7 @@ def driver():
     }
     options = webdriver.ChromeOptions()
     driver = webdriver.Remote(
-        command_executor="http://172.17.0.3:4444/",
+        command_executor="http://172.17.0.3:4444/wd/hub",
         options=options)
 
     yield driver
