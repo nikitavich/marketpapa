@@ -19,7 +19,7 @@ class TestSmoke:
         options = webdriver.ChromeOptions()
         driver = webdriver.Remote(
             command_executor="http://172.17.0.1:4444/wd/hub",
-            options=options)
+            desired_capabilities=capabilities)
         driver.get('https://marketpapa.ru/login')
         driver.find_element(By.NAME, 'phone').send_keys('+79877120164')
         driver.find_element(By.NAME, 'password').send_keys('q1w2e3r4t5y6')
