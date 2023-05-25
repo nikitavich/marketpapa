@@ -45,6 +45,7 @@ def driver():
     driver.quit()
 
 
+
 @pytest.fixture()
 def add_cookies_for_auth(driver):
     driver.get("https://dev.marketpapa.ru/news")
