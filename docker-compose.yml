@@ -1,5 +1,15 @@
 version: '3.7'
 services:
+
+  webdriver:
+    image: selenoid/chrome:113.0
+    ports:
+      - '5555:5555'
+    networks:
+      - tests
+    depends_on:
+      - selenoid
+
   selenoid:
     image: aerokube/selenoid:1.10.9
     #network_mode: bridge
