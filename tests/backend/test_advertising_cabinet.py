@@ -7,11 +7,11 @@ from lib.base_case import delete_test_companies
 class TestAdvertisingCabinet:
     def test_token(self):
         response = send_request(method='get',
-                     url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/3499821/')
+                     url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/7045150/')
     # Отключение кампании
     def test_disabled_company(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/7045150/')
         assert response.status_code == 200, f'disabled_company code! - {response.status_code}'
         jsondata = response.json()
         assert jsondata['status'] == 'OK', f'Wrong status! - {jsondata["status"]}'
@@ -19,7 +19,7 @@ class TestAdvertisingCabinet:
     # История управления
     def test_price_history(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/price_history/3499821/?limit=100&page=1')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/price_history/7045150/?limit=100&page=1')
         assert response.status_code == 200, f'price_history code! - {response.status_code}'
         jsondata = response.json()
         assert type(jsondata['count']) == int, f'Wrong count! - {jsondata["count"]}'
@@ -27,7 +27,7 @@ class TestAdvertisingCabinet:
     # Минус-фразы
     def test_excluded_keywords(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/excluded_keywords/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/excluded_keywords/7045150/')
         assert response.status_code == 200, f'excluded_keyword code! - {response.status_code}'
         jsondata = response.json()
         assert jsondata["result"][0]
@@ -35,7 +35,7 @@ class TestAdvertisingCabinet:
     # Информация о кампании
     def test_companies_info(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/companies_info/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/companies_info/7045150/')
         assert response.status_code == 200, f'companies_info code! - {response.status_code}'
         jsondata = response.json()
         assert jsondata["token"][
@@ -44,7 +44,7 @@ class TestAdvertisingCabinet:
     # Плюс фразы кампании
     def test_company_keywords(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/company_keywords/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/company_keywords/7045150/')
         assert response.status_code == 200, f'company_keywords code! - {response.status_code}'
         jsondata = response.json()
         assert jsondata[0]["keyword"] == 'брюки', f'Wrong company keyword! - {jsondata[0]["keyword"]}'
@@ -52,7 +52,7 @@ class TestAdvertisingCabinet:
     # Рекламные кабинеты
     def test_supplier_id(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/company_keywords/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/company_keywords/7045150/')
         assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
         response = send_request(method='post',
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/supplier_id/update',
@@ -66,16 +66,16 @@ class TestAdvertisingCabinet:
 
     def test_full_keywords(self):
         response = send_request(method='post',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/full_keywords/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/full_keywords/7045150/')
         assert response.status_code == 200, f'full_keywords code! - {response.status_code}'
 
     #
     def test_strong_excluded_words(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/strong_excluded_words/3499821')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/strong_excluded_words/7045150')
         assert response.status_code == 200, f'strong_excluded_words code! - {response.status_code}'
         response1 = send_request(method='post',
-                                 url='https://api.marketpapa.ru/api/advertising-cabinet/strong_excluded_words/3499821',
+                                 url='https://api.marketpapa.ru/api/advertising-cabinet/strong_excluded_words/7045150',
                                  data=json.dumps({
                                      "keywords": [
                                          "куртка женская весна"
@@ -108,15 +108,15 @@ class TestAdvertisingCabinet:
 
     def test_extended_stat_by_keyword(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_keyword/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_keyword/7045150/')
         assert response.status_code == 200, f'extended_stat_by_keyword code! - {response.status_code}'
 
     def test_manage_rules(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/manage_rules/3499821')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/manage_rules/7045150')
         assert response.status_code == 200, f'manage_rules code! - {response.status_code}'
         response = send_request(method='post',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/manage_rules/3499821',
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/manage_rules/7045150',
                                 data=json.dumps({
                                     "rules": [
                                         {
@@ -130,17 +130,17 @@ class TestAdvertisingCabinet:
 
     def test_delivery_time(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/delivery_time/3501540/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/delivery_time/7045136/')
         assert response.status_code == 200, f'delivery_time code! - {response.status_code}'
 
     def test_compare_prices(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/compare_prices/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/compare_prices/7045150/')
         assert response.status_code == 200, f'compare_prices code! - {response.status_code}'
 
     # def test_compare_card_prices(self):
     #     response = send_request(method='get',
-    #                             url='https://api.marketpapa.ru/api/advertising-cabinet/compare_card_prices/3499821/')
+    #                             url='https://api.marketpapa.ru/api/advertising-cabinet/compare_card_prices/7045150/')
     #     assert response.status_code == 200, f'compare_card_prices code! - {response.status_code}'
 
     def test_keyword_hint(self):
@@ -155,7 +155,7 @@ class TestAdvertisingCabinet:
 
     def test_update_company(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/update_company/3499821')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/update_company/7045150')
         assert response.status_code == 200, f'update_company code! - {response.status_code}'
         response1 = send_request(method='post',
                                  url='https://api.marketpapa.ru/api/advertising-cabinet/update_company/',
@@ -167,7 +167,7 @@ class TestAdvertisingCabinet:
                                      "intervals": [],
                                      "manage_type": 0,
                                      "target_place": "3",
-                                     "company_id": 3499821,
+                                     "company_id": 7045150,
                                      "city": 1,
                                      "keyword": [
                                          {
@@ -220,17 +220,17 @@ class TestAdvertisingCabinet:
 
     def test_enable_company(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/enable_company/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/enable_company/7045150/')
         assert response.status_code == 200, f'enable_company code! - {response.status_code}'
         response1 = send_request(method='get',
-                                 url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/3499821/')
+                                 url='https://api.marketpapa.ru/api/advertising-cabinet/disabled_company/7045150/')
         assert response1.status_code == 200, f'Wrong response code! - {response1.status_code}'
         jsondata = response1.json()
         assert jsondata['status'] == 'OK', f'Wrong status! - {jsondata["status"]}'
 
     def test_expenses(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/expenses?company_id=3499821')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/expenses?company_id=7045150')
         assert response.status_code == 200, f'expenses code! - {response.status_code}'
 
     def test_get_copy_companies(self):
@@ -240,22 +240,22 @@ class TestAdvertisingCabinet:
 
     def test_extended_stat_by_date(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_date/3499821/?sales=1')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_date/7045150/?sales=1')
         assert response.status_code == 200, f'extended_stat_by_date code! - {response.status_code}'
 
     def test_update_search_stat(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/update_search_stat/3499821')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/update_search_stat/7045150')
         assert response.status_code == 200, f'update_search_stat code! - {response.status_code}'
 
     def test_extended_stat_by_product(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_product/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_product/7045150/')
         assert response.status_code == 200, f'extended_stat_by_product code! - {response.status_code}'
 
     def test_extended_stat_by_app(self):
         response = send_request(method='get',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_app/3499821/')
+                                url='https://api.marketpapa.ru/api/advertising-cabinet/extended_stat/by_app/7045150/')
         assert response.status_code == 200, f'extended_stat_by_app code! - {response.status_code}'
 
     def test_full_product_stat(self):
