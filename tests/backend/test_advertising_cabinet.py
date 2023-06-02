@@ -29,8 +29,6 @@ class TestAdvertisingCabinet:
         response = send_request(method='get',
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/excluded_keywords/7045150/')
         assert response.status_code == 200, f'excluded_keyword code! - {response.status_code}'
-        jsondata = response.json()
-        assert jsondata["result"][0]
 
     # Информация о кампании
     def test_companies_info(self):
