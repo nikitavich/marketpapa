@@ -28,3 +28,6 @@ services:
     image: selenoid/chrome:113.0
     network_mode: selenoid
     container_name: chrome_113.0
+
+networks:
+  selenoid:
