@@ -10,7 +10,7 @@ class TestSmoke:
     def test_testing(self):
         capabilities = {
             "browserName": "chrome",
-            "browserVersion": "",
+            "browserVersion": "113.0",
             "selenoid:options": {
                 "enableVideo": False
             }
