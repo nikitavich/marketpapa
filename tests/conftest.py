@@ -32,14 +32,13 @@ def driver():
         "browserName": "chrome",
         "browserVersion": "113.0",
         "selenoid:options": {
-            "enableVideo": False,
-            "timeouts": "180"
+            "enableVideo": False
         }
     }
-    options = webdriver.ChromeOptions()
+
     driver = webdriver.Remote(
-        command_executor="http://172.0.0.1:4444/wd/hub",
-        options=options)
+        command_executor="http://5.9.101.76:4444/wd/hub",
+        desired_capabilities=capabilities)
     yield driver
     driver.quit()
 
