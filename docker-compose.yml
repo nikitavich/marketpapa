@@ -2,7 +2,8 @@ version: '3.7'
 services:
 
   selenoid:
-    network_mode: selenoid
+    networks:
+      - selenoid
     image: aerokube/selenoid:latest
     container_name: selenoid
     restart: always
@@ -16,7 +17,8 @@ services:
     image: aerokube/selenoid-ui:latest
     container_name: selenoid-ui
     restart: always
-    network_mode: selenoid
+    networks:
+      - selenoid
     #network_mode: bridge
     links:
       - selenoid
@@ -26,7 +28,8 @@ services:
 
   chrome_113.0:
     image: selenoid/chrome:113.0
-    network_mode: selenoid
+    networks:
+      - selenoid
     container_name: chrome_113.0
 
 networks:
