@@ -10,15 +10,14 @@ class TestSmoke:
     def test_testing(self):
         capabilities = {
             "browserName": "chrome",
-            "browserVersion": "113.0",
+            "browserVersion": "",
             "selenoid:options": {
-                "enableVideo": False,
-                "timeouts": "180"
+                "enableVideo": False
             }
         }
-        options = webdriver.ChromeOptions()
+
         driver = webdriver.Remote(
-            command_executor="http://localhost:4444/wd/hub",
+            command_executor="http://5.9.101.76:4444/wd/hub",
             desired_capabilities=capabilities)
         driver.get('https://marketpapa.ru/login')
         driver.find_element(By.NAME, 'phone').send_keys('+79877120164')
