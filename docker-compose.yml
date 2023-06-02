@@ -12,8 +12,6 @@ services:
     volumes:
       - "/root/autotests/TESTS:/etc/selenoid/" # assumed current dir contains browsers.json
       - "/var/run/docker.sock:/var/run/docker.sock"
-    networks:
-      - tests
   selenoid-ui:
     image: aerokube/selenoid-ui:latest
     container_name: selenoid-ui
