@@ -9,6 +9,8 @@ services:
       - tests
     depends_on:
       - selenoid
+    links:
+      - selenoid
 
   selenoid:
     image: aerokube/selenoid:1.10.9
