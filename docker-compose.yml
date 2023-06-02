@@ -16,7 +16,7 @@ services:
     ports:
       - "4444:4444"
     volumes:
-      - "/root/TESTS/:/etc/selenoid/" # assumed current dir contains browsers.json
+      - "/root/autotests/TESTS:/etc/selenoid/" # assumed current dir contains browsers.json
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
       - tests
