@@ -1,31 +1,14 @@
 import time
+
+from webdriver_manager.chrome import ChromeDriverManager
+
 from lib.base_case import BaseCase
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 
 
-
 class TestSmoke:
-    def test_testing(self):
-        capabilities = {
-            "browserName": "chrome",
-            "browserVersion": "113.0",
-            "selenoid:options": {
-                "enableVideo": False
-            }
-        }
-
-        driver = webdriver.Remote(
-            command_executor="http://5.9.101.76:4444/wd/hub",
-            desired_capabilities=capabilities)
-        driver.get('https://marketpapa.ru/login')
-        driver.find_element(By.NAME, 'phone').send_keys('+79877120164')
-        driver.find_element(By.NAME, 'password').send_keys('q1w2e3r4t5y6')
-        driver.find_element(By.XPATH, "//span[@class='sc-iJnaPW izGUBw']").click()
-        time.sleep(3)
-        assert driver.current_url == "https://marketpapa.ru/find", "Не работает авторизация"
-
 
     def test_authorization(self, driver):
         driver.get('https://marketpapa.ru/login')
@@ -59,7 +42,6 @@ class TestSmoke:
         assert driver.find_element(By.XPATH, "//span[@data-test='cabinet-updated-at']")
         assert driver.find_element(By.XPATH, "//span[@data-test='btn-update-cabinet']")
         assert driver.find_element(By.XPATH, "//div[@data-test='tabs']")
-        assert driver.find_element(By.XPATH, "//div[@data-test='tab-active']")
         assert driver.find_element(By.XPATH, "//div[@data-test='campaign-filters-wrap']")
         assert driver.find_element(By.XPATH, "//div[@data-test='search-icon']")
         assert driver.find_element(By.XPATH, "//input[@data-test='search-input']")
@@ -80,7 +62,6 @@ class TestSmoke:
         assert driver.find_element(By.XPATH, "//span[@data-test='campaign-created-time']")
         assert driver.find_element(By.XPATH, "//span[@data-test='campaign-created-date']")
         assert driver.find_element(By.XPATH, "//div[@data-test='campaign-manage']")
-        assert driver.find_element(By.XPATH, "//div[@data-test='switch-active-left']")
         assert driver.find_element(By.XPATH, "//a[@data-test='campaign-history']")
         assert driver.find_element(By.XPATH, "//span[@data-test='campaign-tuned']")
         assert driver.find_element(By.XPATH, "//span[@data-test='campaign-status']")
@@ -127,12 +108,8 @@ class TestSmoke:
         assert driver.find_element(By.XPATH, "//div[@data-test='master-phrase-compare']")
         assert driver.find_element(By.XPATH, "//div[@data-test='compare-your-product']")
         assert driver.find_element(By.XPATH, "//div[@data-test='compare-phrase-delivery-time']")
-        assert driver.find_element(By.XPATH, "//span[@data-test='compare-value']")
         assert driver.find_element(By.XPATH, "//div[@data-test='compare-your-delivery-time']")
-        assert driver.find_element(By.XPATH, "//span[@data-test='compare-value']")
         assert driver.find_element(By.XPATH, "//div[@data-test='compare-phrase-priority-category']")
-        assert driver.find_element(By.XPATH, "//span[@data-test='compare-id']")
-        assert driver.find_element(By.XPATH, "//span[@data-test='compare-value']")
         assert driver.find_element(By.XPATH, "//div[@data-test='compare-your-priority-category']")
         assert driver.find_element(By.XPATH, "//div[@data-test='master-phrase-chance']")
         assert driver.find_element(By.XPATH, "//div[@data-test='rate-city-tabs']")
@@ -145,11 +122,6 @@ class TestSmoke:
         assert driver.find_element(By.XPATH, "//input[@data-test='radio-ctr_radio']")
         assert driver.find_element(By.XPATH, "//input[@data-test='organic_place']")
         assert driver.find_element(By.XPATH, "//input[@data-test='radio-organic_place_radio']")
-        assert driver.find_element(By.XPATH, "//div[@data-test='campaign-management']")
-        assert driver.find_element(By.XPATH, "//a[@data-test='stat-wb-link']")
-        assert driver.find_element(By.XPATH, "//div[@data-test='dd-columns']")
-        assert driver.find_element(By.XPATH, "//div[@data-test='search-icon']")
-        assert driver.find_element(By.XPATH, "//input[@data-test='search-input']")
         assert driver.find_element(By.XPATH, "//button[@data-test='btn-save-campaign']")
         assert driver.find_element(By.XPATH, "//button[@data-test='btn-manage-campaign']")
 

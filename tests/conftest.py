@@ -39,6 +39,7 @@ def driver():
     driver = webdriver.Remote(
         command_executor="http://5.9.101.76:4444/wd/hub",
         desired_capabilities=capabilities)
+    driver.implicitly_wait(10)
     yield driver
     driver.quit()
 
