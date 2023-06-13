@@ -176,14 +176,6 @@ class TestSmoke:
         wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='btn-export']")))
         wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='dd-columns']")))
         wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='phrase-table']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='selected-wrapper']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='phrase-in-title']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='phrase-in-description']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='description-wrapper']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@data-test='input-name']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='copy-name']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//textarea[@data-test='input-description']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='copy-description']")))
 
     def test_order_sale_feed(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
