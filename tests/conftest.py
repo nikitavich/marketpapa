@@ -4,10 +4,13 @@ import time
 import pytest
 import requests
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+
 from lib import settings
 from lib.base_case import BaseCase
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+
 
 
 @pytest.fixture(scope="session")
@@ -28,6 +31,8 @@ def get_id_from_token():
 
 @pytest.fixture()
 def driver():
+    # driver = webdriver.Chrome(ChromeDriverManager().install())
+
     capabilities = {
         "browserName": "chrome",
         "browserVersion": "113.0",
@@ -39,7 +44,6 @@ def driver():
     driver = webdriver.Remote(
         command_executor="http://5.9.101.76:4444/wd/hub",
         desired_capabilities=capabilities)
-    driver.implicitly_wait(10)
     yield driver
     driver.quit()
 

@@ -746,4 +746,8 @@ def update_wbtoken():
 
 
 if __name__ == '__main__':
-    print(get_id_test_companies())
+    wb_token, resp2, resp1 = Authorization().get_wb_token_by_phone_number(phone_number='79998074678',
+                                                                          wild_auth_new=settings.wild_auth_new)
+    coken, res1, res2, resp3 = Authorization().get_new_wb_token_by_wb_token_and_supplier_id(wb_token=wb_token,
+                                                                                            supplier_id=settings.supplier_id)
+    print(coken,res1,res2,resp3)
