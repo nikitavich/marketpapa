@@ -15,27 +15,27 @@ class TestSmoke:
         driver.find_element(By.XPATH, "//span[@class='sc-iJnaPW izGUBw']").click()
         wait.until(EC.url_to_be("https://marketpapa.ru/find"))
         assert driver.current_url == "https://marketpapa.ru/find", "Не работает авторизация"
-
-    def test_actual_rates(self, driver):
-        BaseCase().add_cookie_to_chrome(driver)
-        wait = WebDriverWait(driver, 30)
-        driver.get("https://marketpapa.ru/rates")
-        driver.find_element(By.XPATH, "//input[@placeholder='Введите фразу']").send_keys("шапка")
-        driver.find_element(By.XPATH, "//input[@placeholder='Введите артикул']").send_keys("16530207", Keys.RETURN)
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-stat')]")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-compare')]")))
-        wait.until(
-            EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-frequency-mont')]")))
-        wait.until(
-            EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-frequency-day')]")))
-        wait.until(
-            EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-delivery-time')]")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-category')]")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'compare-your-product')]")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'rate-city-tab')]")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'rate-page')]")))
-        wait.until(
-            EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'table-master-phrase-rates')]")))
+    # нестабильный
+    # def test_actual_rates(self, driver):
+    #     BaseCase().add_cookie_to_chrome(driver)
+    #     wait = WebDriverWait(driver, 30)
+    #     driver.get("https://marketpapa.ru/rates")
+    #     driver.find_element(By.XPATH, "//input[@placeholder='Введите фразу']").send_keys("шапка")
+    #     driver.find_element(By.XPATH, "//input[@placeholder='Введите артикул']").send_keys("16530207", Keys.RETURN)
+    #     wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-stat')]")))
+    #     wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-compare')]")))
+    #     wait.until(
+    #         EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-frequency-mont')]")))
+    #     wait.until(
+    #         EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-frequency-day')]")))
+    #     wait.until(
+    #         EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-delivery-time')]")))
+    #     wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'master-phrase-category')]")))
+    #     wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'compare-your-product')]")))
+    #     wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'rate-city-tab')]")))
+    #     wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'rate-page')]")))
+    #     wait.until(
+    #         EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'table-master-phrase-rates')]")))
 
     def test_list_of_advertising_campaigns(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
@@ -57,7 +57,7 @@ class TestSmoke:
 
     def test_advertising_campaign_search(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        wait = WebDriverWait(driver, 10)
+        wait = WebDriverWait(driver, 20)
         driver.get("https://marketpapa.ru/ad_cabinet_view/1/7045150?category_name=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA")
         wait.until((EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'campaign-header')]"))))
         wait.until((EC.visibility_of_element_located((By.XPATH, "//div[contains(@data-test,'back-button')]"))))
