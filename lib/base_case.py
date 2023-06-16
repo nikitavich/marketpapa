@@ -5,6 +5,8 @@ import string
 import time
 import datetime
 import jwt
+from webdriver_manager.chrome import ChromeDriverManager
+
 from lib.authorization import Authorization
 
 import requests
@@ -384,16 +386,13 @@ class BaseCase:
         return response
 
     def save_cookies(self):
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option("detach", True)
-        driver = webdriver.Chrome(options=options, executable_path="path/to/executable")
-        driver.maximize_window()
+        driver = webdriver.Chrome(ChromeDriverManager().install())
         driver.get('https://marketpapa.ru/login')
         driver.find_element(By.NAME, 'phone').send_keys('+79877120164')
         driver.find_element(By.NAME, 'password').send_keys('q1w2e3r4t5y6')
         driver.find_element(By.XPATH, "//span[@class='sc-iJnaPW izGUBw']").click()
         time.sleep(5)
-        pickle.dump(driver.get_cookies(), open("../cookies.pkl", "wb"))
+        pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
 
     def add_cookie_to_chrome(self, driver):
         driver.get("https://marketpapa.ru/news")
@@ -746,8 +745,4 @@ def update_wbtoken():
 
 
 if __name__ == '__main__':
-    wb_token, resp2, resp1 = Authorization().get_wb_token_by_phone_number(phone_number='79998074678',
-                                                                          wild_auth_new=settings.wild_auth_new)
-    coken, res1, res2, resp3 = Authorization().get_new_wb_token_by_wb_token_and_supplier_id(wb_token=wb_token,
-                                                                                            supplier_id=settings.supplier_id)
-    print(coken,res1,res2,resp3)
+    BaseCase().save_cookies()
