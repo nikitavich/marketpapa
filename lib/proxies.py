@@ -1,7 +1,7 @@
 PROXIES = [
-        "http://WxfJre:a6CE1M@212.81.39.249:9241",
-        "http://WxfJre:a6CE1M@212.81.36.50:9042",
-        "http://WxfJre:a6CE1M@212.81.38.141:9313",
-        "http://WxfJre:a6CE1M@212.81.36.103:9065",
-        "http://WxfJre:a6CE1M@212.81.37.227:9218",
+        "http://zazycg:7xey1N@213.166.72.243:9435",
+        "http://zazycg:7xey1N@91.188.241.166:9965",
+        "http://zazycg:7xey1N@91.188.243.4:9606",
+        "http://zazycg:7xey1N@91.188.242.191:9795",
+        "http://zazycg:7xey1N@91.188.241.70:9832",
 ]
