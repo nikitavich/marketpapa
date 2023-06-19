@@ -11,7 +11,7 @@ class TestInternalAnalytics:
     def test_get_token(self, get_id_from_token):
         response_status_code, ids = get_id_from_token
         # ПРОВЕРКИ
-        assert response_status_code == 200, f"Wrong status code {response_status_code}"
+        assert response_status_code == 200, f"get_token status code: {response_status_code}"
 
     # Получить список заказов
     def test_get_order_list(self, get_id_from_token):
@@ -23,7 +23,7 @@ class TestInternalAnalytics:
                                         f"{ids}"
                                     ]
                                 }))
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_order_list response code: {response.status_code}'
 
     # Получить drop-list для фильтрации в разделе продажи
     def test_get_orders_brand(self, get_id_from_token):
@@ -35,7 +35,7 @@ class TestInternalAnalytics:
                                         f"{ids}"
                                     ]
                                 }))
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_orders_brand response code: {response.status_code}'
 
     # Получить заказы по недельной статистике
     def test_get_order_weekly_stat(self, get_id_from_token):
@@ -47,7 +47,7 @@ class TestInternalAnalytics:
                                         f"{ids}"
                                     ]
                                 }))
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_order_weekly_stat response code: {response.status_code}'
 
     # API для внутреннего использования
     def test_order_count(self, get_id_from_token):
@@ -65,7 +65,7 @@ class TestInternalAnalytics:
                                     'Content-Type': 'application/json'
                                 }
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'order_count response code: {response.status_code}'
 
     # Получить список продаж
     def test_get_sales_list(self, get_id_from_token):
@@ -77,7 +77,7 @@ class TestInternalAnalytics:
                                         f"{ids}"
                                     ]
                                 }))
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_sales_list response code: {response.status_code}'
 
     # Получить drop-list для фильтрации в разделе продажи
     def test_get_sales_brand(self, get_id_from_token):
@@ -89,7 +89,7 @@ class TestInternalAnalytics:
                                         f"{ids}"
                                     ]
                                 }))
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_sales_brand response code: {response.status_code}'
 
     # Получить продажи по недельной статистике
     def test_get_sales_weekly_stat(self, get_id_from_token):
@@ -101,7 +101,7 @@ class TestInternalAnalytics:
                                         f"{ids}"
                                     ]
                                 }))
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_sales_weekly_stat response code: {response.status_code}'
 
     # Подключение wb-token для внутренней аналитики
     # def test_create_token(self):
@@ -189,7 +189,7 @@ class TestInternalAnalytics:
                                     ]
                                 })
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_product_list response code{response.status_code}'
 
     # Получить drop-list для фильтрации в разделе мои товары
     def test_get_product_brand(self, get_id_from_token):
@@ -202,7 +202,7 @@ class TestInternalAnalytics:
                                     ]
                                 })
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_product_brand response code: {response.status_code}'
 
     # Получить шаблон excel таблицы
     def test_get_sample(self, get_id_from_token):
@@ -215,7 +215,7 @@ class TestInternalAnalytics:
                                     ]
                                 })
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_sample response code: {response.status_code}'
 
     # Получить список реализаций
     def test_get_realization_list(self, get_id_from_token):
@@ -228,7 +228,7 @@ class TestInternalAnalytics:
                                     ]
                                 })
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'get_realization_list response code: {response.status_code}'
 
     # Получить список поставок
     def test_supplies_list(self, get_id_from_token):
@@ -241,7 +241,7 @@ class TestInternalAnalytics:
                                     ]
                                 })
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'supplies_list response code: {response.status_code}'
 
     # Получение списка артикулов в конкретной поставке
     def test_get_articles_list(self, get_id_from_token):
@@ -254,7 +254,7 @@ class TestInternalAnalytics:
                                     ]
                                 })
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'internal-analytics/supplies response code: {response.status_code}'
         parsed_response_text1 = response.json()
         self.incomeId = parsed_response_text1['items'][0]['incomeId']
         response1 = send_request(method='post',
@@ -265,7 +265,7 @@ class TestInternalAnalytics:
                                      ]
                                  })
                                  )
-        assert response1.status_code == 200, f'Wrong response code! - {response1.status_code}'
+        assert response1.status_code == 200, f'internal-analytics/supplies incomeId response code: {response1.status_code}'
 
     # Изменить себестоимость товара в поставке
     def test_change_cost_price(self, get_id_from_token):
@@ -279,7 +279,7 @@ class TestInternalAnalytics:
                                     ]
                                 })
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'internal-analytics/supplies response code: {response.status_code}'
         parsed_response_text = response.json()
         self.incomeId = parsed_response_text['items'][0]['incomeId']
         # Получение nmId и api_key
@@ -291,7 +291,7 @@ class TestInternalAnalytics:
                                      ]
                                  })
                                  )
-        assert response1.status_code == 200, f'Wrong response code! - {response1.status_code}'
+        assert response1.status_code == 200, f'internal-analytics/supplies incomeId response code: {response1.status_code}'
         parsed_response_text1 = response1.json()
         api_key = parsed_response_text1['items'][0]['api_key']
         nmId = parsed_response_text1['items'][0]['nmId']
@@ -312,7 +312,7 @@ class TestInternalAnalytics:
                                      ]
                                  })
                                  )
-        assert response2.status_code == 202, f'Wrong response code! - {response2.status_code}'
+        assert response2.status_code == 202, f'send-cost-price response code: {response2.status_code}'
 
     # Получить drop-list для фильтрации в разделе поставки
     def test_list_of_supplies(self, get_id_from_token):
@@ -325,7 +325,7 @@ class TestInternalAnalytics:
                                     ]
                                 })
                                 )
-        assert response.status_code == 200, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 200, f'list_of_supplies response code: {response.status_code}'
 
     # Получить drop-list для фильтрации в разделе поставки
     def test_list_of_supplies_by_supply(self, get_id_from_token):
@@ -351,7 +351,7 @@ class TestInternalAnalytics:
                                      ]
                                  })
                                  )
-        assert response1.status_code == 200, f'Wrong response code! - {response1.status_code}'
+        assert response1.status_code == 200, f'list_of_supplies_by_supply response code: {response1.status_code}'
 
     # Обновить себестоимость товаров в поставке из истории себестоимости
     def test_update_price_in_supply_history(self, get_id_from_token):
@@ -377,7 +377,7 @@ class TestInternalAnalytics:
                                      ]
                                  })
                                  )
-        assert response1.status_code == 202, f'Wrong response code! - {response1.status_code}'
+        assert response1.status_code == 202, f'update_price_in_supply_history response code: {response1.status_code}'
 
     # Получить список по истории себестоимости
     def test_list_of_price_history(self, get_id_from_token):
@@ -415,7 +415,7 @@ class TestInternalAnalytics:
                                      ]
                                  })
                                  )
-        assert response2.status_code == 200, f'Wrong response code! - {response2.status_code}'
+        assert response2.status_code == 200, f'list_of_price_history response code: {response2.status_code}'
 
     # Отправить себестоимость
     def test_send_cost_price(self, get_id_from_token):
@@ -434,7 +434,7 @@ class TestInternalAnalytics:
                                         }
                                     ]
                                 }))
-        assert response.status_code == 202, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 202, f'send_cost_price response code: {response.status_code}'
 
     # самовыкуп для товара
     def test_orders_self_purchase(self, get_id_from_token):
@@ -452,4 +452,4 @@ class TestInternalAnalytics:
                                         }
                                     ]
                                 }))
-        assert response.status_code == 202, f'Wrong response code! - {response.status_code}'
+        assert response.status_code == 202, f'orders_self_purchase response code: {response.status_code}'
