@@ -68,6 +68,6 @@ def send_message_to_telegram(part_of_testing: str, message: str):
 
 
 if __name__ == '__main__':
-    # start_internal_analytics_autotests()
-    # start_advertising_autotests()
+    start_internal_analytics_autotests()
+    start_advertising_autotests()
     start_ui_smoke_autotests()
