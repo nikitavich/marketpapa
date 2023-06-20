@@ -7,6 +7,7 @@ def start_advertising_autotests():
     message = ''
     result = cons_read(
         mstr="python3 -m pytest --no-header -q --tb=line --disable-warnings tests/backend/test_advertising_cabinet.py")
+    print(result)
     if 'ERROR' in result:
         send_message_to_telegram("Тестирование рекламы", 'ERROR в автотестах рекламы')
     if "FAILED" in result:
@@ -23,6 +24,7 @@ def start_internal_analytics_autotests():
     message = ''
     result = cons_read(
         mstr="python3 -m pytest --no-header -q --tb=line --disable-warnings tests/backend/test_internal_analytics.py")
+    print(result)
     if 'ERROR' in result:
         send_message_to_telegram("Тестирование внутренней аналитики", 'ERROR в автотестах внутренней аналитики')
     if "FAILED" in result:
@@ -39,6 +41,7 @@ def start_ui_smoke_autotests():
     message = ''
     result = cons_read(
         mstr="python3 -m pytest --no-header -q --tb=line --disable-warnings tests/smoke/test_smoke.py")
+    print(result)
     if 'ERROR' in result:
         send_message_to_telegram("Тестирование UI smoke автотестов", 'ERROR в UI smoke автотестах')
     if "FAILED" in result:
