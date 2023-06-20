@@ -38,7 +38,6 @@ class TestAdvertisingCabinet:
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/companies_info/7045150/')
         assert response.status_code == 200, f'companies_info code: {response.status_code}'
         jsondata = response.json()
-        print(jsondata['token'])
         assert jsondata["token"][
                    "phone_number"] == '9308689511', f'Wrong phone number! - {jsondata["token"]["phone_number"]}'
 
