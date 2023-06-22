@@ -43,21 +43,21 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 proxy_count += 1
                 count += 1
                 if proxy_count > 3:
-                    raise requests.exceptions.ProxyError
+                    return response
                 time.sleep(1)
                 continue
             except requests.exceptions.ReadTimeout:
                 count += 1
                 timeout_count += 1
                 if timeout_count > 3:
-                    raise requests.exceptions.ReadTimeout
+                    return response
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
                 five_count += 1
                 count += 1
                 if five_count > 3:
-                    raise wb_errors.Error500
+                    return response
                 continue
             if response.status_code in [403]:
                 update_wb_token1()
@@ -74,20 +74,20 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 proxy_count += 1
                 count += 1
                 if proxy_count > 3:
-                    raise requests.exceptions.ProxyError
+                    return response
                 time.sleep(1)
                 continue
             except requests.exceptions.ReadTimeout:
                 count += 1
                 timeout_count += 1
                 if timeout_count > 3:
-                    raise requests.exceptions.ReadTimeout
+                    return response
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
                 five_count += 1
                 if five_count > 3:
-                    raise wb_errors.Error500
+                    return response
                 continue
             if response.status_code in [403]:
                 update_wb_token1()
@@ -104,20 +104,20 @@ def send_request(method, url, data=None, json=None, headers=None, files=None):
                 proxy_count += 1
                 count += 1
                 if proxy_count > 3:
-                    raise requests.exceptions.ProxyError
+                    return response
                 time.sleep(1)
                 continue
             except requests.exceptions.ReadTimeout:
                 count += 1
                 timeout_count += 1
                 if timeout_count > 3:
-                    raise requests.exceptions.ReadTimeout
+                    return response
                 time.sleep(1)
                 continue
             if response.status_code in [502, 500]:
                 five_count += 1
                 if five_count > 3:
-                    raise wb_errors.Error500
+                    return response
                 continue
             if response.status_code in [403]:
                 update_wb_token1()
