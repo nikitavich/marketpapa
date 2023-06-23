@@ -39,7 +39,7 @@ class TestAdvertisingCabinet:
         assert response.status_code == 200, f'companies_info code: {response.status_code}'
         jsondata = response.json()
         assert jsondata["token"][
-                   "phone_number"] == '9308689511', f'Wrong phone number! - {jsondata["token"]["phone_number"]}'
+                   "phone_number"] == '9308689511', f'companies_info Wrong phone number! - {jsondata["token"]["phone_number"]}'
 
     # Плюс фразы кампании
     def test_company_keywords(self):
@@ -47,7 +47,7 @@ class TestAdvertisingCabinet:
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/company_keywords/7045150/')
         assert response.status_code == 200, f'company_keywords code: {response.status_code}'
         jsondata = response.json()
-        assert jsondata[0]["keyword"] == 'брюки', f'Wrong company keyword! - {jsondata[0]["keyword"]}'
+        assert jsondata[0]["keyword"] == 'брюки', f'company_keywords: Wrong company keyword! - {jsondata[0]["keyword"]}'
 
     # Рекламные кабинеты
     def test_supplier_id(self):
@@ -216,7 +216,7 @@ class TestAdvertisingCabinet:
                                          }
                                      ]
                                  }))
-        assert response1.status_code == 201, f'test_update_company response code: {response1.status_code}'
+        assert response1.status_code == 201, f'update_company response code: {response1.status_code}'
 
     def test_enable_company(self):
         response = send_request(method='get',
@@ -305,4 +305,5 @@ class TestAdvertisingCabinet:
         assert jsondata['rows'], "Пустой ответ по keyword_hint_full"
 
     def test_delete_companies(self):
-        delete_test_companies()
+        arg = delete_test_companies()
+        assert arg, "не сработал delete_companies"

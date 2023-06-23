@@ -15,6 +15,7 @@ from selenium.webdriver.common.by import By
 
 from lib import settings
 from lib.proxies import PROXIES
+from selenium.common.exceptions import NoSuchElementException
 
 
 class BaseCase:
@@ -677,6 +678,8 @@ def delete_test_companies():
     if func:
         for company_id in func:
             count = 0
+            timeout = 0
+            proxy = 0
             while count < 5:
                 proxy = random.choice(PROXIES)
                 url = f"https://cmp.wildberries.ru/backend/api/v1/atrevd/{company_id}/to-delete"
@@ -704,19 +707,27 @@ def delete_test_companies():
                     response = requests.request("PUT", url, headers=headers, data=payload,  proxies={"http": proxy, "https": proxy})
                 except requests.exceptions.ProxyError:
                     count += 1
+                    proxy += 1
+                    if proxy > 3:
+                        return False
                     time.sleep(1)
                     continue
                 except requests.exceptions.ReadTimeout:
                     count += 1
+                    timeout += 1
+                    if timeout > 3:
+                        return False
                     time.sleep(1)
                     continue
+                except requests.exceptions:
+                    return False
                 if response.status_code in [429]:
                     count += 1
                     time.sleep(1)
                     continue
-                break
+                return True
             else:
-                return response
+                return False
 
 
 
@@ -740,6 +751,15 @@ def update_wbtoken():
     with open('../WBToken', 'w') as file:
         file.write(coken)
         file.close()
+
+
+def find_element_on_page(driver, xpath):
+    try:
+        driver.find_element(By.XPATH, xpath)
+        return True
+    except NoSuchElementException:
+        return False
+
 
 
 
