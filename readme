@@ -1,3 +1,8 @@
-python -m pytest -s -q --tb=line --alluredir=/tmp/my_allure_results tests/backend/test_internal_analytics.py
-python -m pytest -s -q --tb=line --alluredir=/tmp/my_allure_results tests/backend/test_advertising_cabinet.py
-python -m pytest -s -q --tb=line tests/backend/test_authorization.py
+Файл для запуска автотестов: start_autotests.py
+
+Файл запускает 3 файла:
+tests/backend/test_internal_analytics.py - тесты по внутренней аналитике
+tests/backend/test_advertising_cabinet.py - тесты по рекламному кабинету
+tests/smoke/test_smoke.py - UI-smoke атотесты
+
+UI-smoke автотесты запускаются в docker-контейнере (настройки в tests/conftest.py::driver)
