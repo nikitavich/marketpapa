@@ -705,6 +705,7 @@ def delete_test_companies():
                 }
                 try:
                     response = requests.request("PUT", url, headers=headers, data=payload,  proxies={"http": proxy, "https": proxy})
+                    print(response)
                 except requests.exceptions.ProxyError:
                     count += 1
                     proxy += 1
@@ -725,9 +726,10 @@ def delete_test_companies():
                     count += 1
                     time.sleep(1)
                     continue
-                return True
-            else:
-                return False
+                break
+        return True
+    else:
+        return True
 
 
 
