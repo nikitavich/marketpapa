@@ -10,20 +10,18 @@ from lib import settings
 from lib.base_case import BaseCase
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from lib.internal_analytics import send_request
 
 
 
 @pytest.fixture(scope="session")
 def get_id_from_token():
-    response = requests.get("https://api.marketpapa.ru/api/internal-analytics/token/",
-                            headers={
-                                "Authorization": "Bearer " + str(settings.token)
-                            }
-                            )
+    response = send_request(method='get',
+                            url='https://api.marketpapa.ru/api/internal-analytics/token/')
     parsed_response_text = response.json()
     ids = None
     for element in parsed_response_text['items']:
-        if element["key_name"] == "NEW_Василий":
+        if element["key_name"] == "Загружено из рекламы 'Наш Кабинет'":
             ids = element["id"]
     response_status_code = response.status_code
     return response_status_code, ids

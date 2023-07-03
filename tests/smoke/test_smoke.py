@@ -120,85 +120,86 @@ class TestSmoke:
 
     def test_monitoring_positions(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        wait = WebDriverWait(driver, 10)
         driver.get("https://marketpapa.ru/positions?product_id=48902763")
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='search-wrapper']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='search-wrapper']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='search-button']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='favorite-icon']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='filter-date-start']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='filter-date-end']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-month']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-week']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-twoweeks']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-twomonths']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-threemonths']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='phrase-search']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='search-wrapper']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='search-button']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='monitoring-position-table']")))
+        driver.implicitly_wait(10)
+        assert find_element_on_page(driver, "//div[contains(@data-test,'search-wrapper')]"), "monitoring_positions: не отображается поиск по артикулу"
+        assert find_element_on_page(driver, "//button[contains(@data-test,'search-button')]"), "monitoring_positions: не отображается кнопка поиска"
+        assert find_element_on_page(driver, "//span[contains(@data-test,'favorite-icon')]"), "monitoring_positions: не отображается иконка favorite"
+        assert find_element_on_page(driver, "//span[contains(@data-test,'filter-date-start')]"), "monitoring_positions: не отображается фильтр дата-начало"
+        assert find_element_on_page(driver, "//span[contains(@data-test,'filter-date-end')]"), "monitoring_positions: не отображается фильтр дата-конец"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-month')]"), "monitoring_positions: не отображается месячный фильтр"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-week')]"), "monitoring_positions: не отображается недельный фильтр"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-twoweeks')]"), "monitoring_positions: не отображается двухнедельный фильтр"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-twomonths')]"), "monitoring_positions: не отображается двухмесячный фильтр"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-threemonths')]"), "monitoring_positions: не отображается трёхмесячный фильтр"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'phrase-search')]"), "monitoring_positions: не отображается поиск фразы"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'search-wrapper')]"), "monitoring_positions: не отображается поле поиска фразы"
+        assert find_element_on_page(driver, "//button[contains(@data-test,'search-button')]"), "monitoring_positions: не отображается кнопка поиска"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'monitoring-position-table')]"), "monitoring_positions: не отображается таблица мониторинга позиций"
+
 
     def test_phrase_selection(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        wait = WebDriverWait(driver, 10)
+        driver.implicitly_wait(10)
         driver.get("https://marketpapa.ru/phrase_selection")
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='phrase-selection']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='tabs']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='tab-selection']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='tab-selected']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='tab-description']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='selection-wrapper']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@data-test='phrase-search']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='phrase-search-icon']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='btn-export']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='dd-columns']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='phrase-table']")))
+        assert find_element_on_page(driver, "//div[contains(@data-test,'phrase-selection')]"), "phrase_selection: не отображается страница"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'tabs')]"), "phrase_selection: не отображается кнопки подбора фраз"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'tab-selection')]"), "phrase_selection: не отображается кнопка подбор фраз"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'tab-selected')]"), "phrase_selection: не отображается кнопка выбранные фразы"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'tab-description')]"), "phrase_selection: не отображается кнопка описание"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'selection-wrapper')]"), "phrase_selection: не отображается страница"
+        assert find_element_on_page(driver, "//input[contains(@data-test,'phrase-search')]"), "phrase_selection: не отображается поле ввода фразы"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'phrase-search-icon')]"), "phrase_selection: не отображается кнопка поиска"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'btn-export')]"), "phrase_selection: не отображается кнопка экспорта данных"
+        assert find_element_on_page(driver, "//span[contains(@data-test,'dd-columns')]"), "phrase_selection: не отображается кнопка настроить колонки"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'phrase-table')]"), "phrase_selection: не отображается таблица фраз"
 
     def test_order_sale_feed(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        wait = WebDriverWait(driver, 10)
+        driver.implicitly_wait(10)
         driver.get("https://marketpapa.ru/order_sale_feed")
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='order-sale-feed-page']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='internal-tabs']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//a[@data-test='internal-tab']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='dd-search-wrap']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='dd-search']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@data-test='dd-search-input']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='btn-dd-search']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='switch-active-left']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='all-api-keys-toggle']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='filter-date-start']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='filter-date-start']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-today']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-yesterday']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-month']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-week']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-date-twoweeks']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='btn-filter-order-sale']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='btn-filter-cancel-return']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-item']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='btn-clear-filters']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='btn-export']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='dd-columns']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='order-feed-table']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='btn-save-order-feed']")))
+        assert find_element_on_page(driver, "//div[contains(@data-test,'order-sale-feed-page')]"), "order_sale_feed: не отображается страница"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'internal-tabs')]"), "order_sale_feed: не отображается кнопки недельная статистика и лента заказов и продаж"
+        assert find_element_on_page(driver, "//a[contains(@data-test,'internal-tab')]"), "order_sale_feed: не отображается кнопка недельная статистика"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'dd-search-wrap')]"), "order_sale_feed: не отображается поиск"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'dd-search')]"), "order_sale_feed: не отображается дропдаун артикул"
+        assert find_element_on_page(driver, "//input[contains(@data-test,'dd-search-input')]"), "order_sale_feed: не отображается поле ввода поиска"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'btn-dd-search')]"), "order_sale_feed: не отображается кнопка поиска"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'switch-active-left')]"), "order_sale_feed: не отображается заказы продажи свитч"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'all-api-keys-toggle')]"), "order_sale_feed: не отображается дата последнего обновления"
+        assert find_element_on_page(driver, "//span[contains(@data-test,'filter-date-start')]"), "order_sale_feed: не отображается дата начала"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-today')]"), "order_sale_feed: не отображается дата сегодня"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-yesterday')]"), "order_sale_feed: не отображается дата вчера"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-month')]"), "order_sale_feed: не отображается дата месяца"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-week')]"), "order_sale_feed: не отображается дата недели"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-date-twoweeks')]"), "order_sale_feed: не отображается дата две недели"
+        assert find_element_on_page(driver, "//button[contains(@data-test,'btn-filter-order-sale')]"), "order_sale_feed: не отображается кнопка заказы"
+        assert find_element_on_page(driver, "//button[contains(@data-test,'btn-filter-cancel-return')]"), "order_sale_feed: не отображается кнопка возвраты"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'filter-item')]"), "order_sale_feed: не отображается фильтр статус"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'btn-clear-filters')]"), "order_sale_feed: не отображается нопка очистить фильтры"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'btn-export')]"), "order_sale_feed: не отображается кнопка экспорта"
+        assert find_element_on_page(driver, "//span[contains(@data-test,'dd-columns')]"), "order_sale_feed: не отображается кнопка настроить колонки"
+        assert find_element_on_page(driver, "//div[contains(@data-test,'order-feed-table')]"), "order_sale_feed: не отображается таблица айтемов"
+        assert find_element_on_page(driver, "//button[contains(@data-test,'btn-save-order-feed')]"), "order_sale_feed: не отображается кнопка применить изменения"
 
-    def test_my_products(self, driver):
-        BaseCase().add_cookie_to_chrome(driver)
-        wait = WebDriverWait(driver, 10)
-        driver.get("https://marketpapa.ru/my_products")
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='my-products-page']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='internal-tabs']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//a[@data-test='internal-tab']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='dd-search-wrap']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='dd-search']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@data-test='dd-search-input']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='btn-dd-search']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='filter-with-cost-price']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='filter-without-cost-price']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//button[@data-test='btn-upload-cost-price']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='all-api-keys-toggle']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-item']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='filter-clear']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@data-test='dd-columns']")))
-        wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@data-test='my-products-table']")))
+# убрали функционал 23 спринте
+    # def test_my_products(self, driver):
+    #     BaseCase().add_cookie_to_chrome(driver)
+    #     driver.implicitly_wait(10)
+    #     driver.get("https://marketpapa.ru/my_products")
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'my-products-page')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'internal-tabs')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//a[contains(@data-test,'internal-tab')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'dd-search-wrap')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'dd-search')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//input[contains(@data-test,'dd-search-input')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'btn-dd-search')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//button[contains(@data-test,'filter-with-cost-price')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//button[contains(@data-test,'filter-without-cost-price')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//button[contains(@data-test,'btn-upload-cost-price')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'all-api-keys-toggle')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'filter-item')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'filter-clear')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//span[contains(@data-test,'dd-columns')]"), "my_products: не отображается "
+    #     assert find_element_on_page(driver, "//div[contains(@data-test,'my-products-table')]"), "my_products: не отображается "
+
