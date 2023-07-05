@@ -40,7 +40,7 @@ def driver():
     }
 
     driver = webdriver.Remote(
-        command_executor="http://5.9.101.76:4444/wd/hub",
+        command_executor="http://158.160.69.202:4444/wd/hub",
         desired_capabilities=capabilities)
     yield driver
     driver.quit()
