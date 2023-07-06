@@ -7,6 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from lib.base_case import find_element_on_page
 
+
 class TestSmoke:
 
     def test_authorization(self, driver):
