@@ -31,17 +31,20 @@ def get_id_from_token():
 def driver():
     # driver = webdriver.Chrome(ChromeDriverManager().install())
 
-    capabilities = {
-        "browserName": "chrome",
-        "browserVersion": "113.0",
-        "selenoid:options": {
-            "enableVideo": False
-        }
-    }
+    # capabilities = {
+    #     "browserName": "chrome",
+    #     "browserVersion": "113.0",
+    #     "selenoid:options": {
+    #         "enableVideo": False
+    #     }
+    #
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.set_capability("browserName", 'chrome')
+    chrome_options.set_capability("browserVersion", '113.0')
+    chrome_options.set_capability("selenoid:options", '{"enableVideo": False}')
 
     driver = webdriver.Remote(
-        command_executor="http://158.160.69.202:4444/wd/hub",
-        options=capabilities)
+        command_executor="http://158.160.69.202:4444/wd/hub", options=chrome_options)
     yield driver
     driver.quit()
 
