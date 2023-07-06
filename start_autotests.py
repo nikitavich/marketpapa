@@ -40,18 +40,19 @@ def start_internal_analytics_autotests():
 def start_ui_smoke_autotests():
     message = ''
     result = cons_read(
-        mstr="python3 -m pytest --no-header -q --tb=line --disable-warnings tests/smoke/test_smoke.py")
+        mstr="python3 -m pytest --no-header -s -q --tb=line --disable-warnings tests/smoke/test_smoke.py")
     print(result)
     if 'ERROR' in result:
         send_message_to_telegram("Тестирование UI smoke автотестов", 'ERROR в UI smoke автотестах')
     if "FAILED" in result:
-        cropped_result = result.partition("info ============================\n")
+        cropped_result = result.partition("FAILURES ===================================\n")
         cropped_result = cropped_result[2].partition("\n=")
         cropped_result = cropped_result[0].split('\n')
         for line in cropped_result:
             exp = line.partition('test_smoke.py:')
             message = message + exp[2] + '\n'
         send_message_to_telegram("Тестирование UI smoke автотестов", message)
+
 
 def cons_read(mstr):
     a = os.popen(mstr)
@@ -71,6 +72,4 @@ def send_message_to_telegram(part_of_testing: str, message: str):
 
 
 if __name__ == '__main__':
-    start_internal_analytics_autotests()
-    start_advertising_autotests()
     start_ui_smoke_autotests()
