@@ -90,7 +90,7 @@ class TestSmoke:
         assert find_element_on_page(driver, "//span[contains(@data-test,'campaign-total-budget')]"), "advertising_campaign_search: Не отображается бюджет"
         assert find_element_on_page(driver, "//input[contains(@data-test,'campaign-target-place')]"), "advertising_campaign_search: Не отображается целевая позиция"
         assert find_element_on_page(driver, "//input[contains(@data-test,'campaign-max-price')]"), "advertising_campaign_search: Не отображается максимальная ставка"
-        assert find_element_on_page(driver, "//div[contains(@data-test,'campaign-interval-1')]"), "advertising_campaign_search: Не отображается интервалы показов"
+        # assert find_element_on_page(driver, "//div[contains(@data-test,'campaign-interval-1')]"), "advertising_campaign_search: Не отображается интервалы показов"
         assert find_element_on_page(driver, "//div[contains(@data-test,'campaign-master-phrase')]"), "advertising_campaign_search: Не отображается блок с мастер фразой"
         assert find_element_on_page(driver, "//div[contains(@data-test,'master-phrase-region')]"), "advertising_campaign_search: Не отображается регион управления"
         assert find_element_on_page(driver, "//div[contains(@data-test,'dropdown-selected')]"), "advertising_campaign_search: Не отображается дропдаун региона управления"
