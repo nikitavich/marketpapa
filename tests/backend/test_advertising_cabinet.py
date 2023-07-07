@@ -262,25 +262,25 @@ class TestAdvertisingCabinet:
         response = send_request(method='get',
                                 url='https://api.marketpapa.ru/api/advertising-cabinet/full_product_stat?token_id=1')
         assert response.status_code == 200, f'full_product_stat code: {response.status_code}'
-
-    def test_create_company(self):
-        response = send_request(method='post',
-                                url='https://api.marketpapa.ru/api/advertising-cabinet/create_company?token_id=1',
-                                data=json.dumps({
-                                    "company_type": "search",
-                                    "data": {
-                                        "campaignName": "тест создание",
-                                        "groups": [
-                                            {
-                                                "nms": [
-                                                    51349857
-                                                ],
-                                                "key_word": "Брюки"
-                                            }
-                                        ]
-                                    }
-                                }))
-        assert response.status_code == 200, f'create_company code: {response.status_code}'
+    # пока закомментл тк много проблем с удалением
+    # def test_create_company(self):
+    #     response = send_request(method='post',
+    #                             url='https://api.marketpapa.ru/api/advertising-cabinet/create_company?token_id=1',
+    #                             data=json.dumps({
+    #                                 "company_type": "search",
+    #                                 "data": {
+    #                                     "campaignName": "тест создание",
+    #                                     "groups": [
+    #                                         {
+    #                                             "nms": [
+    #                                                 51349857
+    #                                             ],
+    #                                             "key_word": "Брюки"
+    #                                         }
+    #                                     ]
+    #                                 }
+    #                             }))
+    #     assert response.status_code == 200, f'create_company code: {response.status_code}'
 
     def test_tg_accounts(self):
         response = send_request(method='get',
@@ -303,7 +303,7 @@ class TestAdvertisingCabinet:
         assert response.status_code == 200, f'keyword_hint_full code: {response.status_code}'
         jsondata = json.loads(response.text)
         assert jsondata['rows'], "Пустой ответ по keyword_hint_full"
-
-    def test_delete_companies(self):
-        arg = delete_test_companies()
-        assert arg, "не сработал delete_companies"
+    # пока закомментил потому что часто приходится обновлять токен
+    # def test_delete_companies(self):
+    #     arg = delete_test_companies()
+    #     assert arg, "не сработал delete_companies"

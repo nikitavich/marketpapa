@@ -207,28 +207,4 @@ class TestSmoke:
     #     assert find_element_on_page(driver, "//span[contains(@data-test,'dd-columns')]"), "my_products: не отображается "
     #     assert find_element_on_page(driver, "//div[contains(@data-test,'my-products-table')]"), "my_products: не отображается "
 
-    # def test_requests(self, driver):
-    #     BaseCase().add_cookie_to_chrome(driver)
-    #     driver.implicitly_wait(10)
-    #     # Активация записи сетевых журналов
-    #     driver.execute_cdp_cmd('Network.enable', {})
-    #
-    #     # Переход по URL-адресу
-    #     driver.get("https://marketpapa.ru/order_sale_feed")
-    #
-    #     # Получение сетевых журналов
-    #     logs = driver.execute_cdp_cmd('Network.getAllCookies', {})
-    #     print(logs)
-    #     # Извлечение заголовков ответов
-    #     headers = []
-    #     for log in logs['cookies']:
-    #         if 'request' in log:
-    #             response = log['request']
-    #             response_headers = response['headers']
-    #             headers.append(response_headers)
-    #
-    #     print("Заголовки ответов:")
-    #     for response_headers in headers:
-    #         for key, value in response_headers.items():
-    #             print(f"{key}: {value}")
 
