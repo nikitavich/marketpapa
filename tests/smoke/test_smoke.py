@@ -1,3 +1,4 @@
+import json
 import time
 
 from lib.base_case import BaseCase
@@ -6,6 +7,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from lib.base_case import find_element_on_page
+from selenium.webdriver.chrome.service import Service
+
 
 
 class TestSmoke:
@@ -61,7 +64,7 @@ class TestSmoke:
 
     def test_advertising_campaign_search(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        driver.implicitly_wait(10)
+        driver.implicitly_wait(30)
         driver.get("https://marketpapa.ru/ad_cabinet_view/1/7045150?category_name=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA")
         assert find_element_on_page(driver, "//div[contains(@data-test,'campaign-header')]"), "advertising_campaign_search: Не отображается header компании"
         assert find_element_on_page(driver, "//div[contains(@data-test,'back-button')]"), "advertising_campaign_search: Не отображается кнопка назад"
@@ -203,4 +206,29 @@ class TestSmoke:
     #     assert find_element_on_page(driver, "//div[contains(@data-test,'filter-clear')]"), "my_products: не отображается "
     #     assert find_element_on_page(driver, "//span[contains(@data-test,'dd-columns')]"), "my_products: не отображается "
     #     assert find_element_on_page(driver, "//div[contains(@data-test,'my-products-table')]"), "my_products: не отображается "
+
+    def test_requests(self, driver):
+        BaseCase().add_cookie_to_chrome(driver)
+        driver.implicitly_wait(10)
+        # Активация записи сетевых журналов
+        driver.execute_cdp_cmd('Network.enable', {})
+
+        # Переход по URL-адресу
+        driver.get("https://marketpapa.ru/order_sale_feed")
+
+        # Получение сетевых журналов
+        logs = driver.execute_cdp_cmd('Network.getAllCookies', {})
+        print(logs)
+        # Извлечение заголовков ответов
+        headers = []
+        for log in logs['cookies']:
+            if 'request' in log:
+                response = log['request']
+                response_headers = response['headers']
+                headers.append(response_headers)
+
+        print("Заголовки ответов:")
+        for response_headers in headers:
+            for key, value in response_headers.items():
+                print(f"{key}: {value}")
 
