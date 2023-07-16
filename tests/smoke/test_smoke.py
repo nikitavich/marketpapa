@@ -15,7 +15,7 @@ class TestSmoke:
 
     def test_authorization(self, driver):
         driver.get('https://marketpapa.ru/login')
-        driver.implicitly_wait(60)
+        driver.implicitly_wait(50)
         driver.find_element(By.NAME, 'phone').send_keys('+79877120164')
         driver.find_element(By.NAME, 'password').send_keys('q1w2e3r4t5y6')
         driver.find_element(By.XPATH, "//span[@class='sc-iJnaPW izGUBw']").click()
@@ -45,7 +45,7 @@ class TestSmoke:
 
     def test_list_of_advertising_campaigns(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        driver.implicitly_wait(60)
+        driver.implicitly_wait(50)
         driver.get(
             "https://marketpapa.ru/ad_cabinet/1/campaigns?name=%D0%9D%D0%B0%D1%88%20%D0%9A%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82")
         assert find_element_on_page(driver, "//span[contains(@data-test,'cabinet-status')]"), 'list_of_advertising_campaigns: Не отображается статус кабинета'
@@ -64,7 +64,7 @@ class TestSmoke:
 
     def test_advertising_campaign_search(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        driver.implicitly_wait(60)
+        driver.implicitly_wait(50)
         driver.get("https://marketpapa.ru/ad_cabinet_view/1/7045150?category_name=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA")
         assert find_element_on_page(driver, "//div[contains(@data-test,'campaign-header')]"), "advertising_campaign_search: Не отображается header компании"
         assert find_element_on_page(driver, "//div[contains(@data-test,'back-button')]"), "advertising_campaign_search: Не отображается кнопка назад"
@@ -125,7 +125,7 @@ class TestSmoke:
     def test_monitoring_positions(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
         driver.get("https://marketpapa.ru/positions?product_id=48902763")
-        driver.implicitly_wait(60)
+        driver.implicitly_wait(50)
         assert find_element_on_page(driver, "//div[contains(@data-test,'search-wrapper')]"), "monitoring_positions: не отображается поиск по артикулу"
         assert find_element_on_page(driver, "//button[contains(@data-test,'search-button')]"), "monitoring_positions: не отображается кнопка поиска"
         assert find_element_on_page(driver, "//span[contains(@data-test,'favorite-icon')]"), "monitoring_positions: не отображается иконка favorite"
@@ -144,7 +144,7 @@ class TestSmoke:
 
     def test_phrase_selection(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        driver.implicitly_wait(60)
+        driver.implicitly_wait(50)
         driver.get("https://marketpapa.ru/phrase_selection")
         assert find_element_on_page(driver, "//div[contains(@data-test,'phrase-selection')]"), "phrase_selection: не отображается страница"
         assert find_element_on_page(driver, "//div[contains(@data-test,'tabs')]"), "phrase_selection: не отображается кнопки подбора фраз"
@@ -160,7 +160,7 @@ class TestSmoke:
 
     def test_order_sale_feed(self, driver):
         BaseCase().add_cookie_to_chrome(driver)
-        driver.implicitly_wait(60)
+        driver.implicitly_wait(50)
         driver.get("https://marketpapa.ru/order_sale_feed")
         assert find_element_on_page(driver, "//div[contains(@data-test,'order-sale-feed-page')]"), "order_sale_feed: не отображается страница"
         assert find_element_on_page(driver, "//div[contains(@data-test,'internal-tabs')]"), "order_sale_feed: не отображается кнопки недельная статистика и лента заказов и продаж"
