@@ -10,5 +10,5 @@ apiclient
 google_auth_oauthlib
 clickhouse-connect
 fake-useragent==1.1.1
-pyjwt
+PyJWT
 webdriver-manager
