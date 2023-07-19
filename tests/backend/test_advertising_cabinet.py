@@ -1,8 +1,6 @@
 import json
 
 from lib.advertising_cabinet import send_request
-from lib.base_case import delete_test_companies
-
 
 class TestAdvertisingCabinet:
     def test_token(self):
