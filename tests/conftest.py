@@ -13,7 +13,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from lib.internal_analytics import send_request
 
 
-
 @pytest.fixture(scope="session")
 def get_id_from_token():
     response = send_request(method='get',

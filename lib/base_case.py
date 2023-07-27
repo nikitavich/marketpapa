@@ -637,7 +637,8 @@ def get_id_test_companies():
             'sec-ch-ua-platform': '"macOS"'
         }
         try:
-            response = requests.request("GET", url, headers=headers, data=payload, proxies={"http": proxy, "https": proxy})
+            response = requests.request("GET", url, headers=headers, data=payload,
+                                        proxies={"http": proxy, "https": proxy})
         except requests.exceptions.ProxyError:
             count += 1
             time.sleep(1)
@@ -704,7 +705,8 @@ def delete_test_companies():
                     'sec-ch-ua-platform': '"macOS"'
                 }
                 try:
-                    response = requests.request("PUT", url, headers=headers, data=payload,  proxies={"http": proxy, "https": proxy})
+                    response = requests.request("PUT", url, headers=headers, data=payload,
+                                                proxies={"http": proxy, "https": proxy})
                     print(response)
                 except requests.exceptions.ProxyError:
                     count += 1
@@ -732,18 +734,20 @@ def delete_test_companies():
         return True
 
 
-
-
 def update_wb_token1():
     dt = datetime.datetime.now() + datetime.timedelta(days=30)
 
-    token = jwt.encode({
+    token = jwt.JWT.encode(payload=
+    {
         'id': 35,
         'exp': int(dt.strftime('%s'))
-    }, 'django-insecure-^w2dn__h@(%+(y%wm@qa=a$_j@zf1rkm7_6)!(bl4csb1*933o', algorithm='HS256')
+    },
+        key='django-insecure-^w2dn__h@(%+(y%wm@qa=a$_j@zf1rkm7_6)!(bl4csb1*933o',
+        alg='HS256')
     token.encode('utf-8')
     with open('./wb_token.txt', 'w') as file:
         file.write(token)
+
 
 def update_wbtoken():
     wb_token, resp2, resp1 = Authorization().get_wb_token_by_phone_number(phone_number='79998074678',
@@ -761,9 +765,6 @@ def find_element_on_page(driver, xpath):
         return True
     except NoSuchElementException:
         return False
-
-
-
 
 
 if __name__ == '__main__':
