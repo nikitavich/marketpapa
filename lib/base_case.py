@@ -42,8 +42,6 @@ class BaseCase:
         return response_status_code, ids
 
     def get_new_wb_token_by_wild_auth_new_and_supplier_id(self):
-        supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        wild_auth_new = "7255F34755CDC024A4BE3B7EAF84A2A1D4B24AFE173C2748293673093E85236AFEFBB33C895B9F9EA3A6030DD60BFA3D973C05B2ED5706952413B3B9CA55BEB8C1877ECB417F1F5A88359A1C66FB3CA6C017A7E0DEE4EE8A31568DC287D0F53225D9253D48062EE01B64B4CDEA4A870E477630216A611BBB4B325D8DD7A0B4419AFF92961AF488E65391753AD240403914169716E95FB42C4E026B91D336624AD5E57B4FC601A51643F27188FF5830A90E4A88553302EB348517A3926B2C2315E8279C7AEFE1DAB6F0B6912BDEB43DEE6D83426CB2162D64C1CADC6C85E59ED13345ECFB0512D4C158E462ADA391176F56A8096F3F97B54B4B42FE3717100775F3F4743AF1BB67B326F37D69E3C6A44DAC27BA4FF0BF4662586A7AE40BBE0E6420522D38"
         headers = {
             "Host": "seller.wildberries.ru",
             "Connection": "keep-alive",
@@ -259,9 +257,6 @@ class BaseCase:
                 pass
 
     def get_keywords_new(self):
-        wb_token = "Auuq7QPwg5S2DPDhyLYMMs0njfdAkR_sXec77qztRB7X25NAYEk4uTsvbG1-ESzbp5CrRMKbWsZo-rwAhIdxDvZq"
-        supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        wb_user_id = "8082795"
         company_id = 2798829
         referer_type = self.referer_types[2]
         url = f"https://cmp.wildberries.ru/backend/api/v2/search/{company_id}/words"
@@ -287,10 +282,7 @@ class BaseCase:
         return response.status_code, response.text, response.json()
 
     def get_placement_info(self):
-        wb_token = "Auuq7QPwg5S2DPDhyLYMMs0njfdAkR_sXec77qztRB7X25NAYEk4uTsvbG1-ESzbp5CrRMKbWsZo-rwAhIdxDvZq"
-        supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        wb_user_id = "8082795"
-        company_id = 2798829
+
         referer_type = self.referer_types[2]
         url = f"https://cmp.wildberries.ru/backend/api/v2/search/{company_id}/placement"
         headers = {
@@ -335,10 +327,7 @@ class BaseCase:
         return response
 
     def set_excluded_keywords(self):
-        wb_token = "Auuq7QPwg5S2DPDhyLYMMs0njfdAkR_sXec77qztRB7X25NAYEk4uTsvbG1-ESzbp5CrRMKbWsZo-rwAhIdxDvZq"
-        supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        wb_user_id = "8082795"
-        company_id = 2798829
+
         keywords = ["одежда"]
         referer_type = self.referer_types[2]
         url = f"https://cmp.wildberries.ru/backend/api/v2/search/{company_id}/placement"
@@ -389,8 +378,6 @@ class BaseCase:
     def save_cookies(self):
         driver = webdriver.Chrome(ChromeDriverManager().install())
         driver.get('https://marketpapa.ru/login')
-        driver.find_element(By.NAME, 'phone').send_keys('+79877120164')
-        driver.find_element(By.NAME, 'password').send_keys('q1w2e3r4t5y6')
         driver.find_element(By.XPATH, "//span[@class='sc-iJnaPW izGUBw']").click()
         time.sleep(5)
         pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
@@ -406,8 +393,6 @@ class BaseCase:
     # Проверка добавления cookies
     # BaseCase().add_cookie_to_chrome()
     def update_token(self):
-        supplier_id = "234dea95-0f26-48f5-8c4d-e0e0c35b2a8d"
-        wild_auth_new = "7255F34755CDC024A4BE3B7EAF84A2A1D4B24AFE173C2748293673093E85236AFEFBB33C895B9F9EA3A6030DD60BFA3D973C05B2ED5706952413B3B9CA55BEB8C1877ECB417F1F5A88359A1C66FB3CA6C017A7E0DEE4EE8A31568DC287D0F53225D9253D48062EE01B64B4CDEA4A870E477630216A611BBB4B325D8DD7A0B4419AFF92961AF488E65391753AD240403914169716E95FB42C4E026B91D336624AD5E57B4FC601A51643F27188FF5830A90E4A88553302EB348517A3926B2C2315E8279C7AEFE1DAB6F0B6912BDEB43DEE6D83426CB2162D64C1CADC6C85E59ED13345ECFB0512D4C158E462ADA391176F56A8096F3F97B54B4B42FE3717100775F3F4743AF1BB67B326F37D69E3C6A44DAC27BA4FF0BF4662586A7AE40BBE0E6420522D38"
         headers = {
             "Host": "seller.wildberries.ru",
             "Connection": "keep-alive",
@@ -742,8 +727,7 @@ def update_wb_token1():
         'id': 35,
         'exp': int(dt.strftime('%s'))
     },
-        key='django-insecure-^w2dn__h@(%+(y%wm@qa=a$_j@zf1rkm7_6)!(bl4csb1*933o',
-        alg='HS256')
+
     token.encode('utf-8')
     with open('./wb_token.txt', 'w') as file:
         file.write(token)

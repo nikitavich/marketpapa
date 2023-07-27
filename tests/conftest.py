@@ -58,25 +58,4 @@ def add_cookies_for_auth(driver):
     driver.refresh()
 
 
-@pytest.fixture()
-def registration(driver):
-    driver.implicitly_wait(5)
-    driver.get("https://marketpapa.ru/register")  # Переход на страницу регистрации
-    driver.find_element(By.NAME, "name").send_keys('Имярек')  # Ввод имени
-    random_email_name = BaseCase().generate_random_string()
-    driver.find_element(By.NAME, "email").send_keys(random_email_name + "@yandex.ru")  # Ввод email
-    phone_number = "+99631251"
-    for number in range(4):
-        if number <= 4:
-            phone_number = phone_number + str(random.randint(0, 9))
-    driver.find_element(By.CSS_SELECTOR, "input[placeholder='Номер телефона']").send_keys(phone_number)
-    random_password = BaseCase().generate_random_string()
-    driver.find_element(By.NAME, "password").send_keys(random_password)
-    driver.find_element(By.NAME, "passwordRepeat").send_keys(random_password)
-    driver.find_element(By.CSS_SELECTOR, ".sc-iJKOTD.ksUpGB").click()
-    driver.find_element(By.CSS_SELECTOR, "label[for='radio_exp_0_50_exp_0_50']").click()
-    driver.find_element(By.CSS_SELECTOR, ".sc-bBHxTw.gaeHcs").click()
-    driver.find_element(By.NAME, 'code').send_keys('1111')
-    time.sleep(3)
-    driver.find_element(By.CSS_SELECTOR, ".sc-bBHxTw.sc-clIzBv.jqrcgG.fEXwZu").click()
-    driver.find_element(By.CSS_SELECTOR, "")
+
